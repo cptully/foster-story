@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="user" type="com.theIronYard.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.theIronYard.entity.Role"*/-->
+
+<head>
+    <link th:href="@{css/styles.css}" href="../static/css/styles.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header th:replace="fragments/pageHead :: pageHead">
+    <h1>Foster Story</h1>
+</header>
+
+<nav th:replace="fragments/navBar :: navBar">
+    <ul>
+        <li><a href="list.html">List Animals</a></li>
+        <li><a href="login.html">Foster Parents</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="list.html">Search</a></li>
+    </ul>
+</nav>
+
+<div>
+    Our story
+</div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+* {
+    background-color: bisque;
+    font-family: sans-serif;
+    /*border: 2px dashed black;*/
+}
+
+header{
+}
+
+a.nounderline{
+    font-family: Futura, Tahoma, sans-serif;
+    text-decoration: none;
+    text-align: center;
+}
+
+ul{
+    list-style-type: none;
+    /*position: absolute;*/
+    margin: -10px;
+
+}
+
+nav {
+    margin: 0.5em;
+    display: block;
+}
+
+nav li {
+    display: inline;
+    padding: 5px;
+    border: 2px solid #000000;
+    font-family: Futura, Tahoma, sans-serif;
+    color: #ffffff;
+    border-radius: 5px 5px;
+    background-color: #cc0323;
+}
+
+p {
+    padding: 5px;
+}
+
+nav a {
+    font-family: Futura, Tahoma, sans-serif;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #cc0323;
+}
+
+.pagination a {
+    font-family: Futura, Tahoma, sans-serif;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #cc0323;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+    margin: 0.25em;
+}
+
+label input {
+    margin-top: -10px;
+}
+
+button {
+    display: inline;
+    padding: 5px;
+    border: 2px solid #000000;
+    font-family: Futura, Tahoma, sans-serif;
+    font-size: medium;
+    color: #ffffff;
+    border-radius: 5px 5px;
+    background-color: #cc0323;
+}
+
+h1 {
+    text-align: center;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Avenir Next", "sans-serif";
+    color: #cc0323;
+    clear: both;
+}
+
+.required {
+    color: red;
+}
+
+textarea {
+    width: 60em;
+    height: 5em;
+}
+
+#searchForm {
+    clear: both;
+    display: block;
+    margin-bottom: 1em;
+}
+
+#searchForm div {
+    display: inline-block;
+}
+
+#searchForm div label {
+    display: block;
+}
+
+#searchForm input[type="text"] {
+    width: 200px;
+    margin-right: 2em;
+}
+
+.pagination {
+    display: block;
+}
+
+#addAnimalForm {
+    display: inline-block;
+    float: left;
+}
+
+#addAnimalForm input[type="text"] {
+    width: 200px;
+    margin-right: 2em;
+}
+
+#passwordForm input, label{
+    width: 250px;
+}
+
+form div{
+    padding: .5em;
+    width: 200px;
+}
+
+#mainImage {
+    clear: right;
+    float: left;
+    display: inline-block;
+    width: 200px;
+}
+
+.buttonbar {
+    margin: 2em;
+
+}
+
+.noteLabel{
+    display: block;
+    width: 100%
+}
+
+#notes-block {
+    display: block;
+    clear: both;
+}
+
+.animal{
+    display: block;
+    border: 1px solid black;
+    clear: both;
+    margin: 1em 0 1em 0;
+    padding: 1em;
+}
+
+.animal img{
+    width: 100px;
+    display: inline-block;
+    float: left;
+    margin-right: 1em;
+    vertical-align: top;
+}
+
+.delete-btn{
+    width: 20px;
+
+    display: inline;
+    padding: 0px;
+    border: 0px;
+    font-family: Futura, Tahoma, sans-serif;
+    font-size: medium;
+    color: #ffffff;
+    border-radius: 5px 5px;
+    background-color: bisque;
+}
+
+ul.error{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.error li{
+    color: darkred;
+    margin: 0.25em 0;
+    padding: 0.25em 0;
+    font-size: small;
+}
+
+input.error, select.error{
+    -webkit-box-shadow: 0 0 15px 0 rgba(255,0,0,0.5);
+    -moz-box-shadow: 0 0 15px 0 rgba(255,0,0,0.5);
+    box-shadow: 0 0 15px 0 rgba(255,0,0,0.5);
+}
+
+input, select{
+    margin: 0.25em 0;
+}
+
+.error{
+    color:red;
+    font-size: x-small;
+    margin-left:90px;
+    list-style: disc;
+    background-image: none;
+}

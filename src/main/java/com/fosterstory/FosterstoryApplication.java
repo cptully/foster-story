@@ -1,0 +1,12 @@
+package com.fosterstory;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FosterstoryApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FosterstoryApplication.class, args);
+	}
+}

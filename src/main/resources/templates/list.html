@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="user" type="com.theIronYard.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.theIronYard.entity.Role"*/-->
+
+<head>
+    <link th:href="@{css/styles.css}" href="../static/css/styles.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <header th:replace="fragments/pageHead :: pageHead">
+        <h1>Foster Story</h1>
+    </header>
+
+    <nav th:replace="fragments/navBar :: navBar">
+        <ul>
+            <li><a href="list.html">List Animals</a></li>
+            <li><a href="login.html">Foster Parents</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="list.html">Search</a></li>
+        </ul>
+    </nav>
+
+    <form id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
+
+        <h3>Search for an Animal:</h3>
+        <div>
+            <label for="typeId">
+                <strong>Type:</strong>
+            </label>
+            <select name="typeId" id="typeId">
+                <option value="">select...</option>
+                <option th:each="type : ${types}"
+                        th:text="${type.name}"
+                        th:value="${type.id}"
+                        th:selected="${search.typeId} == ${type.id}">Cat</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="breedId">
+                <strong>Breed:</strong>
+            </label>
+            <select name="breedId" id="breedId">
+                <option value="">select...</option>
+                <option th:each="breed : ${breeds}"
+                        th:text="${breed.name}"
+                        th:value="${breed.id}"
+                        th:selected="${search.breedId} == ${breed.id}">Cat</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="name">
+                <Strong>Name:</Strong>
+            </label>
+            <input type="text" name="name" id="name" placeholder="animal's name" th:value="${search.name}"/>
+        </div>
+
+        <div>
+            <label for="locale">
+                City/Zip
+            </label>
+            <input type="text" name="locale" id="locale" placeholder="City or Zipcode" />
+        </div>
+
+        <div>
+            <label for="animalId">
+                <strong>Animal ID:</strong>
+            </label>
+            <input type="text" name="animalId" id="animalId" placeholder="ID" th:text="${search.animalId}"/>
+        </div>
+
+        <button type="submit" id="search" name="action" value="search">Search</button>
+        <button type="submit" id="clear" name="action" value="clear">Clear</button>
+
+    </form>
+
+    <div id="featureStory">
+        <img />
+        <div class="textBody"></div>
+    </div>
+
+    <div id="animalTiles">
+
+    </div>
+</body>
+</html>

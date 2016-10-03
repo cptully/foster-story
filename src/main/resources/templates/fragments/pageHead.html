@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="user" type="com.theIronYard.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.theIronYard.entity.Role"*/-->
+
+<head>
+</head>
+<body>
+<header th:fragment="pageHead">
+    <h1>Foster Story</h1>
+    <div th:replace="userMenu :: userMenu"></div>
+</header>
+</body>
+</html>
