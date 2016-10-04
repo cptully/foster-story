@@ -1,6 +1,5 @@
 package com.fosterstory.entity;
 
-import org.hibernate.annotations.OnDelete;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -45,11 +44,8 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Animal> animals;
 
-    @Lob
-    @Basic (fetch = FetchType.EAGER)
-    private byte[] image;
-
-    private String contentType;
+    @OneToOne
+    private Image image;
 
     public User() {
     }
@@ -134,20 +130,12 @@ public class User {
         this.nickName = nickName;
     }
 
-    public byte[] getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(Image image) {
         this.image = image;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
     }
 
     public List<Animal> getAnimals() {

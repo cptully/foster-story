@@ -1,11 +1,12 @@
 package com.fosterstory.service;
 
-import com.fosterstory.bean.Search;
 import com.fosterstory.entity.Animal;
 import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.Type;
 import com.fosterstory.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,9 +38,13 @@ public class FSService {
 
     public List<Breed> listBreeds() {return breedRepository.findAll();}
 
+    public Page<Animal> listAnimals(Pageable pageable) {return animalRepository.findAll(pageable);}
+
+/*
     public List<Animal> listAnimals(Search search) {return animalRepository.search(search.getName(),
             search.getTypeId(),
             search.getBreedId(),
             search.getLocale(),
             search.getId());}
+*/
 }

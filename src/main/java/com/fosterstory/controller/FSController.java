@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class FSController {
 
-     @Autowired
+    @Autowired
     FSService fsService;
 
+    // TODO: 10/4/16 Add animal list to this function
     @RequestMapping (path = "/")
     public String list(Model model,
                        Search search,
@@ -30,7 +31,13 @@ public class FSController {
         model.addAttribute("breeds", fsService.listBreeds());
         model.addAttribute("search", search);
         model.addAttribute("pageable", pageable);
-        model.addAttribute("animals", fsService.listAnimals());
+        model.addAttribute("animals", fsService.listAnimals(pageable));
         return "list";
     }
+
+    // TODO: 10/4/16 about page
+
+    // TODO: 10/4/16 profile page
+
+    // TODO: 10/4/16 story page
 }

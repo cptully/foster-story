@@ -39,4 +39,25 @@ public class Locale {
     public void setZip(String zip) {
         this.zip = zip;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Locale locale = (Locale) o;
+
+        if (getState() != null ? !getState().equals(locale.getState()) : locale.getState() != null) return false;
+        if (getCity() != null ? !getCity().equals(locale.getCity()) : locale.getCity() != null) return false;
+        return getZip() != null ? getZip().equals(locale.getZip()) : locale.getZip() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getState() != null ? getState().hashCode() : 0;
+        result = 31 * result + (getCity() != null ? getCity().hashCode() : 0);
+        result = 31 * result + (getZip() != null ? getZip().hashCode() : 0);
+        return result;
+    }
 }
