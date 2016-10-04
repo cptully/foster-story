@@ -75,10 +75,12 @@ button {
 }
 
 h1 {
+    background-color: plum;
+    height: 150px;
     text-align: center;
 }
 
-h1, h2, h3, h4 {
+h2, h3, h4 {
     font-family: "Avenir Next", "sans-serif";
     color: #cc0323;
     clear: both;
@@ -232,4 +234,8 @@ input, select{
 
 .rightColumn {
     display: inline;
+}
+
+#animalTiles {
+    overflow-x: auto;
 }

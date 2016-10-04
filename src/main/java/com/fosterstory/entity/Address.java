@@ -19,17 +19,15 @@ public class Address {
     private String state;
     private String zip;
 
-    private AddressType addressType = new AddressType();
+    public Address() {
+    }
 
-    public Address() {}
-
-    public Address(String street1, String street2, String city, String state, String zip, AddressType addressType) {
+    public Address(String street1, String street2, String city, String state, String zip) {
         this.street1 = street1;
         this.street2 = street2;
         this.city = city;
         this.state = state;
         this.zip = zip;
-        this.addressType = addressType;
     }
 
     public Integer getId() {
@@ -80,11 +78,4 @@ public class Address {
         this.zip = zip;
     }
 
-    public AddressType getAddressType() {
-        return addressType;
-    }
-
-    public void setAddressType(AddressType addressType) {
-        this.addressType = addressType;
-    }
 }

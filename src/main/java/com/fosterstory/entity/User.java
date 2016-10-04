@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -24,8 +25,8 @@ public class User {
     private String firstName;
     private String middleName;
     private String lastName;
-    private List<Website> websites;
-    private List<Phone> phoneList;
+    private URL tumblr;
+    private List<String> phoneList;
     private List<Address> addresses;
 
     public User() {
@@ -79,19 +80,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public List<Website> getWebsites() {
-        return websites;
-    }
-
-    public void setWebsites(List<Website> websites) {
-        this.websites = websites;
-    }
-
-    public List<Phone> getPhoneList() {
+    public List<String> getPhoneList() {
         return phoneList;
     }
 
-    public void setPhoneList(List<Phone> phoneList) {
+    public void setPhoneList(List<String> phoneList) {
         this.phoneList = phoneList;
     }
 
@@ -101,5 +94,13 @@ public class User {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public URL getTumblr() {
+        return tumblr;
+    }
+
+    public void setTumblr(URL tumblr) {
+        this.tumblr = tumblr;
     }
 }

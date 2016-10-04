@@ -15,6 +15,15 @@ public class Login {
 
     public boolean loginFailed = false;
 
+    public Login(String email, String password, boolean loginFailed) {
+        this.email = email;
+        this.password = password;
+        this.loginFailed = loginFailed;
+    }
+
+    public Login() {
+    }
+
     public String getEmail() {
         return email;
     }
