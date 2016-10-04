@@ -239,3 +239,7 @@ input, select{
 #animalTiles {
     overflow-x: auto;
 }
+
+#tumblr-logo {
+    width: 75px;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
 <!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
 <!--/*@thymesVar id="image" type="com.fosterstory.entity.Image"*/-->
@@ -29,9 +29,14 @@
             <h2>Foster Parent Details</h2>
 
             <label for="email">
-                Username
+                Email:
             </label>
             <input type="email" name="email" id="email" />
+
+            <label for="nickName">
+            Nick Name:
+            </label>
+            <input type="nickName" name="nickName" id="nickName" />
 
             <label for="firstName">
                 First name:
@@ -131,13 +136,19 @@
                 </label>
                 <input type="text" name="zipcode" id="zipcode" />
             </div>
+            <label for="user-image">
+                Profile Image:
+            </label>
+            <img src=""/>
+            <input type="file" name="user-image" id="user-image" />
         </div>
 
         <div id="rightColumn">
             <h2>Social Media Links</h2>
 
             <label for="tumblr">
-                Tumblr
+                <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png" id="tumblr-logo"
+                     th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}"/>
             </label>
             <input type="url" name="tumblr" id="tumblr" />
         </div>

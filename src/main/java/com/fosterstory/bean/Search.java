@@ -1,6 +1,8 @@
 package com.fosterstory.bean;
 
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 public class Search {
 
     private String name = null;
@@ -8,6 +10,8 @@ public class Search {
     private Integer breedId = null;
     private Locale locale = null;
     private Integer id = null;
+
+    // TODO: 10/4/16 Add search byDate, other advance features. 
 
     public Search() {
     }
@@ -23,6 +27,10 @@ public class Search {
     public void setName(String name) {
         // if the provided name is "" then set to null
         this.name = (name == null || name.equals("") ? null : name);
+    }
+
+    public String getNameForSearch() {
+        return name == null || name.equals("") ? "" : "%" + name + "%";
     }
 
     public String getName() {
