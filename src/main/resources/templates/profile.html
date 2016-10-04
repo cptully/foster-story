@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
+<!--/*@thymesVar id="image" type="com.fosterstory.entity.Image"*/-->
+
+<head>
+    <link th:href="@{css/styles.css}" href="../static/css/styles.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header th:replace="fragments/pageHead :: pageHead">
+    <h1>Foster Story</h1>
+</header>
+
+<nav th:replace="fragments/navBar :: navBar">
+    <ul>
+        <li><a href="list.html">List Animals</a></li>
+        <li><a href="login.html">Foster Parents</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="list.html">Search</a></li>
+    </ul>
+</nav>
+
+<div id="fosterParentDetails">
+    <form id="editProfile" role="form" action="profile.html" th:action="@{/editProfile}" method="post" th:object="${user}">
+        <div id="leftColumn">
+            <h2>Foster Parent Details</h2>
+
+            <label for="email">
+                Username
+            </label>
+            <input type="email" name="email" id="email" />
+
+            <label for="firstName">
+                First name:
+            </label>
+            <input type="text" name="firstName" id="firstName" />
+
+            <label for="middleName">
+                First name:
+            </label>
+            <input type="text" name="middleName" id="middleName" />
+
+            <label for="lastName">
+                First name:
+            </label>
+            <input type="text" name="lastName" id="lastName" />
+
+            <label for="phone">
+                Phone:
+            </label>
+            <input type="text" name="phone" id="phone" />
+
+            <label for="address">
+                Address
+            </label>
+            <div th:name="address" id="address">
+                <label for="street1">
+                    Street:
+                </label>
+                <input type="text" name="street1" id="street1">
+                <input type="text" name="street2" id="street2">
+
+                <label for="city">
+                    City:
+                </label>
+                <input type="text" name="city" id="city" />
+
+                <label for="state">
+                    State:
+                </label>
+                <select name="state" id="state">
+                    <option value="">select...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+
+                <label for="zipcode">
+                    ZIP Code:
+                </label>
+                <input type="text" name="zipcode" id="zipcode" />
+            </div>
+        </div>
+
+        <div id="rightColumn">
+            <h2>Social Media Links</h2>
+
+            <label for="tumblr">
+                Tumblr
+            </label>
+            <input type="url" name="tumblr" id="tumblr" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

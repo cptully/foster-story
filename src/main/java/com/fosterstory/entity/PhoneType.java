@@ -1,32 +1,27 @@
-package entity;
+package com.fosterstory.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by chris on 10/3/16.
  */
 @Entity
-public class AddressType {
-    
+public class PhoneType {
     @Id
     @GeneratedValue
-    @NotNull
     private Integer id;
-    
+
     @NotBlank
     private String name;
 
-    public AddressType(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    public PhoneType() {}
 
-    public AddressType() {
+    public PhoneType(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

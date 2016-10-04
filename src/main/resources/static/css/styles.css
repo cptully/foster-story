@@ -216,3 +216,20 @@ input, select{
     list-style: disc;
     background-image: none;
 }
+
+.leftColumn {
+    display: inline;
+    float: left;
+}
+
+.leftColumn label {
+    display: inline;
+}
+
+.leftColumn input {
+    display: inline;
+}
+
+.rightColumn {
+    display: inline;
+}

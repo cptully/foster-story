@@ -1,11 +1,8 @@
-package entity;
-
-import org.hibernate.validator.constraints.Length;
+package com.fosterstory.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by chris on 10/3/16.
@@ -14,30 +11,25 @@ import javax.validation.constraints.NotNull;
 public class Address {
     @Id
     @GeneratedValue
-    @NotNull
     private Integer id;
-    private User user;
-    private String street;
+
+    private String street1;
     private String street2;
     private String city;
-
-    @Length(max=2)
     private String state;
+    private String zip;
 
-    @NotNull
-    private String zipCode;
-    private AddressType addressType;
+    private AddressType addressType = new AddressType();
 
-    public Address(String street, String street2, String city, String state, String zipCode, AddressType addressType) {
-        this.street = street;
+    public Address() {}
+
+    public Address(String street1, String street2, String city, String state, String zip, AddressType addressType) {
+        this.street1 = street1;
         this.street2 = street2;
         this.city = city;
         this.state = state;
-        this.zipCode = zipCode;
+        this.zip = zip;
         this.addressType = addressType;
-    }
-
-    public Address() {
     }
 
     public Integer getId() {
@@ -48,12 +40,12 @@ public class Address {
         this.id = id;
     }
 
-    public String getStreet() {
-        return street;
+    public String getStreet1() {
+        return street1;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setStreet1(String street1) {
+        this.street1 = street1;
     }
 
     public String getStreet2() {
@@ -80,12 +72,12 @@ public class Address {
         this.state = state;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getZip() {
+        return zip;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
     public AddressType getAddressType() {
