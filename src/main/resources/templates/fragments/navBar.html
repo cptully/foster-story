@@ -10,17 +10,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link th:href="@{css/styles.css}" href="../static/css/styles.css" rel="stylesheet" type="text/css"/>
 </head>
-<div class="container">
-<body>
-    <div class="row">
 
+<body>
+
+<div class="container">
     <nav th:fragment="navBar">
+        <div class="row">
             <div class="col-md-3"> <div class="well"> <a href="list.html">List Animals</a> </div> </div>
             <div class="col-md-3"> <div class="well"> <a href="login.html">Become Foster Parents</a></div></div>
             <div class="col-md-3"> <div class="well"> <a href="about.html">About Us</a></div></div>
             <div class="col-md-3"> <div class="well"> <a href="list.html">Search</a></div></div>
+        </div>
     </nav>
-    </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
