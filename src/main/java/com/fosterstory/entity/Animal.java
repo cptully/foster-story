@@ -2,10 +2,7 @@ package com.fosterstory.entity;
 
 import com.sun.istack.internal.NotNull;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
-import java.net.URL;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class Animal {
     private String tumblr;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "animal_id")
     private List<Image> images;
 
     @OneToOne

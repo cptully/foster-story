@@ -3,7 +3,6 @@ package com.fosterstory.entity;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class User {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Column(length = 1000)

@@ -1,5 +1,6 @@
 package com.fosterstory.service;
 
+import com.fosterstory.bean.Search;
 import com.fosterstory.entity.Animal;
 import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.Type;
@@ -40,11 +41,9 @@ public class FSService {
 
     public Page<Animal> listAnimals(Pageable pageable) {return animalRepository.findAll(pageable);}
 
-/*
-    public List<Animal> listAnimals(Search search) {return animalRepository.search(search.getName(),
+    public List<Animal> listAnimals(Search search, Pageable pageable) {return animalRepository.search(search.getNameForSearch(),
             search.getTypeId(),
             search.getBreedId(),
-            search.getLocale(),
+//            search.getLocale().getCity(),
             search.getId());}
-*/
 }
