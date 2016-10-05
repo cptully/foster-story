@@ -18,11 +18,11 @@ public class FSController {
     @Autowired
     FSService fsService;
 
-    // TODO: 10/4/16 Add animal list to this function
+    // TODO: 10/5/16 search is broken
     @RequestMapping (path = "/")
     public String list(Model model,
                        Search search,
-                       @PageableDefault(size = 15) Pageable pageable,
+                       @PageableDefault(size = 9) Pageable pageable,
                        String action) {
         if ((action != null) && (action.equals("clear"))) {
             search = new Search();
@@ -36,7 +36,15 @@ public class FSController {
         return "list";
     }
 
-    // TODO: 10/4/16 about page
+    @RequestMapping (path = "/register")
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping (path = "/about")
+    public String about() {
+        return "about";
+    }
 
     // TODO: 10/4/16 profile page
 

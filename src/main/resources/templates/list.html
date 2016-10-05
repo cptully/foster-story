@@ -92,7 +92,7 @@
     </div>
 
     <div class="row" id="animalTiles">
-        <div class="col-md-4 animal-tile" th:each="animal : ${animals}">
+        <div class="col-sm-4 animal-tile" th:each="animal : ${animals}">
             <a href="details.html" th:href="@{....}"><img src="../static/images/" th:src="@{images/}" />
                 <div th:text="${animal.name}" class="animal-name">name</div>
                 <div th:text="${animal.getUser().getAddress().getCity()}" class="animal-city">city, ST</div>
