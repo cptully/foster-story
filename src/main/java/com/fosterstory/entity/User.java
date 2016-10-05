@@ -25,23 +25,26 @@ public class User {
     private String middleName;
     private String lastName;
 
+
     @org.hibernate.validator.constraints.URL
-    private URL tumblr;
+    @Column(length = 2048)
+    private String tumblr;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<Phone> phone;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Address> address;
+    private Address address;
 
     @Column(length = 1000)
     private String bio;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+//    @JoinColumn(name = "animal_id")
     private List<Animal> animals;
 
     @OneToOne
@@ -106,19 +109,19 @@ public class User {
         this.phone = phone;
     }
 
-    public List<Address> getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(List<Address> address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
-    public URL getTumblr() {
+    public String getTumblr() {
         return tumblr;
     }
 
-    public void setTumblr(URL tumblr) {
+    public void setTumblr(String tumblr) {
         this.tumblr = tumblr;
     }
 

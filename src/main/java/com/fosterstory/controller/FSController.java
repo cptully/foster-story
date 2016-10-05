@@ -1,6 +1,7 @@
 package com.fosterstory.controller;
 
 import com.fosterstory.bean.Search;
+import com.fosterstory.entity.Animal;
 import com.fosterstory.service.FSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,8 @@ public class FSController {
         model.addAttribute("search", search);
         model.addAttribute("pageable", pageable);
         model.addAttribute("animals", fsService.listAnimals(pageable));
+//        Animal animal = new Animal();
+
         return "list";
     }
 
