@@ -34,33 +34,35 @@
     </nav>
 
     <div class="row">
-        <h2>Register for a new Account</h2>
+        <h2 th:text="${user.id} == null ? 'Register for a new Account' : 'Change password'">Register for a new Account</h2>
 
-        <form name="user-form" id="user-form" action="register.html" method="post">
+        <form name="user-form" id="user-form" action="register.html" th:action="@{/register}" method="post">
             <label for="username">Email:</label>
             <input type="text" name="username" id="username" />
 
-            <div>
+            <div th:if="${user.id} != null">
                 <label for="old-password">
                     Old Password:
                 </label>
                 <input type="password" name="old-password" id="old-password" />
-                <ul class="error"><li></li></ul>
+                <ul class="error"><li th:each="err : ${#fields.errors('badpassword')}" th:text="${err}"></li></ul>
             </div>
             <div>
-                <label for="password" >
+                <label for="password">
                     New Password:
                 </label>
                 <input type="password" name="password" id="password" />
-                <ul class="error"><li></li></ul>
+                <ul class="error"><li th:each="err : ${#fields.errors('password-old-new')}" th:text="${err}"></li></ul>
             </div>
             <div>
                 <label for="confirmPassword" >
                     Confirm Password:
                 </label>
                 <input type="password" name="confirmPassword" id="confirmPassword" />
-                <ul class="error"><li></li></ul>
+                <ul class="error"><li th:each="err : ${#fields.errors('password-match')}" th:text="${err}"></li></ul>
             </div>
+
+            <button type="button" id="submit" name="submit">Submit</button>
         </form>
 
     </div>
