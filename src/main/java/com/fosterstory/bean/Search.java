@@ -6,7 +6,7 @@ public class Search {
     private String name = null;
     private Integer typeId = null;
     private Integer breedId = null;
-    private Locale locale = new Locale();
+//    private Locale locale = new Locale();
     private Integer id = null;
 
     // TODO: 10/4/16 Add search byDate, other advance features. 
@@ -14,12 +14,12 @@ public class Search {
     public Search() {
     }
 
-    public Search(String name, Integer typeId, Integer breedId, Locale locale, Integer id) {
-//    public Search(String name, Integer typeId, Integer breedId, Integer id) {
+//    public Search(String name, Integer typeId, Integer breedId, Locale locale, Integer id) {
+    public Search(String name, Integer typeId, Integer breedId, Integer id) {
         this.name = name;
         this.typeId = typeId;
         this.breedId = breedId;
-        this.locale = locale;
+//        this.locale = locale;
         this.id = id;
     }
 
@@ -52,6 +52,7 @@ public class Search {
         this.breedId = breedId;
     }
 
+/*
     public Locale getLocale() {
         return locale;
     }
@@ -59,6 +60,7 @@ public class Search {
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
+*/
 
     public Integer getId() {
         return id;

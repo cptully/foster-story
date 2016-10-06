@@ -41,7 +41,8 @@ public class FSService {
 
     public Page<Animal> listAnimals(Pageable pageable) {return animalRepository.findAll(pageable);}
 
-    public Page<Animal> listAnimals(Search search, Pageable pageable) {return animalRepository.search(search.getNameForSearch(),
+    public Page<Animal> listAnimals(Search search, Pageable pageable) {return animalRepository.search(
+            search.getNameForSearch(),
             search.getTypeId(),
             search.getBreedId(),
 //            search.getLocale().getCity(),
