@@ -20,9 +20,15 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer>{
             "(?1 = '' OR upper(a.name) LIKE upper(?1)) " +
             "AND (?2 IS NULL OR a.breed.type.id = ?2) " +
             "AND (?3 IS NULL OR a.breed.id = ?3) " +
-//            "AND (?4 = '' OR upper(a.user.address.city) like upper(?4)) " +
+            "AND (?4 = '' OR upper(a.user.address.city) like upper(?4)) " +
+            "AND (?5 IS NULL OR a.id = ?5)")
+    Page<Animal> search(String name, Integer typeId, Integer breedId, String city, Integer id, Pageable pageable);
+
+    @Query(value = "SELECT a FROM Animal a WHERE " +
+            "(?1 = '' OR upper(a.name) LIKE upper(?1)) " +
+            "AND (?2 IS NULL OR a.breed.type.id = ?2) " +
+            "AND (?3 IS NULL OR a.breed.id = ?3) " +
             "AND (?4 IS NULL OR a.id = ?4)")
-    List<Animal> search(String name, Integer typeId, Integer breedId, Integer id);
-//    List<Animal> search(String name, Integer typeId, Integer breedId, String city, Integer id);
+    Page<Animal> search(String name, Integer typeId, Integer breedId, Integer id, Pageable pageable);
 
 }
