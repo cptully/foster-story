@@ -24,7 +24,7 @@ public class Animal {
 
     private Integer age;
     private Float weight;
-    private String gender;
+    private String gender;//enum
     private Date adoptionDate;
 
     @Column(length = 5000)

@@ -1,6 +1,7 @@
 package com.fosterstory.entity;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
@@ -39,17 +40,27 @@ public class User {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @Column(length = 1000)
+    @Column(length = 1000)// not a real good reason to limit this
     private String bio;
 
     @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "animal_id")
     private List<Animal> animals;
 
     @OneToOne
     private Image image;
 
-    public User() {
+    @ManyToOne
+    private Role role;
+
+    @Length(min = 8, max = 100)
+    private String password;
+
+    public User() {}
+
+    public User(String email, Role role, String password) {
+        this.email = email;
+        this.role = role;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -154,5 +165,21 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
