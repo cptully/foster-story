@@ -1,9 +1,12 @@
 package com.fosterstory.controller;
 
 import com.fosterstory.bean.Search;
+import com.fosterstory.entity.Animal;
 import com.fosterstory.service.FSService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,25 +20,34 @@ public class FSController {
     @Autowired
     FSService fsService;
 
-    // TODO: 10/4/16 Add animal list to this function
+    // TODO: 10/5/16 search is broken
     @RequestMapping (path = "/")
     public String list(Model model,
                        Search search,
-                       Pageable pageable,
+                       @PageableDefault(size = 9) Pageable pageable,
                        String action) {
         if ((action != null) && (action.equals("clear"))) {
             search = new Search();
         }
 
+        Page<Animal> animals = fsService.listAnimals(search, pageable);
         model.addAttribute("types", fsService.listTypes());
         model.addAttribute("breeds", fsService.listBreeds());
         model.addAttribute("search", search);
         model.addAttribute("pageable", pageable);
-        model.addAttribute("animals", fsService.listAnimals(pageable));
+        model.addAttribute("animals", animals);
         return "list";
     }
 
-    // TODO: 10/4/16 about page
+    @RequestMapping (path = "/register")
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping (path = "/about")
+    public String about() {
+        return "about";
+    }
 
     // TODO: 10/4/16 profile page
 

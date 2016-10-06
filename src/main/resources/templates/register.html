@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="user" type="com.theIronYard.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.theIronYard.entity.Role"*/-->
+<!--/*@thymesVar id="breed" type="com.theIronYard.entity.Breed"*/-->
+<!--/*@thymesVar id="type" type="com.theIronYard.entity.Type"*/-->
+<!--/*@thymesVar id="breeds" type="java.util.List<Type>"*/-->
+<!--/*@thymesVar id="types" type="java.util.List<Breed>"*/-->
+<!--/*@thymesVar id="search" type="com.theIronYard.bean.Search"*/-->
+<!--/*@thymesVar id="animal" type="com.theIronYard.entity.Animal"*/-->
+<!--/*@thymesVar id="animals" type="java.util.List<Animal>"*/-->
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+    <title>Register a new account</title>
+</head>
+<body>
+<div class="container-fluid">
+    <header class="row" th:replace="fragments/pageHead :: pageHead">
+        <h1>Foster Story</h1>
+    </header>
+
+    <nav class="row" th:replace="fragments/navBar :: navBar">
+        <div class="row">
+            <div class="col-md-3"> <div class="well"> <a href="list.html">List Animals</a> </div> </div>
+            <div class="col-md-3"> <div class="well"> <a href="login.html">Become Foster Parents</a></div></div>
+            <div class="col-md-3"> <div class="well"> <a href="about.html">About Us</a></div></div>
+            <div class="col-md-3"> <div class="well"> <a href="list.html">Search</a></div></div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <h2>Register for a new Account</h2>
+
+        <form name="user-form" id="user-form" action="register.html" method="post">
+            <label for="username">Email:</label>
+            <input type="text" name="username" id="username" />
+
+            <div>
+                <label for="old-password">
+                    Old Password:
+                </label>
+                <input type="password" name="old-password" id="old-password" />
+                <ul class="error"><li></li></ul>
+            </div>
+            <div>
+                <label for="password" >
+                    New Password:
+                </label>
+                <input type="password" name="password" id="password" />
+                <ul class="error"><li></li></ul>
+            </div>
+            <div>
+                <label for="confirmPassword" >
+                    Confirm Password:
+                </label>
+                <input type="password" name="confirmPassword" id="confirmPassword" />
+                <ul class="error"><li></li></ul>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -8,7 +8,15 @@
 <body>
 <header th:fragment="pageHead">
     <h1>Foster Story</h1>
-    <div th:replace="userMenu :: userMenu"></div>
+    <div>
+        <label for="user-menu">User Menu</label>
+        <ul name="user-menu" id="user-menu">
+            <li><a th:href="@{/story}" href="../story.html">Post Animal Story</a></li>
+            <li><a th:href="@{/profile}" href="../profile.html">Edit my Profile</a></li>
+            <li><a th:href="@{/profile}" href="../profile.html">Update my animals</a></li>
+            <li><a th:href="@{/login}" href="../login.html">Logout</a></li>
+        </ul>
+    </div>
 </header>
 </body>
 </html>

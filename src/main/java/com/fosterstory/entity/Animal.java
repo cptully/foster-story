@@ -1,11 +1,9 @@
 package com.fosterstory.entity;
 
 import com.sun.istack.internal.NotNull;
-import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
-import java.net.URL;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +25,7 @@ public class Animal {
     private Integer age;
     private Float weight;
     private String gender;
-    private LocalDate adoptionDate;
+    private Date adoptionDate;
 
     @Column(length = 5000)
     private String story;
@@ -36,11 +34,16 @@ public class Animal {
     private String careInfo;
 
     @org.hibernate.validator.constraints.URL
-    private URL tumblr;
+    @Column(length = 2048)
+    private String tumblr;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "animal_id")
     private List<Image> images;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Animal(String name, Breed breed, Integer age, Float weight, String gender) {
@@ -102,11 +105,11 @@ public class Animal {
         this.gender = gender;
     }
 
-    public LocalDate getAdoptionDate() {
+    public Date getAdoptionDate() {
         return adoptionDate;
     }
 
-    public void setAdoptionDate(LocalDate adoptionDate) {
+    public void setAdoptionDate(Date adoptionDate) {
         this.adoptionDate = adoptionDate;
     }
 
@@ -126,11 +129,11 @@ public class Animal {
         this.careInfo = careInfo;
     }
 
-    public URL getTumblr() {
+    public String getTumblr() {
         return tumblr;
     }
 
-    public void setTumblr(URL tumblr) {
+    public void setTumblr(String tumblr) {
         this.tumblr = tumblr;
     }
 
@@ -140,6 +143,14 @@ public class Animal {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 
