@@ -55,6 +55,12 @@ public class User {
     @Length(min = 8, max = 100)
     private String password;
 
+    @Transient
+    private String oldPassword;
+
+    @Transient
+    private String confirmPassword;
+
     public User() {}
 
     public User(String email, Role role, String password) {
@@ -181,5 +187,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
