@@ -7,9 +7,7 @@ import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.User;
 import com.fosterstory.service.FSService;
 import com.fosterstory.utility.PasswordStorage;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -72,12 +70,12 @@ public class FSController {
                            HttpSession session) {
         if (!bindingResult.hasErrors()) {
             try {
-                if (user.getPassword().equals(confirmPassowrd)) {
+                if (user.getPassword().equals(user.getConfirmPassword())) {
                     fsService.saveUser(user);
                     session.setAttribute("userId", user.getId());
                     return "redirect:/";
                 } else {
-                    FieldError fieldError = new FieldError("user", "password", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[])null, "Passwords do not match");
+                    FieldError fieldError = new FieldError("user", "confirmPassword", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[])null, "Passwords do not match");
                     bindingResult.addError(fieldError);
                 }
             } catch (PasswordStorage.CannotPerformOperationException e) {
@@ -86,8 +84,8 @@ public class FSController {
                 e.printStackTrace();
             }
         }
-             model.addAttribute("user", user);
-            model.addAttribute("bindingResult", bindingResult);
+        model.addAttribute("user", user);
+        model.addAttribute("bindingResult", bindingResult);
 
         return "/register";
     }
