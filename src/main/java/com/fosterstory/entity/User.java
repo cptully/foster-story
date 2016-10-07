@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chris on 10/3/16.
@@ -30,15 +31,11 @@ public class User {
     @Column(length = 2048)
     private String tumblr;
 
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<Phone> phone;
-
+    private String phone;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private Address address;
+    private Address address = new Address();
 
     @Column(length = 1000)// not a real good reason to limit this
     private String bio;
@@ -117,11 +114,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public List<Phone> getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(List<Phone> phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

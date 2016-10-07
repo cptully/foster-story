@@ -8,14 +8,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
 </head>
 <body>
-<div class="container-fluid">
-<header th:replace="fragments/pageHead :: pageHead">
-    <h1>Foster Story</h1>
-</header>
 
-<nav th:replace="fragments/navBar :: navBar">
+<nav th:replace="fragments/pageHead :: pageHead">
     <div class="row">
         <div class="col-sm-3"> <div class="well"> <a href="list.html">List Animals</a> </div> </div>
         <div class="col-sm-3"> <div class="well"> <a href="login.html">Become Foster Parents</a></div></div>
@@ -23,6 +20,8 @@
         <div class="col-sm-3"> <div class="well"> <a href="list.html">Search</a></div></div>
     </div>
 </nav>
+
+<div class="container-fluid main-body">
 
 <div id="animalDetails">
     <div class="leftColumn">
@@ -72,7 +71,7 @@
             </div>
 
             <label for="tumblr">
-                <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png" alt="Tumblr logo">
+                <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png" th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}" alt="Tumblr logo" class="tumblr-logo"/>
             </label>
             <input type="url" name="tumblr" id="tumblr" />
         </div>

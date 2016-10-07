@@ -123,104 +123,6 @@ public class FSController {
         return "redirect:/";
     }
 
-    @RequestMapping(path = "/users")
-    public String users(Model model, HttpSession session){
-        if(session.getAttribute("userId") == null){
-            return "redirect:/login";
-        } else if (fsService.getUser((Integer)session.getAttribute("userId")).getRole().getId().equals(USER)){
-            // user must have admin rights for this page
-            model.addAttribute("users", fsService.listUsers((Integer)session.getAttribute("userId")));
-        } else if (fsService.getUser((Integer)session.getAttribute("userId")).getRole().getId().equals(ADMIN)){
-            // admin user can edit all users
-            model.addAttribute("users", fsService.listUsers());
-        }
-
-        model.addAttribute("user", fsService.getUserOrNull((Integer)session.getAttribute("userId")));
-
-        return "users";
-    }
-
-
-    // TODO: 10/1/16 fix rights logic on this and following methods
-    @RequestMapping(path = "/editUser", method = RequestMethod.GET)
-    public String userForm(Integer id, Model model, HttpSession session){
-
-        if(session.getAttribute("userId") == null) {
-            return "redirect:/login";
-        } else if ((fsService.getUser((Integer)session.getAttribute("userId")).getRole().getId().equals(USER)) &&
-                (session.getAttribute("userId") == id)) {
-            // non-admin user can edit own profile
-            model.addAttribute("user", fsService.getUserOrNull(id));
-            return "registration";
-        } else if (fsService.getUser((Integer)session.getAttribute("userId")).getRole().getId().equals(ADMIN)){
-            // user must have admin rights to edit other people's profiles
-            model.addAttribute("user", fsService.getUserOrNull(id));
-            return "registration";
-        }
-
-        return "redirect:/";
-    }
-
-    @RequestMapping(path = "/editUser", method = RequestMethod.POST)
-    public String editUser(@Valid @ModelAttribute(name = "user") User user,
-                           @RequestParam(defaultValue = "") String oldPassword,
-                           @RequestParam(defaultValue = "") String confirmPassword,
-                           BindingResult bindingResult,
-                           Model model,
-                           HttpSession session){
-
-        Integer sessionUserRole = fsService.getUser((Integer)session.getAttribute("userId")).getRole().getId();
-        if(session.getAttribute("userId") == null) {
-            return "redirect:/login";
-        } else if (((sessionUserRole.equals(USER)) && (session.getAttribute("userId") == user.getId()))  // user can edit own profile
-                || (sessionUserRole.equals(ADMIN))) {  // only admin can edit other profiles
-
-            if (!bindingResult.hasErrors()) {
-
-                try {
-                    if (user.getId() != null) {
-                        String savedPassword = fsService.getUser(user.getId()).getPassword();
-                        if (PasswordStorage.verifyPassword(oldPassword, savedPassword)) {
-                            if (!PasswordStorage.verifyPassword(user.getPassword(), savedPassword)) {
-                                if (user.getPassword().equals(confirmPassword)) {
-                                    fsService.saveUser(user);
-                                    return "redirect:/users";
-                                } else {
-                                    // set errors
-                                    FieldError fieldError = new FieldError("user", "password-match", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Passwords do not match");
-                                    bindingResult.addError(fieldError);
-                                }
-                            } else {
-                                // new matches old
-                                FieldError fieldError = new FieldError("user", "password-old-new", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "New password cannot match old password");
-                                bindingResult.addError(fieldError);
-                            }
-                        } else {
-                            // invalid password
-                            FieldError fieldError = new FieldError("user", "badpassword", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Username / password combination incorrect");
-                            bindingResult.addError(fieldError);
-                        }
-                    } else {
-                        fsService.saveUser(user);
-                        return "redirect:/users";
-                    }
-                } catch (PasswordStorage.CannotPerformOperationException e) {
-                    user.setPassword("");
-                } catch (PasswordStorage.InvalidHashException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (bindingResult.hasErrors()) {
-
-                model.addAttribute("user", user);
-                model.addAttribute("bindingResult", bindingResult);
-            }
-
-            return "registration";
-        }
-        return "redirect:/login";
-    }
 
     @RequestMapping (path = "/about")
     public String about() {
@@ -231,28 +133,33 @@ public class FSController {
     @RequestMapping (path = "/profile")
     public String profile(Model model,
                           String action,
-                          HttpSession httpSession) {
+                          HttpSession session) {
+        Integer userId = (Integer)session.getAttribute("userId");
+        if (userId  == null) {
+            return "redirect:/login";
+        }
+
         if ((action != null) && (action.equals("cancel"))) {
             // reset form data & drop edits
         }
 
-        // check for user logged in
-        // add user to model
+        User user = fsService.getUser(userId);
+        model.addAttribute("user", user);
 
         return "/profile";
     }
 
     // TODO: 10/4/16 story page
     @RequestMapping(path = "/story", method = RequestMethod.GET)
-    public String story(Model model, Integer animalId, HttpSession session) {
+    public String story(Model model, HttpSession session) {
         if (session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
 
-        User user = fsService.getUserOrNull((Integer)session.getAttribute("user_id"));
-        Animal animal = fsService.getAnimal(animalId);
+        User user = fsService.getUserOrNull((Integer)session.getAttribute("userId"));
+//        Animal animal = fsService.getAnimal(animalId);
         model.addAttribute("user", user);
-        model.addAttribute("animal", animal);
+//        model.addAttribute("animal", animal);
 
         return "/story";
     }

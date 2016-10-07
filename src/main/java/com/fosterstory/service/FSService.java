@@ -22,9 +22,6 @@ public class FSService {
     AddressRepository addressRepository;
 
     @Autowired
-    PhoneRepository phoneRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Autowired

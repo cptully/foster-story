@@ -4,19 +4,59 @@
 <!--/*@thymesVar id="role" type="com.theIronYard.entity.Role"*/-->
 
 <head>
+    <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{/css/styles.css}" />
+
 </head>
 <body>
-<header th:fragment="pageHead">
-    <h1>Foster Story</h1>
-    <div>
-        <label for="user-menu">User Menu</label>
-        <ul name="user-menu" id="user-menu">
-            <li><a th:href="@{/story}" href="../story.html">Post Animal Story</a></li>
-            <li><a th:href="@{/profile}" href="../profile.html">Edit my Profile</a></li>
-            <li><a th:href="@{/profile}" href="../profile.html">Update my animals</a></li>
-            <li><a th:href="@{/login}" href="../login.html">Logout</a></li>
-        </ul>
-    </div>
-</header>
+
+    <nav th:fragment="navBar">
+        <div class="row">
+            <div class="col-md-3"> <div class="well"> <a th:href="@{/}" href="../list.html">List Animals</a> </div> </div>
+            <div class="col-md-3"> <div class="well"> <a th:href="@{/register}" href="../register.html">Foster</a></div></div>
+            <div class="col-md-3"> <div class="well"> <a th:href="@{/about}" href="../about.html">About Us</a></div></div>
+            <div class="col-md-3"> <div class="well"> <a th:href="@{/}" href="../list.html">Search</a></div></div>
+        </div>
+    </nav>
+
+
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner" th:fragment="pageHead">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="../list.html" th:href="@{/}" class="navbar-brand "><img src="../../static/images/fosterStoryW.svg" th:src="@{/images/fosterStoryW.svg}" /></a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a th:href="@{/}" href="../list.html">List Animals</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/register}" href="../register.html">Become Foster Parents</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/about}" href="../about.html">About Us</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/story}" href="../story.html">Post Animal Story</a></li>
+                            <li><a th:href="@{/profile}" href="../profile.html">Edit my Profile</a></li>
+                            <li><a th:href="@{/profile}" href="../profile.html">Update my animals</a></li>
+                            <li><a th:href="@{/login}" href="../login.html">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </body>
 </html>
