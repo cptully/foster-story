@@ -9,6 +9,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet" />
 </head>
 <body>
 
@@ -44,7 +45,7 @@
         <ul class="error"><li th:each="err : ${#fields.errors('password')}" >Error!</li></ul>
     </div>
     <div>
-         <button>Login!</button>
+         <button class="btn" >Login!</button>
     </div>
     <div>
         <a href="register.html" th:href="@{/register}">Register a new account</a>

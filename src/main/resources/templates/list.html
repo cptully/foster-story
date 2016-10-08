@@ -16,6 +16,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet" />
 </head>
 <body>
     <header class="row" th:replace="fragments/pageHead :: pageHead">
@@ -23,14 +24,14 @@
     </header>
     <div class="container-fluid main-body">
 
-    <form class="row" id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
-
+    <form class="well" id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
         <h3>Search for an Animal:</h3>
-        <div>
+        <div class="row">
+        <div class="col-md-2">
             <label for="typeId">
                 <strong>Type:</strong>
             </label>
-            <select name="typeId" id="typeId">
+            <select class="form-control" name="typeId" id="typeId">
                 <option value="">select...</option>
                 <option th:each="type : ${types}"
                         th:text="${type.name}"
@@ -39,11 +40,11 @@
             </select>
         </div>
 
-        <div>
+        <div class="col-md-2">
             <label for="breedId">
                 <strong>Breed:</strong>
             </label>
-            <select name="breedId" id="breedId">
+            <select class="form-control" name="breedId" id="breedId">
                 <option value="">select...</option>
                 <option th:each="breed : ${breeds}"
                         th:text="${breed.name}"
@@ -52,29 +53,31 @@
             </select>
         </div>
 
-        <div>
+        <div class="col-lg-4">
             <label for="name">
                 <Strong>Name:</Strong>
             </label>
-            <input type="text" name="name" id="name" placeholder="animal's name" th:value="${search.name}"/>
+            <input class="form-control" type="text" name="name" id="name" placeholder="Animal's name" th:value="${search.name}"/>
         </div>
 
-        <div>
+        <div class="col-sm-2">
             <label for="locale">
                 City/Zip
             </label>
-            <input type="text" name="locale" id="locale" placeholder="City or Zipcode" />
+            <input class="form-control" type="text" name="locale" id="locale" placeholder="City or Zip" />
         </div>
 
-        <div>
+        <div class="col-sm-2">
             <label for="animalId">
                 <strong>Animal ID:</strong>
             </label>
-            <input type="text" name="animalId" id="animalId" placeholder="ID" th:text="${search.id}"/>
+            <input class="form-control" type="text" name="animalId" id="animalId" placeholder="ID" th:text="${search.id}"/>
         </div>
-
-        <button type="submit" id="search" name="action" value="search">Search</button>
-        <button type="submit" id="clear" name="action" value="clear">Clear</button>
+        </div>
+        <div class="row btn">
+        <button class="btn" type="submit" id="search" name="action" value="search">Search</button>
+        <button class="btn" type="submit" id="clear" name="action" value="clear">Clear</button>
+        </div>
 
     </form>
 
