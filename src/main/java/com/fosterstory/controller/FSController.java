@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by chris on 10/3/16.
@@ -133,19 +133,36 @@ public class FSController {
     @RequestMapping (path = "/profile")
     public String profile(Model model,
                           String action,
+                          @Valid User user,
+                          BindingResult bindingResult,
                           HttpSession session) {
         Integer userId = (Integer)session.getAttribute("userId");
         if (userId  == null) {
             return "redirect:/login";
         }
 
-        if ((action != null) && (action.equals("cancel"))) {
-            // reset form data & drop edits
+        if (!bindingResult.hasErrors()) {
+            if ((action != null) && (action.equals("cancel"))) {
+                // reset form data & drop edits
+                user = fsService.getUser(userId);
+            } else if ((action != null) && (action.equals("save"))) {
+                if (user.getId() == null) {user.setId(userId);}
+                try {
+                    fsService.saveUser(user);
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    //error
+//                    FieldError fieldError = new FieldError("user", "password", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Username / password combination incorrect");
+//                    bindingResult.addError(fieldError);
+
+                    e.printStackTrace();
+                }
+            }
+
         }
 
-        User user = fsService.getUser(userId);
-        model.addAttribute("user", user);
 
+//        user = fsService.getUser(userId);
+        model.addAttribute("user", user);
         return "/profile";
     }
 
@@ -157,9 +174,10 @@ public class FSController {
         }
 
         User user = fsService.getUserOrNull((Integer)session.getAttribute("userId"));
-//        Animal animal = fsService.getAnimal(animalId);
+        List<Animal> animals = user.getAnimals();
+        model.addAttribute("animals", animals);
+        model.addAttribute("count", animals.size());
         model.addAttribute("user", user);
-//        model.addAttribute("animal", animal);
 
         return "/story";
     }

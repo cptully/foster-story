@@ -1,7 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="user" type="com.theIronYard.entity.User"*/-->
-<!--/*@thymesVar id="role" type="com.theIronYard.entity.Role"*/-->
+<!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
+<!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
+<!--/*@thymesVar id="animals" type="java.util.ArrayList<Animal>"*/-->
+<!--/*@thymesVar id="count" type="java.lang.Integer"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -23,8 +26,18 @@
 
 <div class="container-fluid main-body">
 
-<div id="animalDetails">
-    <div class="leftColumn">
+<div id="animalDetails" class="row">
+    <form id="animal-form" role="form" action="story.html" th:action="@{/story}" method="post" th:object="${animals}">
+        <div class="row" th:if="${count >1}">
+            <label for="animal-select">Select the animal you are posting about</label>
+            <select name="animal-select" id="animal-select">
+                <option th:each="animal : ${animals}"
+                        th:value="${animal.id}"
+                        th:text="${animal.name}">rover</option>
+            </select>
+        </div>
+
+        <div class="leftColumn">
         <div id="stats">
             <label for="name">
                 Name
@@ -88,6 +101,7 @@
             <textarea name="medical" id="medical" rows="10" cols="50"></textarea>
         </div>
     </div>
+    </form>
 </div>
 
 <div id="animalTiles">

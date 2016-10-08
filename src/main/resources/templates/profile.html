@@ -29,6 +29,8 @@
         <div id="leftColumn">
             <h2>Foster Parent Details</h2>
 
+            <input type="hidden" name="userId" id="userId" th:value="*{id}" />
+
             <label for="email">
                 Email:
             </label>
@@ -154,7 +156,8 @@
             <input type="url" name="tumblr" id="tumblr" th:value="*{tumblr}"/>
         </div>
 
-        <button>Submit</button>
+        <button type="submit" id="search" name="action" value="save">Save Changes</button>
+        <button type="submit" id="clear" name="action" value="clear">Reset form</button>
     </form>
 </div>
 </div>
