@@ -3,6 +3,7 @@
 <!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
 <!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
 <!--/*@thymesVar id="image" type="com.fosterstory.entity.Image"*/-->
+<!--/*@thymesVar id="address" type="com.fosterstory.entity.Address"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -27,10 +28,10 @@
 
 <div id="fosterParentDetails">
     <form id="editProfile" role="form" action="profile.html" th:action="@{/profile}" method="post" th:object="${user}">
-        <div id="leftColumn">
+        <div id="leftColumn" class="col-md-6">
             <h2>Foster Parent Details</h2>
 
-            <input type="hidden" name="userId" id="userId" th:value="*{id}" />
+            <input type="hidden" name="id" id="id" th:value="*{id}" />
 
             <label for="email">
                 Email:
@@ -40,7 +41,7 @@
             <label for="nickName">
             Nick Name:
             </label>
-            <input type="nickName" name="nickName" id="nickName" th:value="*{nickName}"/>
+            <input type="text" name="nickName" id="nickName" th:value="*{nickName}"/>
 
             <label for="firstName">
                 First name:
@@ -65,80 +66,80 @@
             <label for="address">
                 Address
             </label>
-            <div th:name="address" id="address">
+            <div th:name="address" id="address" th:object="${address}">
                 <label for="street1">
                     Street:
                 </label>
-                <input type="text" name="street1" id="street1" th:value="*{address.street1}"/>
-                <input type="text" name="street2" id="street2" th:value="*{address.street2}"/>
+                <input type="text" name="street1" id="street1" th:value="*{street1}"/>
+                <input type="text" name="street2" id="street2" th:value="*{street2}"/>
 
                 <label for="city">
                     City:
                 </label>
-                <input type="text" name="city" id="city" th:value="*{address.city}"/>
+                <input type="text" name="city" id="city" th:value="*{city}"/>
 
                 <label for="state">
                     State:
                 </label>
                 <select name="state" id="state">
                     <option value="">select...</option>
-                    <option value="AL" th:selected="*{address.state == 'AL'}">Alabama</option>
-                    <option value="AK" th:selected="*{address.state == 'AK'}">Alaska</option>
-                    <option value="AZ" th:selected="*{address.state == 'AZ'}">Arizona</option>
-                    <option value="AR" th:selected="*{address.state == 'AR'}">Arkansas</option>
-                    <option value="CA" th:selected="*{address.state == 'CA'}">California</option>
-                    <option value="CO" th:selected="*{address.state == 'CO'}">Colorado</option>
-                    <option value="CT" th:selected="*{address.state == 'CT'}">Connecticut</option>
-                    <option value="DE" th:selected="*{address.state == 'DE'}">Delaware</option>
-                    <option value="DC" th:selected="*{address.state == 'DC'}">District of Columbia</option>
-                    <option value="FL" th:selected="*{address.state == 'FL'}">Florida</option>
-                    <option value="GA" th:selected="*{address.state == 'GA'}">Georgia</option>
-                    <option value="HI" th:selected="*{address.state == 'HI'}">Hawaii</option>
-                    <option value="ID" th:selected="*{address.state == 'ID'}">Idaho</option>
-                    <option value="IL" th:selected="*{address.state == 'IL'}">Illinois</option>
-                    <option value="IN" th:selected="*{address.state == 'IN'}">Indiana</option>
-                    <option value="IA" th:selected="*{address.state == 'IA'}">Iowa</option>
-                    <option value="KS" th:selected="*{address.state == 'KS'}">Kansas</option>
-                    <option value="KY" th:selected="*{address.state == 'KY'}">Kentucky</option>
-                    <option value="LA" th:selected="*{address.state == 'LA'}">Louisiana</option>
-                    <option value="ME" th:selected="*{address.state == 'ME'}">Maine</option>
-                    <option value="MD" th:selected="*{address.state == 'MD'}">Maryland</option>
-                    <option value="MA" th:selected="*{address.state == 'MA'}">Massachusetts</option>
-                    <option value="MI" th:selected="*{address.state == 'MI'}">Michigan</option>
-                    <option value="MN" th:selected="*{address.state == 'MN'}">Minnesota</option>
-                    <option value="MS" th:selected="*{address.state == 'MS'}">Mississippi</option>
-                    <option value="MO" th:selected="*{address.state == 'MO'}">Missouri</option>
-                    <option value="MT" th:selected="*{address.state == 'MT'}">Montana</option>
-                    <option value="NE" th:selected="*{address.state == 'NE'}">Nebraska</option>
-                    <option value="NV" th:selected="*{address.state == 'NV'}">Nevada</option>
-                    <option value="NH" th:selected="*{address.state == 'NH'}">New Hampshire</option>
-                    <option value="NJ" th:selected="*{address.state == 'NJ'}">New Jersey</option>
-                    <option value="NM" th:selected="*{address.state == 'NM'}">New Mexico</option>
-                    <option value="NY" th:selected="*{address.state == 'NY'}">New York</option>
-                    <option value="NC" th:selected="*{address.state == 'NC'}">North Carolina</option>
-                    <option value="ND" th:selected="*{address.state == 'ND'}">North Dakota</option>
-                    <option value="OH" th:selected="*{address.state == 'OH'}">Ohio</option>
-                    <option value="OK" th:selected="*{address.state == 'OK'}">Oklahoma</option>
-                    <option value="OR" th:selected="*{address.state == 'OR'}">Oregon</option>
-                    <option value="PA" th:selected="*{address.state == 'PA'}">Pennsylvania</option>
-                    <option value="RI" th:selected="*{address.state == 'RI'}">Rhode Island</option>
-                    <option value="SC" th:selected="*{address.state == 'SC'}">South Carolina</option>
-                    <option value="SD" th:selected="*{address.state == 'SD'}">South Dakota</option>
-                    <option value="TN" th:selected="*{address.state == 'TN'}">Tennessee</option>
-                    <option value="TX" th:selected="*{address.state == 'TX'}">Texas</option>
-                    <option value="UT" th:selected="*{address.state == 'UT'}">Utah</option>
-                    <option value="VT" th:selected="*{address.state == 'VT'}">Vermont</option>
-                    <option value="VA" th:selected="*{address.state == 'VA'}">Virginia</option>
-                    <option value="WA" th:selected="*{address.state == 'WA'}">Washington</option>
-                    <option value="WV" th:selected="*{address.state == 'WV'}">West Virginia</option>
-                    <option value="WI" th:selected="*{address.state == 'WI'}">Wisconsin</option>
-                    <option value="WY" th:selected="*{address.state == 'WY'}">Wyoming</option>
+                    <option value="AL" th:selected="*{state == 'AL'}">Alabama</option>
+                    <option value="AK" th:selected="*{state == 'AK'}">Alaska</option>
+                    <option value="AZ" th:selected="*{state == 'AZ'}">Arizona</option>
+                    <option value="AR" th:selected="*{state == 'AR'}">Arkansas</option>
+                    <option value="CA" th:selected="*{state == 'CA'}">California</option>
+                    <option value="CO" th:selected="*{state == 'CO'}">Colorado</option>
+                    <option value="CT" th:selected="*{state == 'CT'}">Connecticut</option>
+                    <option value="DE" th:selected="*{state == 'DE'}">Delaware</option>
+                    <option value="DC" th:selected="*{state == 'DC'}">District of Columbia</option>
+                    <option value="FL" th:selected="*{state == 'FL'}">Florida</option>
+                    <option value="GA" th:selected="*{state == 'GA'}">Georgia</option>
+                    <option value="HI" th:selected="*{state == 'HI'}">Hawaii</option>
+                    <option value="ID" th:selected="*{state == 'ID'}">Idaho</option>
+                    <option value="IL" th:selected="*{state == 'IL'}">Illinois</option>
+                    <option value="IN" th:selected="*{state == 'IN'}">Indiana</option>
+                    <option value="IA" th:selected="*{state == 'IA'}">Iowa</option>
+                    <option value="KS" th:selected="*{state == 'KS'}">Kansas</option>
+                    <option value="KY" th:selected="*{state == 'KY'}">Kentucky</option>
+                    <option value="LA" th:selected="*{state == 'LA'}">Louisiana</option>
+                    <option value="ME" th:selected="*{state == 'ME'}">Maine</option>
+                    <option value="MD" th:selected="*{state == 'MD'}">Maryland</option>
+                    <option value="MA" th:selected="*{state == 'MA'}">Massachusetts</option>
+                    <option value="MI" th:selected="*{state == 'MI'}">Michigan</option>
+                    <option value="MN" th:selected="*{state == 'MN'}">Minnesota</option>
+                    <option value="MS" th:selected="*{state == 'MS'}">Mississippi</option>
+                    <option value="MO" th:selected="*{state == 'MO'}">Missouri</option>
+                    <option value="MT" th:selected="*{state == 'MT'}">Montana</option>
+                    <option value="NE" th:selected="*{state == 'NE'}">Nebraska</option>
+                    <option value="NV" th:selected="*{state == 'NV'}">Nevada</option>
+                    <option value="NH" th:selected="*{state == 'NH'}">New Hampshire</option>
+                    <option value="NJ" th:selected="*{state == 'NJ'}">New Jersey</option>
+                    <option value="NM" th:selected="*{state == 'NM'}">New Mexico</option>
+                    <option value="NY" th:selected="*{state == 'NY'}">New York</option>
+                    <option value="NC" th:selected="*{state == 'NC'}">North Carolina</option>
+                    <option value="ND" th:selected="*{state == 'ND'}">North Dakota</option>
+                    <option value="OH" th:selected="*{state == 'OH'}">Ohio</option>
+                    <option value="OK" th:selected="*{state == 'OK'}">Oklahoma</option>
+                    <option value="OR" th:selected="*{state == 'OR'}">Oregon</option>
+                    <option value="PA" th:selected="*{state == 'PA'}">Pennsylvania</option>
+                    <option value="RI" th:selected="*{state == 'RI'}">Rhode Island</option>
+                    <option value="SC" th:selected="*{state == 'SC'}">South Carolina</option>
+                    <option value="SD" th:selected="*{state == 'SD'}">South Dakota</option>
+                    <option value="TN" th:selected="*{state == 'TN'}">Tennessee</option>
+                    <option value="TX" th:selected="*{state == 'TX'}">Texas</option>
+                    <option value="UT" th:selected="*{state == 'UT'}">Utah</option>
+                    <option value="VT" th:selected="*{state == 'VT'}">Vermont</option>
+                    <option value="VA" th:selected="*{state == 'VA'}">Virginia</option>
+                    <option value="WA" th:selected="*{state == 'WA'}">Washington</option>
+                    <option value="WV" th:selected="*{state == 'WV'}">West Virginia</option>
+                    <option value="WI" th:selected="*{state == 'WI'}">Wisconsin</option>
+                    <option value="WY" th:selected="*{state == 'WY'}">Wyoming</option>
                 </select>
 
-                <label for="zip-code">
+                <label for="zip">
                     ZIP Code:
                 </label>
-                <input type="text" name="zip-code" id="zip-code" th:value="*{address.zip}"/>
+                <input type="text" name="zip" id="zip" th:value="*{zip}"/>
             </div>
             <label for="user-image">
                 Profile Image:
@@ -147,17 +148,26 @@
             <input type="file" name="user-image" id="user-image" />
         </div>
 
-        <div id="rightColumn">
+        <div class="row col-md-6" id="rightColumn">
             <h2>Social Media Links</h2>
 
-            <label class="tumblr-logo" for="tumblr">
-                <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png" id="tumblr-logo"
-                     th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}"/>
-            </label>
-            <input type="url" name="tumblr" id="tumblr" th:value="*{tumblr}"/>
+            <div class="row">
+                <label class="tumblr-logo" for="tumblr">
+                    <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png" id="tumblr-logo"
+                         th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}"/>
+                </label>
+                <input type="url" name="tumblr" id="tumblr" th:value="*{tumblr}"/>
+            </div>
+            <div class="row">
+                <label for="bio">
+                    Bio
+                </label>
+            </div>
+            <div class="row">
+                <textarea class="foster-bio" name="bio" id="bio" rows="10" cols="50"></textarea>
+            </div>
         </div>
-
-        <button type="submit" id="search" name="action" value="save">Save Changes</button>
+        <button type="submit" id="save" name="action" value="save">Save Changes</button>
         <button type="submit" id="clear" name="action" value="clear">Reset form</button>
     </form>
 </div>

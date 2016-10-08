@@ -2,6 +2,7 @@ package com.fosterstory.controller;
 
 import com.fosterstory.bean.Login;
 import com.fosterstory.bean.Search;
+import com.fosterstory.entity.Address;
 import com.fosterstory.entity.Animal;
 import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.User;
@@ -133,7 +134,8 @@ public class FSController {
     @RequestMapping (path = "/profile")
     public String profile(Model model,
                           String action,
-                          @Valid User user,
+                          @Valid User userData,
+                          @Valid Address address,
                           BindingResult bindingResult,
                           HttpSession session) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -141,14 +143,19 @@ public class FSController {
             return "redirect:/login";
         }
 
+        User user = userData;
         if (!bindingResult.hasErrors()) {
-            if ((action != null) && (action.equals("cancel"))) {
-                // reset form data & drop edits
-                user = fsService.getUser(userId);
-            } else if ((action != null) && (action.equals("save"))) {
-                if (user.getId() == null) {user.setId(userId);}
+            user = fsService.getUser(userId);
+            if ((action != null) && (action.equals("save"))) {
+                // update the user data from the form with the logged in user id & password
+                if (userData.getId() == null) {userData.setId(userId);}
+                if (userData.getPassword() == null) {userData.setPassword(user.getPassword());}
+                address.setId(user.getAddress().getId());
+                userData.setAddress(address);
+
+                // save the user and pray
                 try {
-                    fsService.saveUser(user);
+                    user = fsService.saveUser(userData);
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     //error
 //                    FieldError fieldError = new FieldError("user", "password", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Username / password combination incorrect");
@@ -157,12 +164,11 @@ public class FSController {
                     e.printStackTrace();
                 }
             }
-
         }
 
-
-//        user = fsService.getUser(userId);
+        address = user.getAddress();
         model.addAttribute("user", user);
+        model.addAttribute("address", address);
         return "/profile";
     }
 

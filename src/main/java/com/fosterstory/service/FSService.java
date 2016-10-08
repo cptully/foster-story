@@ -112,7 +112,7 @@ public class FSService {
         return userRepository.findAll(Example.of(user));
     }
 
-    public void saveUser(User user) throws PasswordStorage.CannotPerformOperationException {
+    public User saveUser(User user) throws PasswordStorage.CannotPerformOperationException {
 
         if(user.getId() != null){
             User oldUser = userRepository.findOne(user.getId());
@@ -125,7 +125,7 @@ public class FSService {
         }
         Role role = roleRepository.findByNameEquals("user");
         user.setRole(role);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public void deleteUser(Integer id) {
