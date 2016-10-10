@@ -1,14 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
-<!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
-<!--/*@thymesVar id="breed" type="com.fosterstory.entity.Breed"*/-->
-<!--/*@thymesVar id="type" type="com.fosterstory.entity.Type"*/-->
-<!--/*@thymesVar id="breeds" type="java.util.List<Type>"*/-->
-<!--/*@thymesVar id="types" type="java.util.List<Breed>"*/-->
-<!--/*@thymesVar id="search" type="com.fosterstory.bean.Search"*/-->
-<!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
-<!--/*@thymesVar id="animals" type="java.util.List<Animal>"*/-->
+<!--/*@thymesVar id="user" type="com.theIronYard.entity.User"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -16,7 +8,8 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
-    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet"/>
+
     <title>Register a new account</title>
 </head>
 <body>
@@ -59,7 +52,7 @@
                 <ul class="error"><li th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></li></ul>
             </div>
 
-            <button class="btn" >Submit</button>
+            <button>Submit</button>
         </form>
 
     </div>

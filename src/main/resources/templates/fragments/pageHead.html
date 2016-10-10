@@ -3,11 +3,14 @@
 <!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
 <!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
 
-<head>
-    <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{/css/styles.css}" />
+<head th:fragment="fragments/pageHead :: headElement">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
     <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet" />
-</head>
-<body>
+</head><body>
 
     <nav th:fragment="navBar">
         <div class="row">

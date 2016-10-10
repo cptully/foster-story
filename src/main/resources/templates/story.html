@@ -32,7 +32,7 @@
 <div class="container-fluid main-body">
 
 <div id="animalDetails" class="row">
-    <form id="animal-form" role="form" action="story.html" th:action="@{/story}" method="post" th:object="${animals}">
+    <form id="pick-animal" role="form" action="story.html" th:action="@{/story}" method="post" th:object="${animals}">
         <div class="row" th:if="${count >1}">
             <label for="animal-select">Select the animal you are posting about</label>
             <select name="animal-select" id="animal-select">
@@ -41,80 +41,82 @@
                         th:text="${animal.name}">rover</option>
             </select>
         </div>
+    </form>
 
+    <form id="animal-edit" role="form" action="story.html" th:href="@{/story}" method="post" th:object="${animal}">
         <div class="leftColumn">
-        <div id="stats">
-            <label for="name">
-                Name
-            </label>
-            <input type="text" name="name" id="name" />
+            <div id="stats">
+                <input type="hidden" name="id" id="id" th:value="*{id}" />
+                <label for="name">
+                    Name
+                </label>
+                <input type="text" name="name" id="name" th:value="*{name}"/>
 
-            <label for="type">
-                Animal Type:
-            </label>
-            <select name="type" id="type">
-                <option value="">select...</option>
-                <option th:each="type : ${types}"
-                        th:text="type.name"
-                        th:value="type.id"
-                        th:selected="${animal.type.id} == ${type.id}">Dog</option>
-            </select>
+                <label for="type">
+                    Animal Type:
+                </label>
+                <select name="type" id="type">
+                    <option value="">select...</option>
+                    <option th:each="type : ${types}"
+                            th:text="${type.name}"
+                            th:value="${type.id}">Dog</option>
+                </select>
 
-            <label for="breed">
-                Animal Breed:
-            </label>
-            <select name="breed" id="breed">
-                <option value="">select...</option>
-                <option th:each="breed : ${breeds}"
-                        th:text="breed.name"
-                        th:value="breed.id"
-                        th:selected="${animal.breed.id} == ${breed.id}">Collie</option>
-            </select>
+                <label for="breed">
+                    Animal Breed:
+                </label>
+                <select name="breed" id="breed">
+                    <option value="">select...</option>
+                    <option th:each="breed : ${breeds}"
+                            th:text="${breed.name}"
+                            th:value="${breed.id}">Collie</option>
+                </select>
 
-            <label for="age">
-                Age:
-            </label>
-            <input type="number" name="age" id="age" />
+                <label for="age">
+                    Age:
+                </label>
+                <input type="number" name="age" id="age" th:value="*{age}"/>
 
-            <label for="weight">
-                Weight:
-            </label>
-            <input type="number" name="weight" id="weight" />
+                <label for="weight">
+                    Weight:
+                </label>
+                <input type="number" name="weight" id="weight" th:value="*{weight}"/>
 
-            <label for="gender">
-                Gender:
-            </label>
-            <select name="gender" id="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
+                <label for="gender">
+                    Gender:
+                </label>
+                <select name="gender" id="gender">
+                    <option value="male" th:selected="${animal.gender} == 'male'">Male</option>
+                    <option value="female" th:selected="${animal.gender} == 'female'">Female</option>
+                </select>
 
-            <label for="calendar">
-                Available Adoption Date
-            </label>
-            <div id="calendar">
+                <label for="calendar">
+                    Available Adoption Date
+                </label>
+                <div id="calendar">
 
+                </div>
+
+                <label for="tumblr" class="tumblr-logo">
+                    <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png"
+                         th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}" alt="Tumblr logo" />
+                </label>
+                <input type="url" name="tumblr" id="tumblr" />
             </div>
 
-            <label for="tumblr" class="tumblr-logo">
-                <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png"
-                     th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}" alt="Tumblr logo" />
-            </label>
-            <input type="url" name="tumblr" id="tumblr" />
-        </div>
+            <div class="rightColumn">
+                <label for="story">
+                    Animal's Rescue Story
+                </label>
+                <textarea name="story" id="story" rows="10" cols="50" th:text="*{story}"></textarea>
 
-        <div class="rightColumn">
-            <label for="bio">
-                Animal's Rescue Story
-            </label>
-            <textarea name="bio" id="bio" rows="10" cols="50"></textarea>
-
-            <label for="medical">
-                Care and Vaccination info
-            </label>
-            <textarea name="medical" id="medical" rows="10" cols="50"></textarea>
+                <label for="careInfo">
+                    Care and Vaccination info
+                </label>
+                <textarea name="careInfo" id="careInfo" rows="10" cols="50" th:text="*{careInfo}"></textarea>
+            </div>
         </div>
-    </div>
+        <button class="btn" type="submit" id="save" name="action" value="save">Save</button>
     </form>
 </div>
 
