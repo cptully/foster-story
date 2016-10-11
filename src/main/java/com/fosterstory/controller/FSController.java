@@ -204,10 +204,11 @@ public class FSController {
                         Breed breed = fsService.getBreedById(animal.getBreed().getId());
                         animal.setBreed(breed);
                     }
-                    user.getAnimals().add(animal);
+
+                    if (!user.getAnimals().contains(animal)) { user.getAnimals().add(animal); }
 
                     fsService.saveUser(user);
-                    fsService.saveAnimal(animal);
+//                    fsService.saveAnimal(animal);
                 }
             } catch (PasswordStorage.CannotPerformOperationException e) {
                 // set errors
