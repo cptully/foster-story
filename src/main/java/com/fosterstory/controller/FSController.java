@@ -156,7 +156,7 @@ public class FSController {
                 address.setId(user.getAddress().getId());
 
                 // overwrite the null user on the user data from the from
-                // with address data recovered in seperate object
+                // with address data recovered in separate object
                 userData.setAddress(address);
 
                 if (action.equals("save")) {
@@ -195,27 +195,6 @@ public class FSController {
             return "/story";
         }
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
-
-        if ((action != null) && (action.equals("save"))) {
-            try {
-                if (animal != null) {
-                    animal.setUser(user);
-                    if (animal.getBreed() != null) {
-                        Breed breed = fsService.getBreedById(animal.getBreed().getId());
-                        animal.setBreed(breed);
-                    }
-
-                    if (!user.getAnimals().contains(animal)) { user.getAnimals().add(animal); }
-
-                    fsService.saveUser(user);
-//                    fsService.saveAnimal(animal);
-                }
-            } catch (PasswordStorage.CannotPerformOperationException e) {
-                // set errors
-                return "/story";
-            }
-        }
-
         List<Animal> animals = user.getAnimals();
         model.addAttribute("animals", animals);
         model.addAttribute("count", animals.size());
@@ -223,6 +202,39 @@ public class FSController {
         model.addAttribute("types", fsService.listTypes());
         model.addAttribute("breeds", fsService.listBreeds());
 
+        if ((action != null) && (action.equals("save"))) {
+            try {
+                if (animal != null) {
+                    animal.setUser(user);
+                    if (animal.getBreed() == null) {
+                        Breed breed = fsService.getBreedById(animal.getBreed().getId());
+                        animal.setBreed(breed);
+                    }
+
+                    if (!user.getAnimals().contains(animal)) {
+                        user.getAnimals().add(animal);
+                        fsService.saveUser(user);
+                    } else {
+                        fsService.saveAnimal(animal);
+                    }
+                }
+                model.addAttribute("animal", animal);
+                return "redirect:/story";
+            } catch (PasswordStorage.CannotPerformOperationException e) {
+                // set errors
+                return "/story";
+            }
+        } else if ((action != null) && (action.equals("clear"))) {
+            animal = new Animal();
+        } else {
+            if (animals.size() >= 1) {
+                animal = animals.get(animals.size() - 1);
+            } else {
+                animal = new Animal();
+            }
+        }
+
+        model.addAttribute("animal", animal);
         return "/story";
     }
 

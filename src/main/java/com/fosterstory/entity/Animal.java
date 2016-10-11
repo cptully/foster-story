@@ -1,5 +1,7 @@
 package com.fosterstory.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import java.util.List;
  * Created by win808mac on 10/4/16.
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Animal {
 
     @Id
@@ -41,8 +44,9 @@ public class Animal {
     @JoinColumn(name = "animal_id")
     private List<Image> images;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
 

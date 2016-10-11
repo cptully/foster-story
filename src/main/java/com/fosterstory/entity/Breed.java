@@ -24,7 +24,7 @@ public class Breed {
     private String name;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Type type;
 
     public Breed() {

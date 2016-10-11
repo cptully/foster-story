@@ -31,4 +31,5 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer>{
             "AND (?4 IS NULL OR a.id = ?4)")
     Page<Animal> search(String name, Integer typeId, Integer breedId, Integer id, Pageable pageable);
 
+    Animal findById(Integer animalId);
 }
