@@ -13,6 +13,8 @@ public class Login {
     @NotBlank
     public String password;
 
+    public String returnPath;
+
     public boolean loginFailed = false;
 
     public Login(String email, String password, boolean loginFailed) {
@@ -46,5 +48,13 @@ public class Login {
 
     public void setLoginFailed(boolean loginFailed) {
         this.loginFailed = loginFailed;
+    }
+
+    public String getReturnPath() {
+        return returnPath;
+    }
+
+    public void setReturnPath(String returnPath) {
+        this.returnPath = returnPath;
     }
 }

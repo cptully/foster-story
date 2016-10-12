@@ -2,7 +2,6 @@ package com.fosterstory.controller;
 
 import com.fosterstory.bean.Login;
 import com.fosterstory.bean.Search;
-import com.fosterstory.entity.Address;
 import com.fosterstory.entity.Animal;
 import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.User;
@@ -22,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chris on 10/3/16.
@@ -92,9 +94,10 @@ public class FSController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String loginForm(Login login, Model model, HttpSession session){
+    public String loginForm(Login login, String returnPath, Model model, HttpSession session){
 
         model.addAttribute("login", login);
+        model.addAttribute("returnPath", returnPath);
 
         // get the user (or null if not logged in)
         model.addAttribute("user", fsService.getUserOrNull((Integer)session.getAttribute("userId")));
@@ -112,7 +115,11 @@ public class FSController {
 
         if(user != null){
             session.setAttribute("userId", user.getId());
-            return "redirect:/";
+            if (login.getReturnPath() != null) {
+                return "redirect:" + login.returnPath;
+            } else {
+                return "redirect:/";
+            }
         } else {
             return "login";
         }
@@ -135,12 +142,12 @@ public class FSController {
     public String profile(Model model,
                           String action,
                           @Valid User userData,
-                          @Valid Address address,
                           BindingResult bindingResult,
                           HttpSession session) {
         Integer userId = (Integer)session.getAttribute("userId");
         if (userId  == null) {
-            return "redirect:/login";
+//            model.addAttribute("returnPath", "/profile");
+            return "redirect:/login?returnPath=/profile";
         }
 
         User user = userData;
@@ -148,16 +155,8 @@ public class FSController {
             user = fsService.getUser(userId);
             if ((action != null) && (action.equals("save"))) {
                 // update the user data from the form with the logged in user id & password
-                if (userData.getId() == null) {userData.setId(userId);}
+                // and keep the password out of the UI
                 if (userData.getPassword() == null) {userData.setPassword(user.getPassword());}
-
-                // the form will not populate the address property
-                // Setting the address id from the saved user data
-                address.setId(user.getAddress().getId());
-
-                // overwrite the null user on the user data from the from
-                // with address data recovered in separate object
-                userData.setAddress(address);
 
                 if (action.equals("save")) {
                     // save the user and pray
@@ -165,18 +164,23 @@ public class FSController {
                         user = fsService.saveUser(userData);
                     } catch (PasswordStorage.CannotPerformOperationException e) {
                         //error
-//                        FieldError fieldError = new FieldError("user", "password", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Username / password combination incorrect");
-//                        bindingResult.addError(fieldError);
+                        FieldError fieldError = new FieldError("user", "password", user.getPassword(), false,
+                                new String[]{"Invalid.user.password"},
+                                (String[]) null, "Username / password combination incorrect");
+                        bindingResult.addError(fieldError);
 
                         e.printStackTrace();
+                        return "redirect:/login";
                     }
                 }
             }
         }
 
-        address = user.getAddress();
+        if (bindingResult.hasErrors()) {
+
+        }
+
         model.addAttribute("user", user);
-        model.addAttribute("address", address);
         return "/profile";
     }
 
@@ -188,7 +192,7 @@ public class FSController {
                         String action,
                         HttpSession session) {
         if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer)session.getAttribute("userId")) == null)){
-            return "redirect:/login";
+            return "redirect:/login?returnPath=/story";
         }
 
         if (bindingResult.hasErrors()) {

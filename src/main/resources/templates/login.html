@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="returnPath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="login" type="com.fosterstory.bean.Login"*/-->
 
 
 <head>
@@ -29,11 +31,12 @@
 <form action="login.html" th:action="@{/login}" th:object="${login}" method="post">
     <p th:if="*{loginFailed}" class="error" >Login Failed!!!</p>
 
+    <input type="hidden" name="returnPath" id="returnPath" th:value="*{returnPath}" th:field="*{returnPath}"/>
     <div>
         <label for="email" >
             Email:
         </label>
-        <input type="email" name="email" id="email" value="" th:value="*{email}" />
+        <input type="email" name="email" id="email" value="" th:value="*{email}" th:field="*{email}" />
         <ul class="error"><li th:each="err : ${#fields.errors('email')}" >Error!</li></ul>
     </div>
 
@@ -41,7 +44,7 @@
         <label for="password">
             Password:
         </label>
-        <input type="password" name="password" id="password" value="" />
+        <input type="password" name="password" id="password" value="" th:field="*{password}"/>
         <ul class="error"><li th:each="err : ${#fields.errors('password')}" >Error!</li></ul>
     </div>
     <div>

@@ -59,6 +59,9 @@ public class User {
     @Transient
     private String confirmPassword;
 
+    private String oAuthConsumerKey;
+    private String oAuthSecretKey;
+
     public User() {}
 
     public User(String email, Role role, String password) {

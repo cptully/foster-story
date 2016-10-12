@@ -80,12 +80,12 @@
                   method="post" th:object="${user}">
 
                 <div class="form-group">
-                    <input type="hidden" name="id" id="id" th:value="*{id}"/>
+                    <input type="hidden" name="id" id="id" th:value="*{id}" th:field="*{id}"/>
                     <label class="col-lg-3 control-label" for="email">
                         Email:
                     </label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="email" name="email" id="email" th:value="*{email}"/>
+                        <input class="form-control" type="email" name="email" id="email" th:value="*{email}" th:field="*{email}"/>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                         Nick Name:
                     </label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" name="nickName" id="nickName" th:value="*{nickName}"/>
+                        <input class="form-control" type="text" name="nickName" id="nickName" th:value="*{nickName}" th:field="*{nickName}"/>
                     </div>
                 </div>
 
@@ -104,7 +104,7 @@
                     </label>
                     <div class="col-lg-8">
                         <input class="form-control" type="text" name="firstName" id="firstName"
-                               th:value="*{firstName}"/>
+                               th:value="*{firstName}" th:field="*{firstName}"/>
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                     </label>
                     <div class="col-lg-8">
                         <input class="form-control" type="text" name="middleName" id="middleName"
-                               th:value="*{middleName}"/>
+                               th:value="*{middleName}" th:field="*{middleName}"/>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
                         Last name:
                     </label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" name="lastName" id="lastName" th:value="*{lastName}"/>
+                        <input class="form-control" type="text" name="lastName" id="lastName" th:value="*{lastName}" th:field="*{lastName}"/>
                     </div>
                 </div>
 
@@ -132,7 +132,7 @@
                         Phone:
                     </label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" name="phone" id="phone" th:value="*{phone}"/>
+                        <input class="form-control" type="text" name="phone" id="phone" th:value="*{phone}" th:field="*{phone}"/>
                     </div>
                 </div>
 
@@ -141,15 +141,13 @@
                         <label class="col-lg-3 control-label" for="address">
                             Address
                         </label>
-                        <!--<label class="col-lg-3 control-label" for="street1">-->
-                        <!--Street:-->
-                        <!--</label>-->
+                        <input type="hidden" name="addressId" th:value="*{address.id}" th:field="*{address.id}"/>
                         <div class="col-lg-8">
                             <input class="form-control" type="text" name="street1" id="street1" placeholder="Street 1"
-                                   th:value="*{address.street1}"/>
+                                   th:value="*{address.street1}" th:field="*{address.street1}"/>
                             <br/>
                             <input class="form-control" type="text" name="street2" id="street2" placeholder="Street 2"
-                                   th:value="*{address.street2}"/>
+                                   th:value="*{address.street2}" th:field="*{address.street2}"/>
                         </div>
                     </div>
 
@@ -159,7 +157,8 @@
                             City:
                         </label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" name="city" id="city" th:value="*{address.city}"/>
+                            <input class="form-control" type="text" name="city" id="city" th:value="*{address.city}"
+                                   th:field="*{address.city}"/>
                         </div>
                     </div>
 
@@ -169,7 +168,7 @@
                         </label>
                         <div class="col-lg-8">
                             <div class="ui-select">
-                                <select class="form-control" name="state" id="state">
+                                <select class="form-control" name="state" id="state" th:field="*{address.state}">
                                     <option value="">select...</option>
                                     <option value="AL" th:selected="*{address.state == 'AL'}">Alabama</option>
                                     <option value="AK" th:selected="*{address.state == 'AK'}">Alaska</option>
@@ -232,7 +231,7 @@
                             ZIP Code:
                         </label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" name="zip" id="zip" th:value="*{address.zip}"/>
+                            <input class="form-control" type="text" name="zip" id="zip" th:value="*{address.zip}" th:field="*{address.zip}"/>
                         </div>
                     </div>
                 </div>
@@ -246,7 +245,7 @@
                              th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}"/>
                     </label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="url" name="tumblr" id="tumblr" th:value="*{tumblr}"/>
+                        <input class="form-control" type="url" name="tumblr" id="tumblr" th:value="*{tumblr}" th:field="*{tumblr}"/>
                     </div>
                 </div>
 
@@ -255,7 +254,7 @@
                         Bio
                     </label>
                     <div class="col-lg-8">
-                        <textarea class="foster-bio form-control" name="bio" id="bio" rows="6" th:text="*{bio}"></textarea>
+                        <textarea class="foster-bio form-control" name="bio" id="bio" rows="6" th:text="*{bio}" th:field="*{bio}"></textarea>
                     </div>
                 </div>
 
