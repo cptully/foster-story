@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
+<!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
+<!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
+<!--/*@thymesVar id="animal1" type="com.fosterstory.entity.Animal"*/-->
+<!--/*@thymesVar id="type" type="com.fosterstory.entity.Type"*/-->
+<!--/*@thymesVar id="types" type="java.util.ArrayList<Type>"*/-->
+<!--/*@thymesVar id="breed" type="com.fosterstory.entity.Breed"*/-->
+<!--/*@thymesVar id="breeds" type="java.util.ArrayList<Breed>"*/-->
+<!--/*@thymesVar id="animals" type="java.util.ArrayList<Animal>"*/-->
+<!--/*@thymesVar id="count" type="java.lang.Integer"*/-->
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <meta charset="UTF-8" />
+    <title>View Animal Details</title>
+</head>
+<body>
+<header th:replace="fragments/pageHead :: pageHead">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="list.html" th:href="@{/}" class="navbar-brand ">
+                <img src="../static/images/fosterStoryW.svg" th:src="@{/images/fosterStoryW.svg}" />
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a th:href="@{/}" href="list.html">List Animals</a>
+                </li>
+                <li>
+                    <a th:href="@{/register}" href="register.html">Become Foster Parents</a>
+                </li>
+                <li>
+                    <a th:href="@{/about}" href="about.html">About Us</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/story}" href="story.html">Post Animal Story</a></li>
+                        <li><a th:href="@{/profile}" href="profile.html">Edit my Profile</a></li>
+                        <li><a th:href="@{/profile}" href="profile.html">Update my animals</a></li>
+                        <li><a th:href="@{/logout}" href="login.html">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4" th:each="image : ${images}">
+            <img src="" th:src="@{image.location}" />
+            <p th:text="${image.comment}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
