@@ -1,15 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
-<!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
-<!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
-<!--/*@thymesVar id="animal1" type="com.fosterstory.entity.Animal"*/-->
-<!--/*@thymesVar id="type" type="com.fosterstory.entity.Type"*/-->
-<!--/*@thymesVar id="types" type="java.util.ArrayList<Type>"*/-->
-<!--/*@thymesVar id="breed" type="com.fosterstory.entity.Breed"*/-->
-<!--/*@thymesVar id="breeds" type="java.util.ArrayList<Breed>"*/-->
-<!--/*@thymesVar id="animals" type="java.util.ArrayList<Animal>"*/-->
-<!--/*@thymesVar id="count" type="java.lang.Integer"*/-->
+<!--/*@thymesVar id="captions" type="java.util.List"*/-->
+<!--/*@thymesVar id="caption" type="java.lang.String"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -66,11 +58,14 @@
     </div>
 </header>
 
-<div class="container-fluid">
+<div class="container main-body">
     <div class="row">
-        <div class="col-md-4" th:each="image : ${images}">
-            <img src="" th:src="@{image.location}" />
-            <p th:text="${image.comment}"></p>
+        <div class="col-md-4">
+            <ul>
+                <li th:each="caption: ${captions}"
+                    th:text="${caption}"><img th:src="@{}"/>Replace me</li>
+            </ul>
+
         </div>
     </div>
 </div>

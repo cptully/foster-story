@@ -6,7 +6,10 @@ import com.fosterstory.entity.Animal;
 import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.User;
 import com.fosterstory.service.FSService;
+import com.fosterstory.service.TumblrService;
 import com.fosterstory.utility.PasswordStorage;
+import com.tumblr.jumblr.JumblrClient;
+import com.tumblr.jumblr.types.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,13 +36,16 @@ import java.util.Map;
 public class FSController {
 
     private final Integer ADMIN = 1;
-    private final Integer USER =2;
-    
+    private final Integer USER = 2;
+
     @Autowired
     FSService fsService;
 
+    @Autowired
+    TumblrService tumblrService;
+
     // TODO: 10/5/16 search is broken
-    @RequestMapping (path = "/")
+    @RequestMapping(path = "/")
     public String list(Model model,
                        Search search,
                        @PageableDefault(size = 9) Pageable pageable,
@@ -57,7 +63,7 @@ public class FSController {
         return "/list";
     }
 
-    @RequestMapping (path = "/register", method = RequestMethod.GET)
+    @RequestMapping(path = "/register", method = RequestMethod.GET)
     public String register(User user,
                            Model model,
                            HttpSession session) {
@@ -65,7 +71,7 @@ public class FSController {
         return "/register";
     }
 
-    @RequestMapping (path = "/register", method = RequestMethod.POST)
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
     public String register(@Valid User user,
                            BindingResult bindingResult,
                            @RequestParam(defaultValue = "") String confirmPassowrd,
@@ -78,11 +84,11 @@ public class FSController {
                     session.setAttribute("userId", user.getId());
                     return "redirect:/";
                 } else {
-                    FieldError fieldError = new FieldError("user", "confirmPassword", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[])null, "Passwords do not match");
+                    FieldError fieldError = new FieldError("user", "confirmPassword", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Passwords do not match");
                     bindingResult.addError(fieldError);
                 }
             } catch (PasswordStorage.CannotPerformOperationException e) {
-                FieldError fieldError = new FieldError("user", "password", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[])null, "Invalid password");
+                FieldError fieldError = new FieldError("user", "password", user.getPassword(), false, new String[]{"Invalid.user.password"}, (String[]) null, "Invalid password");
                 bindingResult.addError(fieldError);
                 e.printStackTrace();
             }
@@ -94,26 +100,26 @@ public class FSController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String loginForm(Login login, String returnPath, Model model, HttpSession session){
+    public String loginForm(Login login, String returnPath, Model model, HttpSession session) {
 
         model.addAttribute("login", login);
         model.addAttribute("returnPath", returnPath);
 
         // get the user (or null if not logged in)
-        model.addAttribute("user", fsService.getUserOrNull((Integer)session.getAttribute("userId")));
+        model.addAttribute("user", fsService.getUserOrNull((Integer) session.getAttribute("userId")));
 
         return "login";
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login(Model model, @Valid Login login, HttpSession session){
+    public String login(Model model, @Valid Login login, HttpSession session) {
 
         User user = fsService.authenticateUser(login);
 
         // get the user (or null if not logged in)
         model.addAttribute("user", user);
 
-        if(user != null){
+        if (user != null) {
             session.setAttribute("userId", user.getId());
             if (login.getReturnPath() != null) {
                 return "redirect:" + login.returnPath;
@@ -126,26 +132,26 @@ public class FSController {
     }
 
     @RequestMapping(path = "/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
 
 
-    @RequestMapping (path = "/about")
+    @RequestMapping(path = "/about")
     public String about() {
         return "about";
     }
 
     // TODO: 10/4/16 profile page
-    @RequestMapping (path = "/profile")
+    @RequestMapping(path = "/profile")
     public String profile(Model model,
                           String action,
                           @Valid User userData,
                           BindingResult bindingResult,
                           HttpSession session) {
-        Integer userId = (Integer)session.getAttribute("userId");
-        if (userId  == null) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
 //            model.addAttribute("returnPath", "/profile");
             return "redirect:/login?returnPath=/profile";
         }
@@ -156,7 +162,9 @@ public class FSController {
             if ((action != null) && (action.equals("save"))) {
                 // update the user data from the form with the logged in user id & password
                 // and keep the password out of the UI
-                if (userData.getPassword() == null) {userData.setPassword(user.getPassword());}
+                if (userData.getPassword() == null) {
+                    userData.setPassword(user.getPassword());
+                }
 
                 if (action.equals("save")) {
                     // save the user and pray
@@ -191,7 +199,7 @@ public class FSController {
                         BindingResult bindingResult,
                         String action,
                         HttpSession session) {
-        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer)session.getAttribute("userId")) == null)){
+        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
             return "redirect:/login?returnPath=/story";
         }
 
@@ -242,4 +250,14 @@ public class FSController {
         return "/story";
     }
 
+    @RequestMapping(path = "/viewStory")
+    public String viewStory(Model model,
+                        @Valid Animal animal,
+                        BindingResult bindingResult,
+                        String action,
+                        HttpSession session) {
+        List<String> captions = tumblrService.getPosts();
+        model.addAttribute("captions", captions);
+        return "/viewStory";
+    }
 }
