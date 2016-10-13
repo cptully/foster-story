@@ -2,11 +2,9 @@ package com.fosterstory.entity;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by chris on 10/3/16.
@@ -41,7 +39,7 @@ public class User {
     @Column(length = 1000)// not a real good reason to limit this
     private String bio;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Animal> animals;
 
     @OneToOne

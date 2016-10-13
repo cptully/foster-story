@@ -1,11 +1,8 @@
 package com.fosterstory.service;
 
-import com.fosterstory.entity.User;
 import com.fosterstory.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 /**
@@ -17,8 +14,8 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<String> getContent(User user) {
-        userRepository.
-    }
+//    public List<String> getContent(User user) {
+//        userRepository.
+//    }
 
 }
