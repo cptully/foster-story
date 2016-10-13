@@ -27,10 +27,10 @@ public class User {
     private String middleName;
     private String lastName;
 
-
-    @org.hibernate.validator.constraints.URL
-    @Column(length = 2048)
     private String tumblr;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<TumblrPhoto> tumblrPhotos;
 
     private String phone;
 
@@ -140,6 +140,14 @@ public class User {
 
     public void setTumblr(String tumblr) {
         this.tumblr = tumblr;
+    }
+
+    public List<TumblrPhoto> getTumblrPhotos() {
+        return tumblrPhotos;
+    }
+
+    public void setTumblrPhotos(List<TumblrPhoto> tumblrPhotos) {
+        this.tumblrPhotos = tumblrPhotos;
     }
 
     public String getNickName() {

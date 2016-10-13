@@ -8,8 +8,6 @@ import com.fosterstory.entity.User;
 import com.fosterstory.service.FSService;
 import com.fosterstory.service.TumblrService;
 import com.fosterstory.utility.PasswordStorage;
-import com.tumblr.jumblr.JumblrClient;
-import com.tumblr.jumblr.types.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by chris on 10/3/16.
@@ -256,8 +251,8 @@ public class FSController {
                         BindingResult bindingResult,
                         String action,
                         HttpSession session) {
-        List<String> captions = tumblrService.getPosts();
-        model.addAttribute("captions", captions);
+        tumblrService.getPosts("suncities4paws");
+//        model.addAttribute("captions", captions);
         return "/viewStory";
     }
 }

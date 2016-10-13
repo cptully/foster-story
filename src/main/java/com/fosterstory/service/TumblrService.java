@@ -1,8 +1,9 @@
 package com.fosterstory.service;
 
-import com.fosterstory.bean.TumblrPhoto;
+import com.fosterstory.entity.TumblrPhoto;
 import com.tumblr.jumblr.JumblrClient;
 import com.tumblr.jumblr.types.*;
+import com.tumblr.jumblr.types.Photo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.Map;
 @Service
 public class TumblrService {
 
-    public List<TumblrPhoto> getPosts() {
+    public void getPosts(String blogUrl) {
         // Create a new client
         JumblrClient client = new JumblrClient(
                 "tGC3qN6SxD6IK7T1FVfASEZMfraZGHSG0eqMfHTF6on3JwcBXH",
@@ -24,7 +25,7 @@ public class TumblrService {
         );
 
         // retrieve the blog
-        String blogName = "suncities4paws.tumblr.com";
+        String blogName = blogUrl + ".tumblr.com";
         Blog blog = client.blogInfo(blogName);
 
         // set parameters for requesting photo posts
@@ -32,7 +33,7 @@ public class TumblrService {
         params.put("type", "photo");
         params.put("tag", "animal rescue");
         params.put("limit", 5);
-        params.put("filter", "text");
+        params.put("filter", "html");
 
         // request the blog posts
         List<Post> posts = client.blogPosts(blogName, params);
@@ -42,22 +43,21 @@ public class TumblrService {
         TumblrPhoto tumblrPhoto = new TumblrPhoto();
         List<Photo> photos;
 
+        // iterate over posts archiving photo links
         for (Post post : posts) {
             tumblrPhoto.setContent(((PhotoPost) post).getCaption());
             photos = ((PhotoPost) post).getPhotos();
             for (Photo photo : photos) {
                 tumblrPhoto.setPermalink(photos.get(0).getSizes().get(0).getUrl());
-                tumblrPhoto.setAltUrl(photos.get(0).getSizes().get(3).getUrl());
-                tumblrPhoto.setHeight(photos.get(0).getSizes().get(3).getHeight());
-                tumblrPhoto.setWidth(photos.get(0).getSizes().get(3).getWidth());
+                int photoCount = photo.getSizes().size();
+                for (int i = 0; i < photoCount; i++) {
+                    tumblrPhoto.getPhotos().add(new com.fosterstory.entity.Photo(
+                            photo.getSizes().get(i).getUrl(),
+                            photo.getSizes().get(i).getHeight(),
+                            photo.getSizes().get(i).getWidth()
+                    ));
+                }
             }
-            tumblrPhoto.setPermalink(photos.get(0).getSizes().get(0).getUrl());
-            tumblrPhoto.setAltUrl(photos.get(0).getSizes().get(3).getUrl());
-            tumblrPhoto.setHeight(photos.get(0).getSizes().get(3).getHeight());
-            tumblrPhoto.setWidth(photos.get(0).getSizes().get(3).getWidth());
-            tumblrPhotos.add(tumblrPhoto);
         }
-
-        return tumblrPhotos;
     }
 }
