@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by chris on 10/12/16.
- */
 @Entity
 public class TumblrPhoto {
     @Id
@@ -44,6 +41,14 @@ public class TumblrPhoto {
         setContent(content);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getPermalink() {
         return permalink;
     }
@@ -73,5 +78,21 @@ public class TumblrPhoto {
         for (int i = 0; i < content.length(); i++) {
             this.content.add(lines.get(i).replace("<p>", ""));
         }
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
 }
