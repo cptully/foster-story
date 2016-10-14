@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="captions" type="java.util.List"*/-->
 <!--/*@thymesVar id="caption" type="java.lang.String"*/-->
+<!--/*@thymesVar id="posts" type="java.util.List<Post>"*/-->
+<!--/*@thymesVar id="post" type="com.fosterstory.entity.Post"*/-->
+<!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -59,15 +62,33 @@
 </header>
 
 <div class="container main-body">
-    <div class="row">
-        <div class="col-md-4">
-            <ul>
-                <li th:each="caption: ${captions}"
-                    th:text="${caption}"><img th:src="@{}"/>Replace me</li>
-            </ul>
+    <div th:each="post : ${posts}">
+        <div th:each="photoPost : ${post.photoPosts}">
+            <!--<div th:each="photo : ${photoPost.photos}">-->
+                <!--Card-->
+                <div class="card">
 
+                    <!--Card image-->
+                    <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
+                         th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap">
+                    <!--/.Card image-->
+
+                    <!--Card content-->
+                    <div class="card-block">
+                        <!--Title-->
+                        <!--<h4 class="card-title" th:text="">Card title</h4>-->
+                        <!--Text-->
+                        <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+                <!--/.Card-->
+            <!--</div>-->
         </div>
     </div>
+
 </div>
 </body>
 </html>

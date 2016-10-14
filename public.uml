@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>edffcf69-a053-4a79-a125-f359bf0a456e.SCHEMA:fosterstory.public</OriginalElement>
+  <nodes>
+    <node x="103.20862112524082" y="806.1544975263586">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.tumblrphoto</node>
+    <node x="226.603752551497" y="646.0861186602538">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post</node>
+    <node x="584.5821667062592" y="518.8582934950001">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.role</node>
+    <node x="994.070849142447" y="747.9200577779767">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.address</node>
+    <node x="903.6782779679032" y="1047.9606110571667">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.type</node>
+    <node x="161.81243434231334" y="1172.8185893108473">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.image</node>
+    <node x="477.5172503189584" y="1094.6418011063402">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal</node>
+    <node x="439.3349331208973" y="651.3664901846527">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users</node>
+    <node x="205.1797016801196" y="511.0580999480878">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post_content</node>
+    <node x="894.606343270003" y="1179.0792497309126">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.breed</node>
+    <node x="79.29143169249681" y="968.3447258824333">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photo</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.address">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.breed" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.type">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photo" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.tumblrphoto">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.role">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.image" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.image">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.tumblrphoto" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post_content" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.breed">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="643.5" y="939.0" />
+  <SelectedNodes>
+    <node>edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photo</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

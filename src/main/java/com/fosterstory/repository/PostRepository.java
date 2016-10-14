@@ -1,14 +1,12 @@
 package com.fosterstory.repository;
 
-import com.fosterstory.entity.Photo;
+import com.fosterstory.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
- * Created by win808mac on 10/13/16.
+ * Created by win808mac on 10/14/16.
  */
 @Repository
-public interface PhotoRepository extends JpaRepository<Photo, Integer>{
+public interface PostRepository extends JpaRepository<Post, Integer>{
 }

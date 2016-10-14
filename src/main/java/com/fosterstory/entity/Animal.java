@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +41,8 @@ public class Animal {
     @Column(length = 2048)
     private String tumblr;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-//    private List<TumblrPhoto> tumblrPhotos;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "animal")
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "animal_id")
@@ -142,6 +143,14 @@ public class Animal {
 
     public void setTumblr(String tumblr) {
         this.tumblr = tumblr;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public List<Image> getImages() {

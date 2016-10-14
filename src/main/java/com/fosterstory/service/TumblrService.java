@@ -1,6 +1,6 @@
 package com.fosterstory.service;
 
-import com.fosterstory.entity.TumblrPhoto;
+import com.fosterstory.repository.PostRepository;
 import com.fosterstory.repository.TumbrPhotoRepository;
 import com.tumblr.jumblr.JumblrClient;
 import com.tumblr.jumblr.types.Blog;
@@ -24,6 +24,9 @@ public class TumblrService {
     @Autowired
     TumbrPhotoRepository tumbrPhotoRepository;
 
+    @Autowired
+    PostRepository postRepository;
+
     public void getPosts(String blogUrl) {
         // get Tumblr keys from environment
         String consumer_key = System.getenv("consumer_key");
@@ -34,7 +37,6 @@ public class TumblrService {
 
         // retrieve the blog
         String blogName = blogUrl + ".tumblr.com";
-        Blog blog = client.blogInfo(blogName);
 
         // set parameters for requesting photo posts
         Map<String, Object> params = new HashMap<>();
@@ -44,48 +46,35 @@ public class TumblrService {
         params.put("filter", "html");
 
         // request the blog posts
-        List<Post> posts = client.blogPosts(blogName, params);
+        List<Post> tumblrPosts = client.blogPosts(blogName, params);
 
         // process the return for our purposes
-        List<TumblrPhoto> tumblrPhotos = new ArrayList<>();
-        TumblrPhoto tumblrPhoto = new TumblrPhoto();
-        List<Photo> photos;
+        com.fosterstory.entity.Post post;
+        com.fosterstory.entity.PhotoPost photoPost;
+        List<Photo> tumblrPhotos;
 
         // iterate over posts archiving photo links
-        for (Post post : posts) {
-            tumblrPhoto.setContent(((PhotoPost) post).getCaption());
-            photos = ((PhotoPost) post).getPhotos();
-            for (Photo photo : photos) {
-                tumblrPhoto.setPermalink(photos.get(0).getSizes().get(0).getUrl());
-                int photoCount = photo.getSizes().size();
-                for (int i = 0; i < photoCount; i++) {
-                    tumblrPhoto.getPhotos().add(new com.fosterstory.entity.Photo(
-                            photo.getSizes().get(i).getUrl(),
-                            photo.getSizes().get(i).getHeight(),
-                            photo.getSizes().get(i).getWidth()
+        for (Post tumblrPost : tumblrPosts) {
+            post = new com.fosterstory.entity.Post();
+            post.setContent(((PhotoPost) tumblrPost).getCaption());
+            tumblrPhotos = ((PhotoPost) tumblrPost).getPhotos();
+            photoPost = new com.fosterstory.entity.PhotoPost();
+
+            for (Photo tumblrPhoto : tumblrPhotos) {
+                photoPost.setPermalink(tumblrPhoto.getSizes().get(0).getUrl());
+                int tumblrPhotoCount = tumblrPhoto.getSizes().size();
+                for (int i = 0; i < tumblrPhotoCount; i++) {
+                    photoPost.getPhotos().add(new com.fosterstory.entity.Photo(
+                            tumblrPhoto.getSizes().get(i).getUrl(),
+                            tumblrPhoto.getSizes().get(i).getHeight(),
+                            tumblrPhoto.getSizes().get(i).getWidth()
                     ));
                 }
             }
-            tumblrPhotos.add(tumblrPhoto);
+            post.getPhotoPosts().add(photoPost);
+            postRepository.save(post);
         }
-        tumbrPhotoRepository.save(tumblrPhotos);
     }
 
-    public List<TumblrPhoto> getTumblrPhotosByUser(Integer userId) {
-        return tumbrPhotoRepository.findByUserId(userId);
-    }
 
-    public List<String> getTumblrPhotoComments(Integer tumblrPhotoId) {
-        TumblrPhoto tumblrPhoto = tumbrPhotoRepository.getOne(tumblrPhotoId);
-        return tumblrPhoto.getContent();
-    }
-
-    public String getTumblrPhotoAltUrl250(Integer tumblrPhotoId) {
-        TumblrPhoto tumblrPhoto = tumbrPhotoRepository.getOne(tumblrPhotoId);
-        List<com.fosterstory.entity.Photo> photos = tumblrPhoto.getPhotos();
-        for (com.fosterstory.entity.Photo photo : photos) {
-            if (photo.getWidth() == 250) {return photo.getAltUrl();}
-        }
-        return "";
-    }
 }
