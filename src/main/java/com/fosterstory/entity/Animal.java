@@ -40,8 +40,8 @@ public class Animal {
     @Column(length = 2048)
     private String tumblr;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<TumblrPhoto> tumblrPhotos;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//    private List<TumblrPhoto> tumblrPhotos;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "animal_id")

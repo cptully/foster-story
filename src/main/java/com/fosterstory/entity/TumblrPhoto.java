@@ -18,19 +18,15 @@ public class TumblrPhoto {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "tumblr_photo_id")
-    private List<Photo> photos;
+    private List<Photo> photos = new ArrayList<>();
 
     @ElementCollection
     @Column(length = 20000)
     private List<String> content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "animal_id")
-    private Animal animal;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     public TumblrPhoto() {}
 
@@ -69,8 +65,9 @@ public class TumblrPhoto {
     }
 
     public void setContent(String content) {
-        ArrayList<String> lines = (ArrayList<String>)Arrays.asList(content.split("</p>"));
-        for (int i = 0; i < content.length(); i++) {
+        List<String> lines = Arrays.asList(content.split("</p>"));
+        this.content = new ArrayList<>();
+        for (int i = 0; i < lines.size(); i++) {
             this.content.add(lines.get(i).replace("<p>", ""));
         }
     }

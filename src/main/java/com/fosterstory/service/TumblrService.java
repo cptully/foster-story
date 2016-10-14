@@ -18,11 +18,12 @@ import java.util.Map;
 public class TumblrService {
 
     public void getPosts(String blogUrl) {
+        // get Tumblr keys from environment
+        String consumer_key = System.getenv("consumer_key");
+        String consumer_secret = System.getenv("consumer_secret");
+
         // Create a new client
-        JumblrClient client = new JumblrClient(
-                "tGC3qN6SxD6IK7T1FVfASEZMfraZGHSG0eqMfHTF6on3JwcBXH",
-                "U870eOpOJEviApF6Ek5Cr6HommQe1ORPpMJvMiLgfpApJkeu0y"
-        );
+        JumblrClient client = new JumblrClient(consumer_key, consumer_secret);
 
         // retrieve the blog
         String blogName = blogUrl + ".tumblr.com";

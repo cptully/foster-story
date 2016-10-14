@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class User {
     private String tumblr;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<TumblrPhoto> tumblrPhotos;
+    private List<Post> posts = new ArrayList<>();
 
     private String phone;
 
@@ -142,12 +143,12 @@ public class User {
         this.tumblr = tumblr;
     }
 
-    public List<TumblrPhoto> getTumblrPhotos() {
-        return tumblrPhotos;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setTumblrPhotos(List<TumblrPhoto> tumblrPhotos) {
-        this.tumblrPhotos = tumblrPhotos;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public String getNickName() {
