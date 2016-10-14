@@ -25,6 +25,14 @@ public class Photo {
         this.height = height;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getAltUrl() {
         return altUrl;
     }

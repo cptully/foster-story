@@ -48,7 +48,7 @@ public class Animal {
     private List<Image> images;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_fk")
     @JsonIgnore
     private User user;
 

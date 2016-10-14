@@ -1,9 +1,13 @@
 package com.fosterstory.service;
 
 import com.fosterstory.entity.TumblrPhoto;
+import com.fosterstory.repository.TumbrPhotoRepository;
 import com.tumblr.jumblr.JumblrClient;
-import com.tumblr.jumblr.types.*;
+import com.tumblr.jumblr.types.Blog;
 import com.tumblr.jumblr.types.Photo;
+import com.tumblr.jumblr.types.PhotoPost;
+import com.tumblr.jumblr.types.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +20,9 @@ import java.util.Map;
  */
 @Service
 public class TumblrService {
+
+    @Autowired
+    TumbrPhotoRepository tumbrPhotoRepository;
 
     public void getPosts(String blogUrl) {
         // get Tumblr keys from environment
@@ -39,7 +46,7 @@ public class TumblrService {
         // request the blog posts
         List<Post> posts = client.blogPosts(blogName, params);
 
-        // process the retrun for our purposes
+        // process the return for our purposes
         List<TumblrPhoto> tumblrPhotos = new ArrayList<>();
         TumblrPhoto tumblrPhoto = new TumblrPhoto();
         List<Photo> photos;
@@ -59,6 +66,26 @@ public class TumblrService {
                     ));
                 }
             }
+            tumblrPhotos.add(tumblrPhoto);
         }
+        tumbrPhotoRepository.save(tumblrPhotos);
+    }
+
+    public List<TumblrPhoto> getTumblrPhotosByUser(Integer userId) {
+        return tumbrPhotoRepository.findByUserId(userId);
+    }
+
+    public List<String> getTumblrPhotoComments(Integer tumblrPhotoId) {
+        TumblrPhoto tumblrPhoto = tumbrPhotoRepository.getOne(tumblrPhotoId);
+        return tumblrPhoto.getContent();
+    }
+
+    public String getTumblrPhotoAltUrl250(Integer tumblrPhotoId) {
+        TumblrPhoto tumblrPhoto = tumbrPhotoRepository.getOne(tumblrPhotoId);
+        List<com.fosterstory.entity.Photo> photos = tumblrPhoto.getPhotos();
+        for (com.fosterstory.entity.Photo photo : photos) {
+            if (photo.getWidth() == 250) {return photo.getAltUrl();}
+        }
+        return "";
     }
 }
