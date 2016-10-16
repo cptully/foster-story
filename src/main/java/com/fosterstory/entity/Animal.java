@@ -168,5 +168,17 @@ public class Animal {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Animal animal = (Animal) o;
+
+        return getId().equals(animal.getId());
+
+    }
+
 }
 

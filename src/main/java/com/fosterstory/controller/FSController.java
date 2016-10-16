@@ -195,7 +195,6 @@ public class FSController {
         return "/profile";
     }
 
-    // TODO: 10/4/16 story page
     @RequestMapping(path = "/story")
     public String story(Model model,
                         @Valid Animal animal,

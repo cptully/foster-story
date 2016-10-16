@@ -1,75 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>edffcf69-a053-4a79-a125-f359bf0a456e</OriginalElement>
+  <OriginalElement>ec6a64ee-b4b4-4148-99df-f6ff29e632ac</OriginalElement>
   <nodes>
-    <node x="813.1978135554943" y="398.68501220106504">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post</node>
-    <node x="-118.30723834514743" y="362.6721649484536">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.role</node>
-    <node x="-218.7546391752578" y="642.8927692971099">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.address</node>
-    <node x="1028.0209099203357" y="1240.1979440495802">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.type</node>
-    <node x="171.50966430418066" y="952.8806786860208">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.image</node>
-    <node x="616.698463045015" y="1010.9178043005501">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal</node>
-    <node x="798.6965619425193" y="237.500331581124">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post_content</node>
-    <node x="227.26839153785863" y="263.1882487928689">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users</node>
-    <node x="1012.9949321260849" y="1104.5706327938503">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.breed</node>
-    <node x="1004.9133006007712" y="582.6534151228187">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photopost</node>
-    <node x="989.6347380881689" y="773.3655114285372">edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photo</node>
+    <node x="-141.2926319270079" y="883.522694458757">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.type</node>
+    <node x="-5.776083117424719" y="399.7363087002565">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.role</node>
+    <node x="874.8972380176027" y="373.90896921017395">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.address</node>
+    <node x="-35.2966290248101" y="651.2192318713156">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.image</node>
+    <node x="1189.1023150089115" y="670.6027545079244">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post_content</node>
+    <node x="878.3418319782446" y="639.7353870845026">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post</node>
+    <node x="337.4302695398785" y="771.7055806652412">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.animal</node>
+    <node x="1184.5010752873632" y="849.955699130452">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.photopost</node>
+    <node x="291.3802249946822" y="339.41792615304496">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.users</node>
+    <node x="67.60767923558626" y="933.57676285241">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.breed</node>
+    <node x="821.155609146351" y="875.6673481006045">ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.photo</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.address">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.animal" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.users">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.breed" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.type">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.users" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.address">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photopost" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.users" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.image">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.role">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.animal">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.image" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.photopost" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.image">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.users" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.role">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photo" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.photopost">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.breed" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.type">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.photo" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.photopost">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post_content" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.animal" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.breed">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.post" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.users">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.breed">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.image" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.animal">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.animal" target="edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.users">
+    <edge source="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post_content" target="ec6a64ee-b4b4-4148-99df-f6ff29e632ac.TABLE:fosterstory.public.post">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.825136612021858" x="482.0" y="776.0" />
-  <SelectedNodes>
-    <node>edffcf69-a053-4a79-a125-f359bf0a456e.TABLE:fosterstory.public.type</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.8013793103448276" x="608.5" y="691.5" />
+  <SelectedNodes />
   <Categories>
     <Category>Key columns</Category>
     <Category>Columns</Category>
