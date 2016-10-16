@@ -70,7 +70,7 @@
 
                     <!--Card image-->
                     <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                         th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap">
+                         th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap" />
                     <!--/.Card image-->
 
                     <!--Card content-->
@@ -78,7 +78,8 @@
                         <!--Title-->
                         <!--<h4 class="card-title" th:text="">Card title</h4>-->
                         <!--Text-->
-                        <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text" th:text="${post.content}">Some quick example text to
+                            build on the card title and make up the bulk of the card's content.</p>
                         <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
                     </div>
                     <!--/.Card content-->
