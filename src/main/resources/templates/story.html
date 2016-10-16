@@ -41,105 +41,154 @@
 
 <div class="container-fluid main-body">
 
-<div id="animalDetails" class="row">
-    <form id="pick-animal" role="form" action="story.html" th:action="@{/story}" method="post" th:object="${animals}">
-        <div class="row" th:if="${count >1}">
-            <label for="animal-select">Select the animal you are posting about</label>
-            <select name="animal-select" id="animal-select">
-                <option value="new" th:if="${animal.id} == null" th:selected="${animal.id} == null">New animal</option>
-                <option th:each="animal1 : ${animals}"
-                        th:value="${animal1.id}"
-                        th:text="${animal1.name}"
-                        th:selected="${animal1} == ${animal}">rover</option>
-            </select>
-        </div>
-    </form>
+    <div class="container main-body">
+        <h2>Animal Rescue Stories</h2>
+        <div class="row" id="animal-avatar">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar"/>
+                    <h6>Upload Main Image</h6>
+                    <input type="file" name="user-image" id="user-image" class="form-control"/>
+                </div>
+            </div>
+            <div class="col-md-9 animal-story">
+                <form class="form-horizontal" id="pick-animal" role="form" action="story.html" th:action="@{/story}" method="post" th:object="${animals}">
+                    <div class="form-group" th:if="${count >1}">
+                        <label class="col-lg-3 control-label" for="animal-select">Select Animal</label>
+                        <div class="col-lg-8">
+                            <div class="ui-select">
+                                <select class="form-control" name="animal-select" id="animal-select">
+                                    <option value="new" th:if="${animal.id} == null" th:selected="${animal.id} == null">New animal</option>
+                                    <option th:each="animal1 : ${animals}"
+                                            th:value="${animal1.id}"
+                                            th:text="${animal1.name}"
+                                            th:selected="${animal1} == ${animal}">rover</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-    <form id="animal-edit" role="form" action="story.html" th:href="@{/story}" method="post" th:object="${animal}">
-        <div class="leftColumn">
-            <div id="stats">
-                <input type="hidden" name="id" id="id" th:value="*{id}" />
-                <label for="name">
-                    Name
-                </label>
-                <input type="text" name="name" id="name" th:value="*{name}"/>
-
-                <label for="type">
-                    Animal Type:
-                </label>
-                <select name="type" id="type">
-                    <option value="">select...</option>
-                    <option th:each="type : ${types}"
-                            th:text="${type.name}"
-                            th:value="${type.id}"
-                            th:selected="${type} == *{breed?.type}">Dog</option>
-                </select>
-
-                <label for="breed">
-                    Animal Breed:
-                </label>
-                <select name="breed" id="breed">
-                    <option value="">select...</option>
-                    <option th:each="breed : ${breeds}"
-                            th:text="${breed.name}"
-                            th:value="${breed.id}"
-                            th:selected="${breed} == *{breed}">Collie</option>
-                </select>
-
-                <label for="age">
-                    Age:
-                </label>
-                <input type="number" name="age" id="age" th:value="*{age}"/>
-
-                <label for="weight">
-                    Weight:
-                </label>
-                <input type="number" name="weight" id="weight" th:value="*{weight}"/>
-
-                <label for="gender">
-                    Gender:
-                </label>
-                <select name="gender" id="gender">
-                    <option value="male" th:selected="${animal.gender} == 'male'">Male</option>
-                    <option value="female" th:selected="${animal.gender} == 'female'">Female</option>
-                </select>
-
-                <label for="calendar">
-                    Available Adoption Date
-                </label>
-                <div id="calendar">
+            <div class="col-md-9 animal-story">
+                <form class="form-horizontal" id="animal-edit" role="form" action="story.html" th:href="@{/story}" method="post" th:object="${animal}">
+                    <div class="form-group leftColumn">
+                        <div id="stats">
+                            <input type="hidden" name="id" id="id" th:value="*{id}" />
+                            <label class=" col-lg-3 control-label" for="name">Name</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" name="name" id="name" th:value="*{name}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="col-lg-3 control-label">Animal Type:</label>
+                        <div class="col-lg-8">
+                            <div class="ui-select">
+                                <select class="form-control" name="type" id="type">
+                                    <option value="">select...</option>
+                                    <option th:each="type : ${types}"
+                                            th:text="${type.name}"
+                                            th:value="${type.id}"
+                                            th:selected="${type} == *{breed?.type}">Dog</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="breed">Animal Breed:</label>
+                        <div class="col-lg-8">
+                            <div class="ui-select">
+                                <select class="form-control" name="breed" id="breed">
+                                    <option value="">select...</option>
+                                    <option th:each="breed : ${breeds}"
+                                            th:text="${breed.name}"
+                                            th:value="${breed.id}"
+                                            th:selected="${breed} == *{breed}">Collie</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="age">Age:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="number" name="age" id="age" th:value="*{age}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="weight">Weight:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="number" name="weight" id="weight" th:value="*{weight}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="gender">Gender:</label>
+                        <div class="col-lg-8">
+                            <div class="ui-select">
+                                <select class="form-control" name="gender" id="gender">
+                                    <option value="male" th:selected="${animal.gender} == 'male'">Male</option>
+                                    <option value="female" th:selected="${animal.gender} == 'female'">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="adoption-date" >Available Adoption Date</label>
+                        <div class="col-lg-3">
+                            <input class="date form-control" type="date" name="adoption-date" value="12/01/2016"></input>
+                            <script type="text/javascript">
+                                $(function() {
+                                    $('input[name="adoption-date"]').daterangepicker({
+                                        singleDatePicker: true,
+                                        showDropdowns: true
+                                    },
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="tumblr">
+                            <img id="tumblr-logo" src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png"
+                                 th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}" alt="Tumblr logo" />
+                        </label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="url" name="tumblr" id="tumblr" th:value="*{tumblr}" placeholder="blog name"/>.tumblr.com
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="story">Animal's Rescue Story</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" name="story" id="story" rows="10" cols="50" th:text="*{story}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label" for="careInfo">Care and Vaccination info</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" name="careInfo" id="careInfo" rows="10" cols="50" th:text="*{careInfo}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3"></label>
+                        <div class="col-md-8">
+                            <button class="btn" type="submit" id="save" name="action" value="save">Save</button>
+                            <button class="btn" type="submit" id="clear" name="action" value="clear">Clear</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="animalTiles">
 
                 </div>
-
-                <label for="tumblr" class="tumblr-logo">
-                    <img src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png"
-                         th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}" alt="Tumblr logo" />
-                </label>
-                <input type="url" name="tumblr" id="tumblr" th:value="*{tumblr}" placeholder="blog name"/>.tumblr.com
-            </div>
-
-            <div class="rightColumn">
-                <label for="story">
-                    Animal's Rescue Story
-                </label>
-                <textarea name="story" id="story" rows="10" cols="50" th:text="*{story}"></textarea>
-
-                <label for="careInfo">
-                    Care and Vaccination info
-                </label>
-                <textarea name="careInfo" id="careInfo" rows="10" cols="50" th:text="*{careInfo}"></textarea>
             </div>
         </div>
-        <button class="btn" type="submit" id="save" name="action" value="save">Save</button>
-        <button class="btn" type="submit" id="clear" name="action" value="clear">Add new Animal</button>
-    </form>
-</div>
-
 <div id="animalTiles">
-
+</div>
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+
 </body>
 </html>
