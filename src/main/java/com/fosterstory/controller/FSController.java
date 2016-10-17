@@ -51,18 +51,6 @@ public class FSController {
     @Autowired
     ImageService imageService;
 
-    //@Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("list");
-        registry.addViewController("/about").setViewName("about");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/profile").setViewName("profile");
-        registry.addViewController("/register").setViewName("register");
-        registry.addViewController("/story").setViewName("story");
-        registry.addViewController("/viewStory").setViewName("viewStory");
-    }
-
-
     @RequestMapping(path = "/")
     public String list(Model model,
                        Search search,
@@ -212,16 +200,12 @@ public class FSController {
 
     @RequestMapping(path = "/story", method = RequestMethod.GET)
     public String story(Model model,
-                        @Valid Animal animal,
-                        BindingResult bindingResult,
+                        Animal animal,
                         HttpSession session) {
         if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
             return "redirect:/login?returnPath=/story";
         }
 
-        if (bindingResult.hasErrors()) {
-            return "story";
-        }
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
         model.addAttribute("user", user);
         List<Animal> animals = user.getAnimals();
