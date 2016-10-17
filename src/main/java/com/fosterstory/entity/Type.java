@@ -1,6 +1,6 @@
 package com.fosterstory.entity;
 
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;

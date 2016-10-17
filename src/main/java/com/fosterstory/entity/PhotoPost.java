@@ -2,7 +2,6 @@ package com.fosterstory.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
