@@ -22,37 +22,46 @@
         </div>
     </nav>
 
-<div class="container-fluid main-body">
-    <div class="row">
+<div class="container main-body">
+    <div class="col-sm-6">
         <h2 th:text="${user.id} == null ? 'Register for a new Account' : 'Change password'">Register for a new Account</h2>
-
-        <form name="user-form" id="user-form" action="register.html" th:action="@{/register}" th:object="${user}" method="post">
-            <label for="email">Email:</label>
-            <input type="text" name="email" id="email" />
-
-            <div th:if="${user.id} != null">
-                <label for="old-password">
-                    Old Password:
-                </label>
-                <input type="password" name="old-password" id="old-password" />
-                <ul class="error"><li th:each="err : ${#fields.errors('oldPassword')}" th:text="${err}"></li></ul>
+        <form class="form-horizontal" name="user-form" id="user-form" action="register.html" th:action="@{/register}" th:object="${user}" method="post">
+            <div class="form-group">
+                    <label class="col-md-3 control-label" for="email">Email:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" name="email" id="email" />
+                    </div>
             </div>
-            <div>
-                <label for="password">
-                    New Password:
-                </label>
-                <input type="password" name="password" id="password" />
+            <div class="form-group">
+                <div th:if="${user.id} != null">
+                    <label class="control-label col-md-3" for="old-password">Old Password:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="password" name="old-password" id="old-password" />
+                    </div>
+                    <ul class="error"><li th:each="err : ${#fields.errors('oldPassword')}" th:text="${err}"></li></ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3" for="password">New Password:</label>
+                    <div class="col-md-8">
+                        <input class="form-controld" type="password" name="password" id="password" />
+                    </div>
                 <ul class="error"><li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li></ul>
             </div>
-            <div>
-                <label for="confirmPassword" >
-                    Confirm Password:
-                </label>
-                <input type="password" name="confirmPassword" id="confirmPassword" />
+            <div class="form-group">
+                <label class="control-label col-md-3" for="confirmPassword" >Confirm:</label>
+                    <div class="col-md-8">
+                        <input type="password" name="confirmPassword" id="confirmPassword" />
+                    </div>
                 <ul class="error"><li th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></li></ul>
             </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
 
-            <button>Submit</button>
+            </div>
         </form>
 
     </div>
