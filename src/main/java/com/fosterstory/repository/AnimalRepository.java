@@ -32,4 +32,5 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer>{
     Page<Animal> search(String name, Integer typeId, Integer breedId, Integer id, Pageable pageable);
 
     Animal findById(Integer animalId);
+
 }

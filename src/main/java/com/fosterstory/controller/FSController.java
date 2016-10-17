@@ -6,10 +6,7 @@ import com.fosterstory.entity.Animal;
 import com.fosterstory.entity.Breed;
 import com.fosterstory.entity.Post;
 import com.fosterstory.entity.User;
-import com.fosterstory.service.AnimalService;
-import com.fosterstory.service.FSService;
-import com.fosterstory.service.TumblrService;
-import com.fosterstory.service.UserService;
+import com.fosterstory.service.*;
 import com.fosterstory.utility.PasswordStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,7 +45,9 @@ public class FSController {
     @Autowired
     AnimalService animalService;
 
-    // TODO: 10/5/16 search is broken
+    @Autowired
+    PostService postService;
+
     @RequestMapping(path = "/")
     public String list(Model model,
                        Search search,
@@ -196,7 +195,6 @@ public class FSController {
         return "/profile";
     }
 
-    // TODO: 10/4/16 story page
     @RequestMapping(path = "/story")
     public String story(Model model,
                         @Valid Animal animal,
@@ -257,18 +255,25 @@ public class FSController {
     @RequestMapping(path = "/viewStory")
     public String viewStory(Model model,
                             Integer animalId,
-                            Integer photoId) {
-        Animal animal = fsService.getAnimal(animalId);
-        /*if (!animal.getTumblr().equals("")) {
-            tumblrService.getPosts(animal.getTumblr());
-        } else if (!animal.getUser().getTumblr().equals("")) {
-            tumblrService.getPosts(animal.getUser().getTumblr());
+                            Integer photoId,
+                            Pageable pageable) {
+        Animal animal;
+        if (animalId != null) {
+            animal = fsService.getAnimal(animalId);
         } else {
-            tumblrService.getPosts("suncities4paws");
-        }*/
+            animal = new Animal();
+        }
+//        if (!animal.getTumblr().equals("")) {
+//            tumblrService.getPostsFromTumblr(animal.getTumblr());
+//        } else if (!animal.getUser().getTumblr().equals("")) {
+//            tumblrService.getPostsFromTumblr(animal.getUser().getTumblr());
+//        } else {
+//        tumblrService.getPostsFromTumblr("suncities4paws");
+        tumblrService.getPostsFromTumblr("");
+//        }
 
-        List<Post> posts = animalService.getPostsByAnimalId(animalId);
-
+//        List<Post> posts = animalService.getPostsByAnimalId(animalId);
+        Page<Post> posts = postService.listPosts(pageable);
         model.addAttribute("posts", posts);
         return "/viewStory";
     }

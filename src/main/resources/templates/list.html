@@ -9,6 +9,10 @@
 <!--/*@thymesVar id="search" type="com.fosterstory.bean.Search"*/-->
 <!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
 <!--/*@thymesVar id="animals" type="java.util.List<Animal>"*/-->
+<!--/*@thymesVar id="captions" type="java.util.List"*/-->
+<!--/*@thymesVar id="caption" type="java.lang.String"*/-->
+<!--/*@thymesVar id="posts" type="java.util.List<Post>"*/-->
+<!--/*@thymesVar id="post" type="com.fosterstory.entity.Post"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -93,12 +97,33 @@
     </div>
 
     <div class="row" id="animalTiles">
-        <div class="col-sm-4 animal-tile" th:each="animal : ${animals}">
-            <a href="details.html" th:href="@{....}"><img src="../static/images/" th:src="@{images/}" />
-                <div th:text="${animal.name}" class="animal-name">name</div>
-                <div th:text="${animal.getUser().getAddress().getCity()}" class="animal-city">city, ST</div>
-            </a>
+        <div th:each="post : ${posts}">
+            <div th:each="photoPost : ${post.photoPosts}">
+                <!--<div th:each="photo : ${photoPost.photos}">-->
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card image-->
+                    <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
+                         th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap" />
+                    <!--/.Card image-->
+
+                    <!--Card content-->
+                    <div class="card-block">
+                        <!--Title-->
+                        <!--<h4 class="card-title" th:text="">Card title</h4>-->
+                        <!--Text-->
+                        <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+                <!--/.Card-->
+                <!--</div>-->
+            </div>
         </div>
+
     </div>
     </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
