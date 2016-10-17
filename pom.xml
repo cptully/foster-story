@@ -6,7 +6,7 @@
 	<groupId>com.fosterstory</groupId>
 	<artifactId>fosterstory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>fosterstory</name>
 	<description>Fosterstory.com MVP</description>
