@@ -24,34 +24,37 @@
     </ul>
 </nav>
 
-<div class="container-fluid main-body">
+<div class="container col-md-4 main-body">
 
 <h2>Login</h2>
 
-<form action="login.html" th:action="@{/login}" th:object="${login}" method="post">
+<form class="form-horizontal" action="login.html" th:action="@{/login}" th:object="${login}" method="post">
     <p th:if="*{loginFailed}" class="error" >Login Failed!!!</p>
-
-    <input type="hidden" name="returnPath" id="returnPath" th:value="*{returnPath}" th:field="*{returnPath}"/>
-    <div>
-        <label for="email" >
-            Email:
-        </label>
-        <input type="email" name="email" id="email" value="" th:value="*{email}" th:field="*{email}" />
-        <ul class="error"><li th:each="err : ${#fields.errors('email')}" >Error!</li></ul>
+        <input type="hidden" name="returnPath" id="returnPath" th:value="*{returnPath}" th:field="*{returnPath}"/>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="email" >Email:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="email" name="email" id="email" value="" th:value="*{email}" th:field="*{email}" />
+                <ul class="error"><li th:each="err : ${#fields.errors('email')}" >Error!</li></ul>
+            </div>
     </div>
-
-    <div>
-        <label for="password">
-            Password:
-        </label>
-        <input type="password" name="password" id="password" value="" th:field="*{password}"/>
-        <ul class="error"><li th:each="err : ${#fields.errors('password')}" >Error!</li></ul>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="password">Password:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="password" name="password" id="password" value="" th:field="*{password}"/>
+                <ul class="error"><li th:each="err : ${#fields.errors('password')}" >Error!</li></ul>
+            </div>
     </div>
-    <div>
-         <button class="btn" >Login!</button>
+    <div class="form-group">
+        <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+                <button class="btn btn-primary" >Login!</button>
+            </div>
     </div>
-    <div>
-        <a href="register.html" th:href="@{/register}">Register a new account</a>
+    <div class="form-group">
+        <div class="col-md-8">
+            <a href="register.html" th:href="@{/register}"><h3>Register a new account</h3></a>
+        </div>
     </div>
 </form>
 </div>
