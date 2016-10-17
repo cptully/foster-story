@@ -78,7 +78,7 @@ public class FSController {
         model.addAttribute("search", search);
         model.addAttribute("pageable", pageable);
         model.addAttribute("animals", animals);
-        return "/list";
+        return "list";
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
@@ -86,7 +86,7 @@ public class FSController {
                            Model model,
                            HttpSession session) {
         model.addAttribute("user", user);
-        return "/register";
+        return "register";
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
@@ -114,7 +114,7 @@ public class FSController {
         model.addAttribute("user", user);
         model.addAttribute("bindingResult", bindingResult);
 
-        return "/register";
+        return "register";
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
@@ -207,7 +207,7 @@ public class FSController {
         }
 
         model.addAttribute("user", user);
-        return "/profile";
+        return "profile";
     }
 
     @RequestMapping(path = "/story", method = RequestMethod.GET)
@@ -220,7 +220,7 @@ public class FSController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "/story";
+            return "story";
         }
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
         model.addAttribute("user", user);
@@ -233,7 +233,7 @@ public class FSController {
         model.addAttribute("animal", animal);
         model.addAttribute("types", fsService.listTypes());
         model.addAttribute("breeds", fsService.listBreeds());
-        return "/story";
+        return "story";
     }
 
     @RequestMapping(path = "/story", method = RequestMethod.POST)
@@ -248,7 +248,7 @@ public class FSController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "/story";
+            return "story";
         }
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
         List<Animal> animals = user.getAnimals();
@@ -289,7 +289,7 @@ public class FSController {
                 return "redirect:/story";
             } catch (PasswordStorage.CannotPerformOperationException e) {
                 // set errors
-                return "/story";
+                return "story";
             }
         } else if ((action != null) && (action.equals("clear"))) {
             animal = new Animal();
@@ -302,7 +302,7 @@ public class FSController {
         }
 
         model.addAttribute("animal", animal);
-        return "/story";
+        return "story";
     }
 
     @RequestMapping(path = "/viewStory")
@@ -328,6 +328,6 @@ public class FSController {
 //        List<Post> posts = animalService.getPostsByAnimalId(animalId);
         Page<Post> posts = postService.listPosts(pageable);
         model.addAttribute("posts", posts);
-        return "/viewStory";
+        return "viewStory";
     }
 }
