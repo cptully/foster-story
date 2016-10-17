@@ -96,6 +96,11 @@ public class TumblrService {
         }
     }
 
+    /**
+     * 
+     * @param pageable
+     * @return
+     */
     public Page<com.fosterstory.entity.Post> getPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
