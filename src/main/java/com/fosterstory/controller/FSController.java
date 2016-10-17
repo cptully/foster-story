@@ -220,11 +220,50 @@ public class FSController {
         return "story";
     }
 
+    @RequestMapping(path = "/story/image", method = RequestMethod.POST)
+    public String storyImage(Model model,
+                        Animal animal,
+                        BindingResult bindingResult,
+                        @RequestParam(name = "file") MultipartFile file,
+                        String action,
+                        HttpSession session) {
+        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
+            return "redirect:/login?returnPath=/story";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "redirect:story";
+        }
+        User user = fsService.getUser((Integer) session.getAttribute("userId"));
+        List<Animal> animals = user.getAnimals();
+        model.addAttribute("animals", animals);
+        model.addAttribute("count", animals.size());
+        animal = animalService.findById(animal.getId());
+        model.addAttribute("animal", animal);
+        model.addAttribute("user", user);
+        model.addAttribute("types", fsService.listTypes());
+        model.addAttribute("breeds", fsService.listBreeds());
+
+        if (!file.isEmpty()) {
+            try {
+                Image image = new Image();
+                image.setImage(file.getBytes());
+                image.setContentType(file.getContentType());
+                animal.getImages().add(image);
+                fsService.saveAnimal(animal);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        model.addAttribute("animal", animal);
+        return "redirect:story";
+    }
+
     @RequestMapping(path = "/story", method = RequestMethod.POST)
     public String story(Model model,
                         @Valid Animal animal,
                         BindingResult bindingResult,
-                        @RequestParam(name = "file") MultipartFile file,
                         String action,
                         HttpSession session) {
         if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
@@ -251,17 +290,6 @@ public class FSController {
                         animal.setBreed(breed);
                     }
 
-                    if (!file.isEmpty()) {
-                        try {
-                            Image image = new Image();
-                            image.setImage(file.getBytes());
-                            image.setContentType(file.getContentType());
-                            animal.getImages().add(image);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
                     if (!user.getAnimals().contains(animal)) {
                         user.getAnimals().add(animal);
                         fsService.saveUser(user);
@@ -277,7 +305,7 @@ public class FSController {
             }
         } else if ((action != null) && (action.equals("clear"))) {
             animal = new Animal();
-        } else {
+        } else{
             if (animals.size() >= 1) {
                 animal = animals.get(animals.size() - 1);
             } else {

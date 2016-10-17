@@ -37,7 +37,6 @@ public class Animal {
     @Column(length = 5000)
     private String careInfo;
 
-    @org.hibernate.validator.constraints.URL
     @Column(length = 2048)
     private String tumblr;
 
@@ -46,7 +45,7 @@ public class Animal {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "animal_id")
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_fk")

@@ -1,6 +1,7 @@
 package com.fosterstory.service;
 
 import com.fosterstory.entity.Animal;
+import com.fosterstory.entity.Image;
 import com.fosterstory.entity.Post;
 import com.fosterstory.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,7 @@ public class AnimalService {
     }
 
 
+    public Animal findById(Integer id) {
+        return animalRepository.findById(id);
+    }
 }
