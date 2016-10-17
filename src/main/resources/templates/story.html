@@ -71,7 +71,8 @@
             </div>
 
             <div class="col-md-9 animal-story">
-                <form class="form-horizontal" id="animal-edit" role="form" action="story.html" th:href="@{/story}" method="post" th:object="${animal}">
+                <form class="form-horizontal" id="animal-edit" role="form" action="story.html" enctype="multipart/form-data"
+                      th:href="@{/story}" method="post" th:object="${animal}">
                     <div class="form-group leftColumn">
                         <div id="stats">
                             <input type="hidden" name="id" id="id" th:value="*{id}" />

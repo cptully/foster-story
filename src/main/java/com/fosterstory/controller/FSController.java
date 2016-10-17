@@ -2,10 +2,7 @@ package com.fosterstory.controller;
 
 import com.fosterstory.bean.Login;
 import com.fosterstory.bean.Search;
-import com.fosterstory.entity.Animal;
-import com.fosterstory.entity.Breed;
-import com.fosterstory.entity.Post;
-import com.fosterstory.entity.User;
+import com.fosterstory.entity.*;
 import com.fosterstory.service.*;
 import com.fosterstory.utility.PasswordStorage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +16,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -47,6 +46,9 @@ public class FSController {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    ImageService imageService;
 
     @RequestMapping(path = "/")
     public String list(Model model,
@@ -195,10 +197,37 @@ public class FSController {
         return "/profile";
     }
 
-    @RequestMapping(path = "/story")
+    @RequestMapping(path = "/story", method = RequestMethod.GET)
     public String story(Model model,
                         @Valid Animal animal,
                         BindingResult bindingResult,
+                        HttpSession session) {
+        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
+            return "redirect:/login?returnPath=/story";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "/story";
+        }
+        User user = fsService.getUser((Integer) session.getAttribute("userId"));
+        model.addAttribute("user", user);
+        List<Animal> animals = user.getAnimals();
+        model.addAttribute("animals", animals);
+        model.addAttribute("count", animals.size());
+        if (animals.size() > 0) {
+            animal = animals.get(animals.size() - 1);
+        }
+        model.addAttribute("animal", animal);
+        model.addAttribute("types", fsService.listTypes());
+        model.addAttribute("breeds", fsService.listBreeds());
+        return "/story";
+    }
+
+    @RequestMapping(path = "/story", method = RequestMethod.POST)
+    public String story(Model model,
+                        @Valid Animal animal,
+                        BindingResult bindingResult,
+                        @RequestParam(name = "file") MultipartFile file,
                         String action,
                         HttpSession session) {
         if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
@@ -223,6 +252,17 @@ public class FSController {
                     if (animal.getBreed() == null) {
                         Breed breed = fsService.getBreedById(animal.getBreed().getId());
                         animal.setBreed(breed);
+                    }
+
+                    if (!file.isEmpty()) {
+                        try {
+                            Image image = new Image();
+                            image.setImage(file.getBytes());
+                            image.setContentType(file.getContentType());
+                            animal.getImages().add(image);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     if (!user.getAnimals().contains(animal)) {
