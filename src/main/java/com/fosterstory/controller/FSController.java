@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -49,6 +50,18 @@ public class FSController {
 
     @Autowired
     ImageService imageService;
+
+    //@Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("list");
+        registry.addViewController("/about").setViewName("about");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/profile").setViewName("profile");
+        registry.addViewController("/register").setViewName("register");
+        registry.addViewController("/story").setViewName("story");
+        registry.addViewController("/viewStory").setViewName("viewStory");
+    }
+
 
     @RequestMapping(path = "/")
     public String list(Model model,
