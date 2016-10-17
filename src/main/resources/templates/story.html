@@ -140,7 +140,7 @@
                             <script type="text/javascript">
                                 $(function() {
                                     $('input[name="adoption-date"]').daterangepicker({
-                                        singleDatePicker: true,
+                                        singleDatePicker: true,lo
                                         showDropdowns: true
                                     },
                                 });
@@ -152,9 +152,10 @@
                             <img id="tumblr-logo" src="../static/images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png"
                                  th:src="@{images/tumblr_logotype_whiteonblue/tumblr_logotype_whiteonblue_128.png}" alt="Tumblr logo" />
                         </label>
-                        <div class="col-lg-8">
-                            <input class="form-control" type="url" name="tumblr" id="tumblr" th:value="*{tumblr}" placeholder="blog name"/>.tumblr.com
+                        <div class="col-lg-6">
+                            <input class="form-control" type="url" name="tumblr" id="tumblr" th:value="*{tumblr}" placeholder="blog name"/>
                         </div>
+                        <div class="control-label col-lg-2 pull-left">.tumblr.com</div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label" for="story">Animal's Rescue Story</label>
