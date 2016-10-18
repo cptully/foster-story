@@ -248,6 +248,34 @@ public class FSController {
         }
     }
 
+    @GetMapping("/story/feature")
+    @ResponseBody
+    public ResponseEntity feature(Integer imageId) throws URISyntaxException {
+
+
+
+        if ((imageId != null) && (imageService.findOne(imageId).getContentType() != null)){
+            Image image = imageService.findOne(imageId);
+            return ResponseEntity
+                    .ok()
+                    .header(HttpHeaders.CONTENT_TYPE, image.getContentType())
+                    .body(image.getImage());
+        } else {
+            return ResponseEntity
+                    .status(301)
+                    .location(new URI("//placehold.it/100"))
+                    .build();
+        }
+    }
+
+    @RequestMapping(path = "/story/images")
+    public String images(Model model) {
+        List<Image> images = imageService.findAll();
+        model.addAttribute("images", images);
+
+        return "images";
+    }
+
     @RequestMapping(path = "/story/image", method = RequestMethod.POST)
     public String storyImage(Model model,
                              Integer animalId,
@@ -369,4 +397,5 @@ public class FSController {
         model.addAttribute("posts", posts);
         return "viewStory";
     }
+
 }

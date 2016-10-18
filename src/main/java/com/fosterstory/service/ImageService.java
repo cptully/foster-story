@@ -5,6 +5,8 @@ import com.fosterstory.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by chris on 10/16/16.
  */
@@ -16,5 +18,9 @@ public class ImageService {
 
     public Image findOne(Integer id) {
         return imageRepository.findOne(id);
+    }
+
+    public List<Image> findAll() {
+        return imageRepository.findAll();
     }
 }
