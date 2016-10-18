@@ -116,3 +116,8 @@ hr {
     margin-top: 5px;
     margin-bottom: 0px;
 }
+
+#feature {
+    width: 900px;
+    height: 425px;
+}

@@ -268,6 +268,7 @@ public class FSController {
         }
     }
 
+    // TODO: 10/18/16 make this work....
     @RequestMapping(path = "/story/images")
     public String images(Model model) {
         List<Image> images = imageService.findAll();
