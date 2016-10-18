@@ -32,9 +32,27 @@
     <header class="row" th:replace="fragments/pageHead :: pageHead">
         <h1>Foster Story</h1>
     </header>
-    <div class="container-fluid main-body">
+    <div class="container main-body">
 
-    <form class="form-vertical well" id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="" />
+            </div>
+            <!-- /.col-md-8 -->
+            <div class="col-md-4">
+                <h1>Business Name or Tagline</h1>
+                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it,
+                    but it makes a great use of the standard Bootstrap core components. Feel free to use this template
+                    for any project you want!</p>
+                <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+    </div>
+    <hr />
+    <div class="container-fluid" >
+
+        <form class="form-vertical well" id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
         <h3>Search Foster Stories:</h3>
         <div class="row">
             <div class="col-md-2">
@@ -127,6 +145,8 @@
     </div>
     </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </body>
 </html>

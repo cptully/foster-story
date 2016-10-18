@@ -45,7 +45,7 @@
                         <a th:href="@{/about}" href="../about.html">About Us</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{/story}" href="../story.html">Post Animal Story</a></li>
                             <li><a th:href="@{/profile}" href="../profile.html">Edit my Profile</a></li>
@@ -54,6 +54,7 @@
                         </ul>
                     </li>
                 </ul>
+                <div th:if="${user}" th:utext="'Welcome,  ' + ${user.nickName}"></div>
             </nav>
         </div>
     </header>

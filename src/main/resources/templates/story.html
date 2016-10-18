@@ -10,6 +10,7 @@
 <!--/*@thymesVar id="breeds" type="java.util.ArrayList<Breed>"*/-->
 <!--/*@thymesVar id="animals" type="java.util.ArrayList<Animal>"*/-->
 <!--/*@thymesVar id="count" type="java.lang.Integer"*/-->
+<!--/*@thymesVar id="imageId" type="java.lang.Integer"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -49,9 +50,9 @@
                 <form class="form-horizontal" id="animal-image" role="form" action="story.html"
                       enctype="multipart/form-data"
                       th:action="@{/story/image}" method="post" th:object="${animal}">
-                    <input type="hidden" name="id" id="id" th:value="${animal.id}"/>
+                    <input type="hidden" name="animalId" id="animalId" th:value="${animal.id}"/>
                     <div class="text-center">
-                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar"/>
+                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" th:src="@{/story/image(id=${imageId})}"/>
                         <h6>Upload Main Image</h6>
                         <input type="file" name="file" id="file" class="form-control"/>
                         <button class="btn" type="submit" id="saveImage" name="action" value="file">Add image</button>

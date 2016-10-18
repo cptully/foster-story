@@ -1,5 +1,7 @@
 package com.fosterstory.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,8 +16,7 @@ public class Image {
     @GeneratedValue
     private Integer id;
 
-    @Lob
-    @Basic(fetch= FetchType.EAGER)
+    @Basic(fetch= FetchType.LAZY)
     private byte[] image;
 
     private String contentType;

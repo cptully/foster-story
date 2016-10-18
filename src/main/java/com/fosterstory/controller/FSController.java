@@ -9,19 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -206,6 +208,8 @@ public class FSController {
             return "redirect:/login?returnPath=/story";
         }
 
+        Integer imageId;
+
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
         model.addAttribute("user", user);
         List<Animal> animals = user.getAnimals();
@@ -215,30 +219,49 @@ public class FSController {
             animal = animals.get(animals.size() - 1);
         }
         model.addAttribute("animal", animal);
+        if (animal.getImages().size() > 0) {
+            imageId = animal.getImages().get(animal.getImages().size() - 1).getId();
+        } else {
+            imageId = null;
+        }
+        model.addAttribute("imageId", imageId);
         model.addAttribute("types", fsService.listTypes());
         model.addAttribute("breeds", fsService.listBreeds());
         return "story";
     }
 
+    @GetMapping("/story/image")
+    @ResponseBody
+    public ResponseEntity serveFile(Integer id) throws URISyntaxException {
+
+        if ((id != null) && (imageService.findOne(id).getContentType() != null)){
+            Image image = imageService.findOne(id);
+            return ResponseEntity
+                    .ok()
+                    .header(HttpHeaders.CONTENT_TYPE, image.getContentType())
+                    .body(image.getImage());
+        } else {
+            return ResponseEntity
+                    .status(301)
+                    .location(new URI("//placehold.it/100"))
+                    .build();
+        }
+    }
+
     @RequestMapping(path = "/story/image", method = RequestMethod.POST)
     public String storyImage(Model model,
-                        Animal animal,
-                        BindingResult bindingResult,
-                        @RequestParam(name = "file") MultipartFile file,
-                        String action,
-                        HttpSession session) {
+                             Integer animalId,
+                             @RequestParam(name = "file") MultipartFile file,
+                             HttpSession session) {
         if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
             return "redirect:/login?returnPath=/story";
         }
 
-        if (bindingResult.hasErrors()) {
-            return "redirect:story";
-        }
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
         List<Animal> animals = user.getAnimals();
         model.addAttribute("animals", animals);
         model.addAttribute("count", animals.size());
-        animal = animalService.findById(animal.getId());
+        Animal animal = animalService.findById(animalId);
         model.addAttribute("animal", animal);
         model.addAttribute("user", user);
         model.addAttribute("types", fsService.listTypes());
@@ -247,6 +270,10 @@ public class FSController {
         if (!file.isEmpty()) {
             try {
                 Image image = new Image();
+                if (file.getBytes().length > 1000000000) {
+                    // TODO: 10/18/16 invalid file size error
+                    //spew error
+                }
                 image.setImage(file.getBytes());
                 image.setContentType(file.getContentType());
                 animal.getImages().add(image);
@@ -257,7 +284,7 @@ public class FSController {
         }
 
         model.addAttribute("animal", animal);
-        return "redirect:story";
+        return "redirect:/story";
     }
 
     @RequestMapping(path = "/story", method = RequestMethod.POST)

@@ -43,7 +43,7 @@ public class Animal {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "animal")
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "animal_id")
     private List<Image> images = new ArrayList<>();
 
