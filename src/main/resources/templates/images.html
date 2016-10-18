@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--/*@thymesVar id="images" type="java.util.List<Image>"*/-->
+<!--/*@thymesVar id="image" type="com.fosterstory.entity.Image"*/-->
 <head>
     <meta charset="UTF-8" />
     <title>Images</title>
@@ -23,7 +25,7 @@
 <body>
 
     <ul>
-        <li th:each="${image : ${Images}}"
+        <li th:each="image : ${Images}"
             th:text="${image.id}"></li>
     </ul>
 
