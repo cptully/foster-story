@@ -175,7 +175,7 @@ public class Animal {
 
         Animal animal = (Animal) o;
 
-        return getId().equals(animal.getId());
+        return ((getId() != null) && (getId().equals(animal.getId())));
 
     }
 

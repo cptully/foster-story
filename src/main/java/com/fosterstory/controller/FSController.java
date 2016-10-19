@@ -230,6 +230,63 @@ public class FSController {
         return "story";
     }
 
+    @RequestMapping(path = "/story", method = RequestMethod.POST)
+    public String story(Model model,
+                        @Valid Animal animal,
+                        BindingResult bindingResult,
+                        String action,
+                        HttpSession session) {
+        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
+            return "redirect:/login?returnPath=/story";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "story";
+        }
+        User user = fsService.getUser((Integer) session.getAttribute("userId"));
+        List<Animal> animals = user.getAnimals();
+        model.addAttribute("animals", animals);
+        model.addAttribute("count", animals.size());
+        model.addAttribute("user", user);
+        model.addAttribute("types", fsService.listTypes());
+        model.addAttribute("breeds", fsService.listBreeds());
+
+        if ((action != null) && (action.equals("save"))) {
+            try {
+                if (animal != null) {
+                    animal.setUser(user);
+                    if (animal.getBreed() == null) {
+                        Breed breed = fsService.getBreedById(animal.getBreed().getId());
+                        animal.setBreed(breed);
+                    }
+
+                    if (!user.getAnimals().contains(animal)) {
+                        user.getAnimals().add(animal);
+                        fsService.saveUser(user);
+                    } else {
+                        fsService.saveAnimal(animal);
+                    }
+                }
+                model.addAttribute("animal", animal);
+                return "redirect:/story";
+            } catch (PasswordStorage.CannotPerformOperationException e) {
+                // set errors
+                return "story";
+            }
+        } else if ((action != null) && (action.equals("clear"))) {
+            animal = new Animal();
+        } else{
+            if (animals.size() >= 1) {
+                animal = animals.get(animals.size() - 1);
+            } else {
+                animal = new Animal();
+            }
+        }
+
+        model.addAttribute("animal", animal);
+        return "story";
+    }
+
     @GetMapping("/story/image")
     @ResponseBody
     public ResponseEntity serveFile(Integer id) throws URISyntaxException {
@@ -314,63 +371,6 @@ public class FSController {
 
         model.addAttribute("animal", animal);
         return "redirect:/story";
-    }
-
-    @RequestMapping(path = "/story", method = RequestMethod.POST)
-    public String story(Model model,
-                        @Valid Animal animal,
-                        BindingResult bindingResult,
-                        String action,
-                        HttpSession session) {
-        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
-            return "redirect:/login?returnPath=/story";
-        }
-
-        if (bindingResult.hasErrors()) {
-            return "story";
-        }
-        User user = fsService.getUser((Integer) session.getAttribute("userId"));
-        List<Animal> animals = user.getAnimals();
-        model.addAttribute("animals", animals);
-        model.addAttribute("count", animals.size());
-        model.addAttribute("user", user);
-        model.addAttribute("types", fsService.listTypes());
-        model.addAttribute("breeds", fsService.listBreeds());
-
-        if ((action != null) && (action.equals("save"))) {
-            try {
-                if (animal != null) {
-                    animal.setUser(user);
-                    if (animal.getBreed() == null) {
-                        Breed breed = fsService.getBreedById(animal.getBreed().getId());
-                        animal.setBreed(breed);
-                    }
-
-                    if (!user.getAnimals().contains(animal)) {
-                        user.getAnimals().add(animal);
-                        fsService.saveUser(user);
-                    } else {
-                        fsService.saveAnimal(animal);
-                    }
-                }
-                model.addAttribute("animal", animal);
-                return "redirect:/story";
-            } catch (PasswordStorage.CannotPerformOperationException e) {
-                // set errors
-                return "story";
-            }
-        } else if ((action != null) && (action.equals("clear"))) {
-            animal = new Animal();
-        } else{
-            if (animals.size() >= 1) {
-                animal = animals.get(animals.size() - 1);
-            } else {
-                animal = new Animal();
-            }
-        }
-
-        model.addAttribute("animal", animal);
-        return "story";
     }
 
     @RequestMapping(path = "/viewStory")
