@@ -202,6 +202,7 @@ public class FSController {
 
     @RequestMapping(path = "/story", method = RequestMethod.GET)
     public String story(Model model,
+                        @RequestParam(defaultValue = "0") Integer animalId,
                         Animal animal,
                         HttpSession session) {
         if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
@@ -215,7 +216,9 @@ public class FSController {
         List<Animal> animals = user.getAnimals();
         model.addAttribute("animals", animals);
         model.addAttribute("count", animals.size());
-        if (animals.size() > 0) {
+        if (animalId != 0) {
+            animal = animalService.findById(animalId);
+        } else if (animals.size() > 0) {
             animal = animals.get(animals.size() - 1);
         }
         model.addAttribute("animal", animal);
@@ -243,6 +246,9 @@ public class FSController {
         if (bindingResult.hasErrors()) {
             return "story";
         }
+
+        Integer imageId;
+
         User user = fsService.getUser((Integer) session.getAttribute("userId"));
         List<Animal> animals = user.getAnimals();
         model.addAttribute("animals", animals);
@@ -250,7 +256,12 @@ public class FSController {
         model.addAttribute("user", user);
         model.addAttribute("types", fsService.listTypes());
         model.addAttribute("breeds", fsService.listBreeds());
-
+        if (animal.getImages().size() > 0) {
+            imageId = animal.getImages().get(animal.getImages().size() - 1).getId();
+        } else {
+            imageId = null;
+        }
+        model.addAttribute("imageId", imageId);
         if ((action != null) && (action.equals("save"))) {
             try {
                 if (animal != null) {
@@ -287,24 +298,6 @@ public class FSController {
         return "story";
     }
 
-    @GetMapping("/story/image")
-    @ResponseBody
-    public ResponseEntity serveFile(Integer id) throws URISyntaxException {
-
-        if ((id != null) && (imageService.findOne(id).getContentType() != null)){
-            Image image = imageService.findOne(id);
-            return ResponseEntity
-                    .ok()
-                    .header(HttpHeaders.CONTENT_TYPE, image.getContentType())
-                    .body(image.getImage());
-        } else {
-            return ResponseEntity
-                    .status(301)
-                    .location(new URI("//placehold.it/100"))
-                    .build();
-        }
-    }
-
     @GetMapping("/story/feature")
     @ResponseBody
     public ResponseEntity feature(Integer imageId) throws URISyntaxException {
@@ -333,6 +326,25 @@ public class FSController {
 
         return "images";
     }
+
+    @GetMapping("/story/image")
+    @ResponseBody
+    public ResponseEntity serveFile(Integer id) throws URISyntaxException {
+
+        if ((id != null) && (imageService.findOne(id).getContentType() != null)){
+            Image image = imageService.findOne(id);
+            return ResponseEntity
+                    .ok()
+                    .header(HttpHeaders.CONTENT_TYPE, image.getContentType())
+                    .body(image.getImage());
+        } else {
+            return ResponseEntity
+                    .status(301)
+                    .location(new URI("//placehold.it/100"))
+                    .build();
+        }
+    }
+
 
     @RequestMapping(path = "/story/image", method = RequestMethod.POST)
     public String storyImage(Model model,
@@ -369,8 +381,8 @@ public class FSController {
             }
         }
 
-        model.addAttribute("animal", animal);
-        return "redirect:/story";
+//        model.addAttribute("animal", animal);
+        return "redirect:/story?animalId=" + animalId;
     }
 
     @RequestMapping(path = "/viewStory")

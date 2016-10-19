@@ -121,3 +121,8 @@ hr {
     /*width: 900px;*/
     /*height: 425px;*/
 /*}*/
+
+#select-hr {
+    border-top: 2px solid #425370;
+    margin-bottom: 10px;
+}

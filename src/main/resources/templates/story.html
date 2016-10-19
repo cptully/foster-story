@@ -52,7 +52,7 @@
                       th:action="@{/story/image}" method="post" th:object="${animal}">
                     <input type="hidden" name="animalId" id="animalId" th:value="${animal.id}"/>
                     <div class="text-center">
-                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" th:src="@{/story/image(id=${imageId})}"/>
+                        <img src="//placehold.it/100" name="imageId" id="imageId" class="avatar img-circle" alt="avatar" th:src="@{/story/image(id=${imageId})}"/>
                         <h6>Upload Main Image</h6>
                         <input type="file" name="file" id="file" class="form-control"/>
                         <button class="btn" type="submit" id="saveImage" name="action" value="file">Add image</button>
@@ -62,7 +62,7 @@
             <div class="col-md-9 animal-story">
                 <form class="form-horizontal" id="pick-animal" role="form" action="story.html"
                       th:action="@{/story}" method="post" th:object="${animals}">
-                    <div class="form-group" th:if="${count >1}">
+                    <div class="form-group" th:if="${count} > 1">
                         <label class="col-lg-3 control-label" for="animal-select">Select Animal</label>
                         <div class="col-lg-8">
                             <div class="ui-select">
@@ -73,6 +73,7 @@
                                             th:text="${animal1.name}"
                                             th:selected="${animal1} == ${animal}">rover</option>
                                 </select>
+                                <hr id="select-hr"/>
                             </div>
                         </div>
                     </div>
