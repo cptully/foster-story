@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,22 +29,19 @@ public class TumblrService {
     @Autowired
     PostRepository postRepository;
 
-    // get Tumblr keys from environment
-    private String consumer_key;
-    private String consumer_secret;
-
     // Create a new client
     private JumblrClient client;
-
-
+    private LocalDateTime lastTumblrPull;
+    private final long REFRESH_LIMIT = 10;
 
     public TumblrService() {
         // get Tumblr keys from environment
-        this.consumer_key = System.getenv("consumer_key");
-        this.consumer_secret = System.getenv("consumer_secret");
+        String consumer_key = System.getenv("consumer_key");
+        String consumer_secret = System.getenv("consumer_secret");
 
         // Create a new client
         this.client = new JumblrClient(consumer_key, consumer_secret);
+        this.lastTumblrPull = LocalDateTime.now().minusMinutes(REFRESH_LIMIT);
     }
 
     public void getPostsFromTumblr(String blogUrl) {
@@ -53,46 +52,52 @@ public class TumblrService {
 
         List<Post> tumblrPosts;
 
-        // retrieve the blog
-        if (!blogUrl.equals("")) {
-            String blogName = blogUrl + ".tumblr.com";
+        if (ChronoUnit.MINUTES.between(lastTumblrPull, LocalDateTime.now()) > REFRESH_LIMIT) {
+            // retrieve the blog
+            if (!blogUrl.equals("")) {
+                String blogName = blogUrl + ".tumblr.com";
 
-            options.put("limit", 5);
-            options.put("tag", "animal rescue");
+                options.put("limit", 5);
+                options.put("tag", "animal rescue");
 
-            // request the blog posts
-            tumblrPosts = client.blogPosts(blogName, options);
-        } else {
-            tumblrPosts = client.tagged("animal rescue", options);
-        }
+                // request the blog posts
+                tumblrPosts = client.blogPosts(blogName, options);
+            } else {
+                tumblrPosts = client.tagged("animal rescue", options);
+            }
 
-        // process the return for our purposes
-        com.fosterstory.entity.Post post;
-        com.fosterstory.entity.PhotoPost photoPost;
-        List<Photo> tumblrPhotos;
+            this.lastTumblrPull = LocalDateTime.now();
 
-        // iterate over posts archiving photo links
-        for (Post tumblrPost : tumblrPosts) {
-            post = new com.fosterstory.entity.Post();
-            if (tumblrPost.getType().equals("photo")) {
-                post.setContent(((PhotoPost) tumblrPost).getCaption());
-                tumblrPhotos = ((PhotoPost) tumblrPost).getPhotos();
-                photoPost = new com.fosterstory.entity.PhotoPost();
 
-                for (Photo tumblrPhoto : tumblrPhotos) {
-                    photoPost.setPermalink(tumblrPhoto.getSizes().get(0).getUrl());
-                    int tumblrPhotoCount = tumblrPhoto.getSizes().size();
-                    for (int i = 0; i < tumblrPhotoCount; i++) {
-                        photoPost.getPhotos().add(new com.fosterstory.entity.Photo(
-                                tumblrPhoto.getSizes().get(i).getUrl(),
-                                tumblrPhoto.getSizes().get(i).getHeight(),
-                                tumblrPhoto.getSizes().get(i).getWidth()
-                        ));
+            // process the return for our purposes
+            com.fosterstory.entity.Post post;
+            com.fosterstory.entity.PhotoPost photoPost;
+            List<Photo> tumblrPhotos;
+
+            // iterate over posts archiving photo links
+            for (Post tumblrPost : tumblrPosts) {
+                post = new com.fosterstory.entity.Post();
+                post.setPostUrl(tumblrPost.getPostUrl());
+                if (tumblrPost.getType().equals("photo")) {
+                    post.setCaption(((PhotoPost) tumblrPost).getCaption());
+                    tumblrPhotos = ((PhotoPost) tumblrPost).getPhotos();
+                    photoPost = new com.fosterstory.entity.PhotoPost();
+
+                    for (Photo tumblrPhoto : tumblrPhotos) {
+                        photoPost.setPermalink(tumblrPhoto.getSizes().get(0).getUrl());
+                        int tumblrPhotoCount = tumblrPhoto.getSizes().size();
+                        for (int i = 0; i < tumblrPhotoCount; i++) {
+                            photoPost.getPhotos().add(new com.fosterstory.entity.Photo(
+                                    tumblrPhoto.getSizes().get(i).getUrl(),
+                                    tumblrPhoto.getSizes().get(i).getHeight(),
+                                    tumblrPhoto.getSizes().get(i).getWidth()
+                            ));
+                        }
                     }
+                    post.getPhotoPosts().add(photoPost);
+                    photoPost.setPost(post);
+                    postRepository.save(post);
                 }
-                post.getPhotoPosts().add(photoPost);
-                photoPost.setPost(post);
-                postRepository.save(post);
             }
         }
     }

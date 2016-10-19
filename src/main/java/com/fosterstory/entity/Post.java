@@ -25,7 +25,9 @@ public class Post {
 
     @ElementCollection
     @Column(length = 20000)
-    private List<String> content;
+    private List<String> caption;
+
+    private String postUrl;
 
     public Post() {}
 
@@ -66,20 +68,27 @@ public class Post {
         this.animal = animal;
     }
 
-    public List<String> getContent() {
-        return content;
+    public List<String> getCaption() {
+        return caption;
     }
 
-    public void setContent(List<String> content) {
-        this.content = content;
+    public void setCaption(List<String> caption) {
+        this.caption = caption;
     }
 
-    public void setContent(String content) {
+    public void setCaption(String content) {
         List<String> lines = Arrays.asList(content.split("</p>"));
-        this.content = new ArrayList<>();
+        this.caption = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
-            this.content.add(lines.get(i).replace("<p>", ""));
+            this.caption.add(lines.get(i).replace("<p>", ""));
         }
     }
 
+    public String getPostUrl() {
+        return postUrl;
+    }
+
+    public void setPostUrl(String postUrl) {
+        this.postUrl = postUrl;
+    }
 }

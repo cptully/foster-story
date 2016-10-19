@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class FSController {
     @RequestMapping(path = "/")
     public String list(Model model,
                        Search search,
-                       @PageableDefault(size = 9) Pageable pageable,
+                       @PageableDefault(size = 12) Pageable pageable,
                        String action,
                        HttpSession session) {
         Integer userId = (Integer) session.getAttribute("userId");
@@ -71,11 +72,20 @@ public class FSController {
 
 
         Page<Animal> animals = fsService.listAnimals(search, pageable);
+        List<Integer> imageIds = new ArrayList<>();
+        model.addAttribute("animals", animals);
+        for (Animal animal : animals) {
+            if (animal.getImages().size() > 0) {
+                imageIds.add(animal.getImages().get(animal.getImages().size() - 1).getId());
+            } else {
+                imageIds.add(0);
+            }
+        }
+        model.addAttribute("imageIds", imageIds);
         model.addAttribute("types", fsService.listTypes());
         model.addAttribute("breeds", fsService.listBreeds());
         model.addAttribute("search", search);
         model.addAttribute("pageable", pageable);
-        model.addAttribute("animals", animals);
         model.addAttribute("user", user);
 
         tumblrService.getPostsFromTumblr("");
@@ -316,8 +326,6 @@ public class FSController {
     @ResponseBody
     public ResponseEntity feature(Integer imageId) throws URISyntaxException {
 
-
-
         if ((imageId != null) && (imageService.findOne(imageId).getContentType() != null)){
             Image image = imageService.findOne(imageId);
             return ResponseEntity
@@ -343,10 +351,10 @@ public class FSController {
 
     @GetMapping("/story/image")
     @ResponseBody
-    public ResponseEntity serveFile(Integer id) throws URISyntaxException {
+    public ResponseEntity serveFile(Integer imageId) throws URISyntaxException {
 
-        if ((id != null) && (imageService.findOne(id).getContentType() != null)){
-            Image image = imageService.findOne(id);
+        if ((imageId != null) && (imageService.findOne(imageId).getContentType() != null)){
+            Image image = imageService.findOne(imageId);
             return ResponseEntity
                     .ok()
                     .header(HttpHeaders.CONTENT_TYPE, image.getContentType())
@@ -401,28 +409,25 @@ public class FSController {
 
     @RequestMapping(path = "/viewStory")
     public String viewStory(Model model,
-                            Integer animalId,
-                            Integer photoId,
-                            Pageable pageable) {
-        Animal animal;
-        if (animalId != null) {
-            animal = fsService.getAnimal(animalId);
-        } else {
-            animal = new Animal();
+                            @RequestParam Integer animalId,
+                            HttpSession session) {
+        if (animalId == null) {
+            return "redirect:/list";
         }
-//        if (!animal.getTumblr().equals("")) {
-//            tumblrService.getPostsFromTumblr(animal.getTumblr());
-//        } else if (!animal.getUser().getTumblr().equals("")) {
-//            tumblrService.getPostsFromTumblr(animal.getUser().getTumblr());
-//        } else {
-//        tumblrService.getPostsFromTumblr("suncities4paws");
-        tumblrService.getPostsFromTumblr("");
-//        }
 
-//        List<Post> posts = animalService.getPostsByAnimalId(animalId);
-        tumblrService.getPostsFromTumblr("");
-        Page<PhotoPost> posts = photoPostService.listPosts(pageable);
-        model.addAttribute("posts", posts);
+        Animal animal = fsService.getAnimal(animalId);
+//        tumblrService.getPostsFromTumblr("");
+
+//        Page<PhotoPost> posts = photoPostService.listPosts(pageable);
+//        model.addAttribute("posts", posts);
+        Integer imageId;
+        if (animal.getImages().size() > 0) {
+            imageId = animal.getImages().get(animal.getImages().size() - 1).getId();
+        } else {
+            imageId = 0;
+        }
+        model.addAttribute("imageId", imageId);
+        model.addAttribute("animal", animal);
         return "viewStory";
     }
 

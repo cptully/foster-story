@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:overflow="http://www.w3.org/1999/xhtml"
+      xmlns:text-overflow="http://www.w3.org/1999/xhtml">
 <!--/*@thymesVar id="user" type="com.fosterstory.entity.User"*/-->
 <!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
 <!--/*@thymesVar id="breed" type="com.fosterstory.entity.Breed"*/-->
@@ -14,6 +15,7 @@
 <!--/*@thymesVar id="post" type="com.fosterstory.entity.Post"*/-->
 <!--/*@thymesVar id="photoPosts" type="java.util.List<PhotoPost>"*/-->
 <!--/*@thymesVar id="photoPost" type="com.fosterstory.entity.PhotoPost"*/-->
+<!--/*@thymesVar id="imageIds" type="java.util.List<Integer>"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -44,10 +46,10 @@
         <div class="col-md-4 col-xs-12">
             <h1>Shadow</h1>
             <p>Shadow is an energetic ball chaser. He is very friendly and will lick you to death if
-                given the chance. But throw a ball and is will be off chasing it until you arm is too
-                tired to throw again. As the child of working dogs in Texas he also loves hearding people
+                given the chance. But throw a ball and he will be off chasing it until you arm is too
+                tired to throw again. As the child of working dogs in Texas he also loves herding people
                 and other animals.</p>
-            <a class="btn btn-primary btn-lg" th:href="@{/viewStory(animalId=636)}">My Story</a>
+            <a class="btn btn-primary btn-lg" th:href="@{/viewStory(animalId=630)}">My Story</a>
         </div>
         <!-- /.col-md-4 -->
     </div>
@@ -116,61 +118,48 @@
 
     </form>
 
-    <div class="row" id="featureStory">
-        <img/>
-        <div class="textBody"></div>
-    </div>
-
-    <!--
-            <div class="row" id="localPosts">
-                <div th:each="post : ${posts}">
-                    <div th:each="photoPost : ${post.photoPosts}">
-                        &lt;!&ndash;<div th:each="photo : ${photoPost.photos}">&ndash;&gt;
-                        &lt;!&ndash;Card&ndash;&gt;
-                        <div class="card">
-
-                            &lt;!&ndash;Card image&ndash;&gt;
-                            <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                                 th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap" />
-                            &lt;!&ndash;/.Card image&ndash;&gt;
-
-                            &lt;!&ndash;Card content&ndash;&gt;
-                            <div class="card-block">
-                                &lt;!&ndash;Title&ndash;&gt;
-                                &lt;!&ndash;<h4 class="card-title" th:text="">Card title</h4>&ndash;&gt;
-                                &lt;!&ndash;Text&ndash;&gt;
-                                <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
-                            </div>
-                            &lt;!&ndash;/.Card content&ndash;&gt;
-
+    <div class="container">
+        <h3>Search results</h3>
+        <div class="row" id="localPosts">
+            <div th:each="animal, stat : ${animals}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-image-div">
+                            <img class="img-fluid card-image card-img-top img-responsive"
+                                 src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
+                                 th:src="@{/story/image(id=|imageIds[${stat.index}]|)}"
+                                 alt="Card image cap"/>
                         </div>
-                        &lt;!&ndash;/.Card&ndash;&gt;
-                        &lt;!&ndash;</div>&ndash;&gt;
+                        <div class="card-block">
+                            <!--<p class="card-text" th:text="${photoPost.post.caption}">Some quick example text to build on-->
+                            <!--the card title and make up the bulk of the card's caption.</p>-->
+                            <!--<a th:href="${photoPost.post.postUrl}" target="_blank" class="btn btn-primary">Tumblr</a>-->
+                        </div>
                     </div>
                 </div>
             </div>
-    -->
+        </div>
+    </div>
+
     <div class="container">
+        <h3>Animal Rescue Posts from Tumblr</h3>
         <div class="row" id="tumblrPosts">
             <div th:each="photoPost : ${photoPosts}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="card">
-                        <img class="img-fluid card-img-top img-responsive"
-                             src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                             th:src="${photoPost.permalink}"
-                             th:alt="${photoPost.post.content}" alt="Card image cap"/>
-                        <div class="card-block">
-                            <p class="card-text" th:text="${photoPost.post.content}">Some quick example text to build on
-                                the card title and make up the bulk of the card's content.</p>
-                            <a th:href="${photoPost.permalink}" class="btn btn-primary">Tumblr</a>
+                        <div class="card-image-div">
+                            <img class="img-fluid card-image card-img-top img-responsive"
+                                 src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
+                                 th:src="${photoPost.permalink}"
+                                 th:alt="${photoPost.post.caption}" alt="Card image cap"/>
                         </div>
-                        <!--/.Card content-->
+                        <div class="card-block">
+                            <!--<p class="card-text" th:text="${photoPost.post.caption}">Some quick example text to build on-->
+                                <!--the card title and make up the bulk of the card's caption.</p>-->
+                            <a th:href="${photoPost.post.postUrl}" target="_blank" class="btn btn-primary">Tumblr</a>
+                        </div>
                     </div>
                 </div>
-                <!--/.Card-->
-                <!--</div>-->
-                <!--</div>-->
             </div>
         </div>
     </div>

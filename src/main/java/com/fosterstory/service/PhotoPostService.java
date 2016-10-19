@@ -1,7 +1,6 @@
 package com.fosterstory.service;
 
 import com.fosterstory.entity.PhotoPost;
-import com.fosterstory.entity.Post;
 import com.fosterstory.repository.PhotoPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

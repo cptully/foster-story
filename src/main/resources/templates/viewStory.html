@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <!--/*@thymesVar id="captions" type="java.util.List"*/-->
 <!--/*@thymesVar id="caption" type="java.lang.String"*/-->
 <!--/*@thymesVar id="posts" type="java.util.List<Post>"*/-->
 <!--/*@thymesVar id="post" type="com.fosterstory.entity.Post"*/-->
 <!--/*@thymesVar id="animal" type="com.fosterstory.entity.Animal"*/-->
+<!--/*@thymesVar id="imageId" type="java.lang.Integer"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -61,35 +62,98 @@
     </div>
 </header>
 
-<div class="container main-body">
-    <div th:each="post : ${posts}">
-        <div th:each="photoPost : ${post.photoPosts}">
-            <!--<div th:each="photo : ${photoPost.photos}">-->
-                <!--Card-->
-                <div class="card">
+<div class="container row profile main-body">
 
-                    <!--Card image-->
-                    <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                         th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap" />
-                    <!--/.Card image-->
+    <div class="col-sm-3">
 
-                    <!--Card content-->
-                    <div class="card-block">
-                        <!--Title-->
-                        <!--<h4 class="card-title" th:text="">Card title</h4>-->
-                        <!--Text-->
-                        <p class="card-text" th:text="${post.content}">Some quick example text to
-                            build on the card title and make up the bulk of the card's content.</p>
-                        <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
-                    </div>
-                    <!--/.Card content-->
+        <div class="row">
+            <div class="col-xs-7">
+                <img class="animalImage img-responsive" th:src="@{/story/image(id=${imageId})}" src="//placehold.it/350x250"/>
+            </div>
+            <div class="col-xs-5 col-sm-12">
+                <h3>About <span th:text="${animal.name}">Me</span></h3>
 
-                </div>
-                <!--/.Card-->
-            <!--</div>-->
-        </div>
+                <ul class="profile-details">
+                    <li th:if="${animal.breed} != null">
+                        <div>Breed</div>
+                        <span th:text="${animal.breed.name}">Schnauzer</span>
+                    </li>
+                    <li th:if="${animal.gender} != ''">
+                        <div>Gender</div>
+                        <span th:text="${animal.gender}">Female</span>
+                    </li>
+                    <li th:if="${animal.age} != null">
+                        <div>Age</div>
+                        <span th:text="${animal.age}">3</span>
+                    </li>
+                    <li th:if="${animal.weight} != null">
+                        <div>Weight</div>
+                        <span th:text="${animal.weight}">29lbs</span>
+                    </li>
+                    <li>
+                        <div>My Social Links</div>
+                        Tumblr <span th:if="${animal.tumblr} != ''" th:text="${animal.tumblr} +'.tumblr.com'">url</span>
+                    </li>
+                    <li th:if="${animal.adoptionDate} != null">
+                        <div>Available To Adopt</div>
+                        <span th:text="${animal.adoptionDate}">November 1st, 2016</span>
+                    </li>
+                </ul>
+
+                <h3>Foster Parent</h3>
+
+                <ul class="profile-details">
+                    <li th:if="${animal.user.phone} != ''">
+                        <div>phone</div>
+                        <span th:text="${animal.user.phone}">+44 123 456 789</span>
+                    </li>
+                    <li th:if="${animal.user.tumblr} != ''">
+                        <div>Social Links</div>
+                        Tumblr <span th:text="${animal.user.tumblr} +'.tumblr.com'">url</span>
+                    </li>
+                    <li th:if="${animal.user.email} != ''">
+                        <div>e-mail</div>
+                        <span th:text="${animal.user.email}">lukasz@bootstrapmaster.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div><!--/row-->
+
+    </div><!--/col-->
+
+    <div class="col-sm-9">
+
+        <!--<ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="page-profile.html#skills">Bio</a></li>
+            <li><a href="page-profile.html#friends">Photos</a></li>
+            <li><a href="page-profile.html#photos">Foster Parent</a></li>
+        </ul>-->
+        <div class="tab-content">
+            <div class="tab-pane active" id="skills">
+
+                <div class="row">
+
+                    <div class="col-sm-7">
+                        <h2>My Foster Story</h2>
+                        <p th:text="${animal.story}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <h2>Care Info</h2>
+                        <p th:text="${animal.careInfo}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div><!--/col-->
+
+                    <div class="col-sm-5">
+                        <h2>Gallery</h2>
+                        <div class="animal-gallery">
+
+                        </div>
+                    </div><!--/col-->
+
+                </div><!--/row-->
+
+            </div>
+
+        </div><!--/col-->
+
     </div>
-
-</div>
+    </div>
 </body>
 </html>
