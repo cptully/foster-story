@@ -57,7 +57,7 @@
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    color: #5F7269ΩΩΩ
+    color: #5F7269
 }
 
 .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
@@ -83,6 +83,14 @@
 
 .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
     border-bottom-color: #FFF7E3
+}
+
+.welcome-text {
+    display: inline-block;
+    float: right;
+    width: auto;
+    padding: 15px 2em;
+    color: #FFF7E3;
 }
 
 .main-body {

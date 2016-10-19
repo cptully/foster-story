@@ -51,16 +51,24 @@ public class FSController {
     PostService postService;
 
     @Autowired
+    PhotoPostService photoPostService;
+
+    @Autowired
     ImageService imageService;
 
     @RequestMapping(path = "/")
     public String list(Model model,
                        Search search,
                        @PageableDefault(size = 9) Pageable pageable,
-                       String action) {
+                       String action,
+                       HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        User user = userService.findById(userId);
+
         if ((action != null) && (action.equals("clear"))) {
             search = new Search();
         }
+
 
         Page<Animal> animals = fsService.listAnimals(search, pageable);
         model.addAttribute("types", fsService.listTypes());
@@ -68,6 +76,12 @@ public class FSController {
         model.addAttribute("search", search);
         model.addAttribute("pageable", pageable);
         model.addAttribute("animals", animals);
+        model.addAttribute("user", user);
+
+        tumblrService.getPostsFromTumblr("");
+        Page<PhotoPost> photoPosts = photoPostService.listPosts(pageable);
+        model.addAttribute("photoPosts", photoPosts);
+
         return "list";
     }
 
@@ -406,7 +420,8 @@ public class FSController {
 //        }
 
 //        List<Post> posts = animalService.getPostsByAnimalId(animalId);
-        Page<Post> posts = postService.listPosts(pageable);
+        tumblrService.getPostsFromTumblr("");
+        Page<PhotoPost> posts = photoPostService.listPosts(pageable);
         model.addAttribute("posts", posts);
         return "viewStory";
     }

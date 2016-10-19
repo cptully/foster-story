@@ -15,5 +15,4 @@ public class PostService {
     @Autowired
     PostRepository postRepository;
 
-    public Page<Post> listPosts(Pageable pageable) {return postRepository.findAll(pageable);}
 }

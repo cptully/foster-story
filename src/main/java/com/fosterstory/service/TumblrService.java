@@ -91,16 +91,13 @@ public class TumblrService {
                     }
                 }
                 post.getPhotoPosts().add(photoPost);
+                photoPost.setPost(post);
                 postRepository.save(post);
             }
         }
     }
 
-    /**
-     *
-     * @param pageable
-     * @return
-     */
+
     public Page<com.fosterstory.entity.Post> getPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
     }

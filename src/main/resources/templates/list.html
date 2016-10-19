@@ -11,49 +11,51 @@
 <!--/*@thymesVar id="animals" type="java.util.List<Animal>"*/-->
 <!--/*@thymesVar id="captions" type="java.util.List"*/-->
 <!--/*@thymesVar id="caption" type="java.lang.String"*/-->
-<!--/*@thymesVar id="posts" type="java.util.List<Post>"*/-->
 <!--/*@thymesVar id="post" type="com.fosterstory.entity.Post"*/-->
+<!--/*@thymesVar id="photoPosts" type="java.util.List<PhotoPost>"*/-->
+<!--/*@thymesVar id="photoPost" type="com.fosterstory.entity.PhotoPost"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous" />
+          crossorigin="anonymous"/>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-          crossorigin="anonymous" />
-    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}" />
-    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet" />
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script language="JavaScript" src="../static/script/breedCheck.js" th:src="@{script/breedCheck.js}"></script>
 </head>
 <body>
-    <header class="row" th:replace="fragments/pageHead :: pageHead">
-        <h1>Foster Story</h1>
-    </header>
-    <div class="container main-body">
+<header class="row" th:replace="fragments/pageHead :: pageHead">
+    <h1>Foster Story</h1>
+</header>
+<div class="container main-body">
 
-        <div class="row">
-            <div class="col-md-8 col-xs-12">
-                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" th:src="@{/story/image(id=636)}" id="feature" />
-            </div>
-            <!-- /.col-md-8 -->
-            <div class="col-md-4 col-xs-12">
-                <h1>Shadow</h1>
-                <p>Shadow is an energetic ball chaser. He is very friendly and will lick you to death if
-                    given the chance. But throw a ball and is will be off chasing it until you arm is too
-                    tired to throw again. As the child of working dogs in Texas he also loves hearding people
-                and other animals.</p>
-                <a class="btn btn-primary btn-lg" th:href="@{/viewStory(animalId=636)}">My Story</a>
-            </div>
-            <!-- /.col-md-4 -->
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <img class="img-responsive img-rounded" src="http://placehold.it/900x350" th:src="@{/story/image(id=636)}"
+                 id="feature"/>
         </div>
+        <!-- /.col-md-8 -->
+        <div class="col-md-4 col-xs-12">
+            <h1>Shadow</h1>
+            <p>Shadow is an energetic ball chaser. He is very friendly and will lick you to death if
+                given the chance. But throw a ball and is will be off chasing it until you arm is too
+                tired to throw again. As the child of working dogs in Texas he also loves hearding people
+                and other animals.</p>
+            <a class="btn btn-primary btn-lg" th:href="@{/viewStory(animalId=636)}">My Story</a>
+        </div>
+        <!-- /.col-md-4 -->
     </div>
-    <hr />
-    <div class="container-fluid" >
+</div>
+<hr/>
+<div class="container-fluid">
 
-        <form class="well" id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
+    <form class="well" id="searchForm" role="form" action="list.html" th:action="@{/}" method="post">
         <h3>Search Foster Stories:</h3>
         <div class="row">
             <div class="col-md-2">
@@ -65,7 +67,8 @@
                     <option th:each="type : ${types}"
                             th:text="${type.name}"
                             th:value="${type.id}"
-                            th:selected="${search.typeId} == ${type.id}">Cat</option>
+                            th:selected="${search.typeId} == ${type.id}">Cat
+                    </option>
                 </select>
             </div>
 
@@ -78,7 +81,8 @@
                     <option th:each="breed : ${breeds}"
                             th:text="${breed.name}"
                             th:value="${breed.id}"
-                            th:selected="${search.breedId} == ${breed.id}">Cat</option>
+                            th:selected="${search.breedId} == ${breed.id}">Cat
+                    </option>
                 </select>
             </div>
 
@@ -86,65 +90,91 @@
                 <label for="name">
                     <Strong>Name:</Strong>
                 </label>
-                <input class="form-control" type="text" name="name" id="name" placeholder="Animal's name" th:value="${search.name}"/>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Animal's name"
+                       th:value="${search.name}"/>
             </div>
 
             <div class="col-sm-2">
                 <label for="locale">
                     City/Zip:
                 </label>
-                <input class="form-control" type="text" name="locale" id="locale" placeholder="City or Zip" />
+                <input class="form-control" type="text" name="locale" id="locale" placeholder="City or Zip"/>
             </div>
 
             <div class="col-sm-2">
                 <label for="animalId">
                     <strong>Animal ID:</strong>
                 </label>
-                <input class="form-control" type="text" name="animalId" id="animalId" placeholder="ID" th:text="${search.id}"/>
+                <input class="form-control" type="text" name="animalId" id="animalId" placeholder="ID"
+                       th:text="${search.id}"/>
             </div>
         </div>
-            <div class="row btn">
+        <div class="row btn">
             <button class="btn btn-primary" type="submit" id="search" name="action" value="search">Search</button>
             <button class="btn btn-primary" type="submit" id="clear" name="action" value="clear">Clear</button>
-            </div>
+        </div>
 
     </form>
 
     <div class="row" id="featureStory">
-        <img />
+        <img/>
         <div class="textBody"></div>
     </div>
 
-    <div class="row" id="animalTiles">
-        <div th:each="post : ${posts}">
-            <div th:each="photoPost : ${post.photoPosts}">
-                <!--<div th:each="photo : ${photoPost.photos}">-->
-                <!--Card-->
-                <div class="card">
+    <!--
+            <div class="row" id="localPosts">
+                <div th:each="post : ${posts}">
+                    <div th:each="photoPost : ${post.photoPosts}">
+                        &lt;!&ndash;<div th:each="photo : ${photoPost.photos}">&ndash;&gt;
+                        &lt;!&ndash;Card&ndash;&gt;
+                        <div class="card">
 
-                    <!--Card image-->
-                    <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                         th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap" />
-                    <!--/.Card image-->
+                            &lt;!&ndash;Card image&ndash;&gt;
+                            <img class="img-fluid" src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
+                                 th:src="@{photoPost.permalink}" th:alt="${post.content}" alt="Card image cap" />
+                            &lt;!&ndash;/.Card image&ndash;&gt;
 
-                    <!--Card content-->
-                    <div class="card-block">
-                        <!--Title-->
-                        <!--<h4 class="card-title" th:text="">Card title</h4>-->
-                        <!--Text-->
-                        <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
+                            &lt;!&ndash;Card content&ndash;&gt;
+                            <div class="card-block">
+                                &lt;!&ndash;Title&ndash;&gt;
+                                &lt;!&ndash;<h4 class="card-title" th:text="">Card title</h4>&ndash;&gt;
+                                &lt;!&ndash;Text&ndash;&gt;
+                                <p class="card-text" th:text="${post.content}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a th:href="@{photoPost.permalink}" class="btn btn-primary">Tumblr</a>
+                            </div>
+                            &lt;!&ndash;/.Card content&ndash;&gt;
+
+                        </div>
+                        &lt;!&ndash;/.Card&ndash;&gt;
+                        &lt;!&ndash;</div>&ndash;&gt;
                     </div>
-                    <!--/.Card content-->
-
+                </div>
+            </div>
+    -->
+    <div class="container">
+        <div class="row" id="tumblrPosts">
+            <div th:each="photoPost : ${photoPosts}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <img class="img-fluid card-img-top img-responsive"
+                             src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
+                             th:src="${photoPost.permalink}"
+                             th:alt="${photoPost.post.content}" alt="Card image cap"/>
+                        <div class="card-block">
+                            <p class="card-text" th:text="${photoPost.post.content}">Some quick example text to build on
+                                the card title and make up the bulk of the card's content.</p>
+                            <a th:href="${photoPost.permalink}" class="btn btn-primary">Tumblr</a>
+                        </div>
+                        <!--/.Card content-->
+                    </div>
                 </div>
                 <!--/.Card-->
                 <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
-
     </div>
-    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"

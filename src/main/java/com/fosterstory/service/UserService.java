@@ -1,5 +1,6 @@
 package com.fosterstory.service;
 
+import com.fosterstory.entity.User;
 import com.fosterstory.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,4 +16,7 @@ public class UserService {
     UserRepository userRepository;
 
 
+    public User findById(Integer userId) {
+        return userRepository.findById(userId);
+    }
 }
