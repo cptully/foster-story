@@ -127,7 +127,7 @@
                         <div class="card-image-div">
                             <img class="img-fluid card-image card-img-top img-responsive"
                                  src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                                 th:src="@{/story/image(id=|imageIds[${stat.index}]|)}"
+                                 th:src="@{/story/image(imageId=${imageIds[__${stat.index}__]})}"
                                  alt="Card image cap"/>
                         </div>
                         <div class="card-block">
@@ -156,7 +156,7 @@
                         <div class="card-block">
                             <!--<p class="card-text" th:text="${photoPost.post.caption}">Some quick example text to build on-->
                                 <!--the card title and make up the bulk of the card's caption.</p>-->
-                            <a th:href="${photoPost.post.postUrl}" target="_blank" class="btn btn-primary">Tumblr</a>
+                            <a th:href="${photoPost.post.postUrl}" th:target="_blank" target="_blank" class="btn btn-primary">Tumblr</a>
                         </div>
                     </div>
                 </div>
