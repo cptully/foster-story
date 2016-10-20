@@ -155,3 +155,10 @@ hr {
     height: 100%;
     object-fit: cover;
 }
+
+.main-feature-title {
+    margin-top: 10px;
+    font-size: 36px;
+    margin: auto;
+    max-width: 400px;
+}
