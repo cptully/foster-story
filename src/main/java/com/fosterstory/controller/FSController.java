@@ -98,6 +98,7 @@ public class FSController {
     public String register(User user,
                            Model model,
                            HttpSession session) {
+        user = userService.findById((Integer) session.getAttribute("userId"));
         model.addAttribute("user", user);
         return "register";
     }
@@ -170,12 +171,13 @@ public class FSController {
 
 
     @RequestMapping(path = "/about")
-    public String about() {
+    public String about(Model model, HttpSession session) {
+        User user = userService.findById((Integer)session.getAttribute("userId"));
+        model.addAttribute("user", user);
         return "about";
     }
 
-    // TODO: 10/4/16 profile page
-    @RequestMapping(path = "/profile")
+    @RequestMapping(path = "/profile", method = RequestMethod.POST)
     public String profile(Model model,
                           String action,
                           @Valid User userData,
@@ -220,6 +222,26 @@ public class FSController {
         }
 
         model.addAttribute("user", user);
+        return "profile";
+    }
+
+    @RequestMapping(path = "/profile", method = RequestMethod.GET)
+    public String profile(Model model,
+                          HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login?returnPath=/profile";
+        }
+
+        User user = fsService.getUser(userId);
+        model.addAttribute("user", user);
+        Integer imageId;
+        if (user.getImage() == null) {
+            imageId = 0;
+        } else {
+            imageId = user.getImage().getId();
+        }
+        model.addAttribute("imageId", imageId);
         return "profile";
     }
 
@@ -348,11 +370,11 @@ public class FSController {
         return "images";
     }
 
-    @GetMapping("/story/image")
+    @GetMapping("/image")
     @ResponseBody
     public ResponseEntity serveFile(Integer imageId) throws URISyntaxException {
 
-        if ((imageId != null) && (imageService.findOne(imageId).getContentType() != null)){
+        if ((imageId != null) && (imageService.findOne(imageId) != null) && (imageService.findOne(imageId).getContentType() != null)){
             Image image = imageService.findOne(imageId);
             return ResponseEntity
                     .ok()
@@ -364,6 +386,39 @@ public class FSController {
                     .location(new URI("//placehold.it/100"))
                     .build();
         }
+    }
+
+
+    @RequestMapping(path = "/user/image", method = RequestMethod.POST)
+    public String userImage(Model model,
+                            Integer userId,
+                            @RequestParam(name = "file") MultipartFile file,
+                            HttpSession session) {
+        if ((session.getAttribute("userId") == null) || (fsService.getUserOrNull((Integer) session.getAttribute("userId")) == null)) {
+            return "redirect:/login?returnPath=/profile";
+        }
+
+        User user = fsService.getUser((Integer) session.getAttribute("userId"));
+        model.addAttribute("user", user);
+
+        if (!file.isEmpty()) {
+            try {
+                Image image = new Image();
+                if (file.getBytes().length > 1000000000) {
+                    // TODO: 10/18/16 invalid file size error
+                    //spew error
+                }
+                image.setImage(file.getBytes());
+                image.setContentType(file.getContentType());
+                user.setImage(image);
+                fsService.saveUser(user);
+            } catch (IOException | PasswordStorage.CannotPerformOperationException e) {
+                e.printStackTrace();
+            }
+        }
+
+        model.addAttribute("imageId", user.getImage().getId());
+        return "redirect:/profile?userId=" + userId;
     }
 
 

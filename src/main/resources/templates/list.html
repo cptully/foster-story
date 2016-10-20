@@ -39,7 +39,7 @@
     <div class="main-feature-title col-lg-12-centered">Featured Foster Story</div>
     <div class="row">
         <div class="col-md-8 col-xs-12">
-            <img class="img-responsive img-rounded" src="http://placehold.it/900x350" th:src="@{/story/image(id=636)}"
+            <img class="img-responsive img-rounded" src="http://placehold.it/900x350" th:src="@{/image(id=636)}"
                  id="feature"/>
         </div>
         <!-- /.col-md-8 -->
@@ -127,7 +127,7 @@
                         <div class="card-image-div">
                             <img class="img-fluid card-image card-img-top img-responsive"
                                  src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                                 th:src="@{/story/image(imageId=${imageIds[__${stat.index}__]})}"
+                                 th:src="@{/image(imageId=${imageIds[__${stat.index}__]})}"
                                  alt="Card image cap"/>
                         </div>
                         <div class="card-block">

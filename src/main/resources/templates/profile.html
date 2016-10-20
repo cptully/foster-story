@@ -4,6 +4,7 @@
 <!--/*@thymesVar id="role" type="com.fosterstory.entity.Role"*/-->
 <!--/*@thymesVar id="image" type="com.fosterstory.entity.Image"*/-->
 <!--/*@thymesVar id="address" type="com.fosterstory.entity.Address"*/-->
+<!--/*@thymesVar id="imageId" type="java.lang.Integer"*/-->
 
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -61,20 +62,28 @@
     <hr />
     <div class="row" id="fosterParentDetails">
         <div class="col-md-3">
-            <div class="text-center">
-                <img src="//placehold.it/100" class="avatar img-circle" alt="avatar"/>
-                <h6>Upload New Image</h6>
+            <form class="form-horizontal" id="user-image" role="form" action="story.html"
+                  enctype="multipart/form-data"
+                  th:action="@{/user/image}" method="post" th:object="${user}">
+                <input type="hidden" name="userId" id="userId" th:value="${user.id}"/>
 
-                <input type="file" name="user-image" id="user-image" class="form-control"/>
-            </div>
+                <div class="text-center">
+                    <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" th:src="@{/image(imageId=${imageId})}"/>
+                    <h6>Upload New Image</h6>
+                    <input type="file" name="file" id="file" class="form-control"/>
+                    <button class="btn" type="submit" id="saveImage" name="action" value="file">Save Avatar</button>
+                </div>
+            </form>
+
+        </div>
         </div>
 
         <div class="col-md-9 personal-info">
-            <div class="alert alert-info alert-dismissable">
+            <!--<div class="alert alert-info alert-dismissable">
                 <a class="panel-close close" data-dismiss="alert">×</a>
                 <i class="fa fa-coffee"></i>
                 This is an <strong>.alert</strong>. Use this to show important messages to the user.
-            </div>
+            </div>-->
             <h3>Personal info</h3>
 
             <form class="form-horizontal" id="editProfile" role="form" action="profile.html" th:action="@{/profile}"
@@ -274,7 +283,6 @@
             </form>
         </div>
     </div>
-</div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"

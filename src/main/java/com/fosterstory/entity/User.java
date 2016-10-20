@@ -45,8 +45,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Animal> animals;
 
-    @OneToOne
-    private Image image;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Image image = new Image();
 
     @ManyToOne
     private Role role;

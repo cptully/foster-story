@@ -69,7 +69,7 @@
 
         <div class="row">
             <div class="col-xs-7">
-                <img class="animalImage img-responsive" th:src="@{/story/image(imageId=${imageId})}" src="//placehold.it/350x250"/>
+                <img class="animalImage img-responsive" th:src="@{/image(imageId=${imageId})}" src="//placehold.it/350x250"/>
             </div>
             <div class="col-xs-5 col-sm-12">
                 <h3>About <span th:text="${animal.name}">Me</span></h3>
@@ -149,7 +149,7 @@
                                     <div class="card-image-div" th:each="image : ${animal.images}">
                                         <img class="img-fluid card-image card-img-top img-responsive"
                                              src="http://mdbootstrap.com/images/regular/nature/img%20(28).jpg"
-                                             th:src="@{/story/image(imageId=${image.id})}"
+                                             th:src="@{/image(imageId=${image.id})}"
                                              alt="Card image cap"/>
                                     </div>
 
