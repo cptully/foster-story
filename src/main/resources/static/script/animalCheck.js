@@ -6,7 +6,7 @@ $(function() {
             var imageId;
             if (animal.images.length > 0) {
                 imageId = animal.images[animal.images.length - 1].id;
-                $("#imageId").attr("src", "/story/image?id=" + imageId);
+                $("#imageId").attr("src", "/image?imageId=" + imageId);
             } else {
                 $("#imageId").attr("src", "//placehold.it/100");
             }

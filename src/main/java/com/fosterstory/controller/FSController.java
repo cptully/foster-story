@@ -95,10 +95,19 @@ public class FSController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
-    public String register(User user,
-                           Model model,
+    public String register(Model model,
                            HttpSession session) {
-        user = userService.findById((Integer) session.getAttribute("userId"));
+//        if (bindingResult.hasErrors()){
+//            //model.addAttribute("user", user);
+//            //return "redirect:/login";
+//        }
+//        user = userService.findById((Integer) session.getAttribute("userId"));
+        User user;
+        if (session.getAttribute("userId") != null) {
+            user = userService.findById((Integer) session.getAttribute("userId"));
+        } else {
+            user = new User();
+        }
         model.addAttribute("user", user);
         return "register";
     }
@@ -314,6 +323,12 @@ public class FSController {
                     if (animal.getBreed() == null) {
                         Breed breed = fsService.getBreedById(animal.getBreed().getId());
                         animal.setBreed(breed);
+                    }
+
+                    if (animal.getId() != null) {
+                        if (animalService.findById(animal.getId()).getImages() != null) {
+                            animal.setImages(animalService.findById(animal.getId()).getImages());
+                        }
                     }
 
                     if (!user.getAnimals().contains(animal)) {
