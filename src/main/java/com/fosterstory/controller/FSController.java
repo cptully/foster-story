@@ -17,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -428,6 +427,8 @@ public class FSController {
         }
         model.addAttribute("imageId", imageId);
         model.addAttribute("animal", animal);
+        User user = userService.findById((Integer)session.getAttribute("userId"));
+        model.addAttribute("user", user);
         return "viewStory";
     }
 

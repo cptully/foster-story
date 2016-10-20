@@ -133,7 +133,7 @@
                         <div class="card-block">
                             <!--<p class="card-text" th:text="${photoPost.post.caption}">Some quick example text to build on-->
                             <!--the card title and make up the bulk of the card's caption.</p>-->
-                            <!--<a th:href="${photoPost.post.postUrl}" target="_blank" class="btn btn-primary">Tumblr</a>-->
+                            <a th:href="@{/viewStory(animalId=${animal.id})}" class="btn btn-primary">My story!</a>
                         </div>
                     </div>
                 </div>
