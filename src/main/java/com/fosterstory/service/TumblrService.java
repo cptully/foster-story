@@ -32,7 +32,7 @@ public class TumblrService {
     // Create a new client
     private JumblrClient client;
     private LocalDateTime lastTumblrPull;
-    private final long REFRESH_LIMIT = 10;
+    private final long REFRESH_LIMIT = 0;
 
     public TumblrService() {
         // get Tumblr keys from environment
@@ -77,6 +77,8 @@ public class TumblrService {
             // iterate over posts archiving photo links
             for (Post tumblrPost : tumblrPosts) {
                 post = new com.fosterstory.entity.Post();
+                post.setTumblrId(tumblrPost.getId());
+                post.setBlogName(tumblrPost.getBlogName());
                 post.setPostUrl(tumblrPost.getPostUrl());
                 if (tumblrPost.getType().equals("photo")) {
                     post.setCaption(((PhotoPost) tumblrPost).getCaption());
@@ -94,9 +96,11 @@ public class TumblrService {
                             ));
                         }
                     }
-                    post.getPhotoPosts().add(photoPost);
-                    photoPost.setPost(post);
-                    postRepository.save(post);
+                    if (photoPost.getPermalink() != null) {
+                        post.getPhotoPosts().add(photoPost);
+                        photoPost.setPost(post);
+                        postRepository.save(post);
+                    }
                 }
             }
         }

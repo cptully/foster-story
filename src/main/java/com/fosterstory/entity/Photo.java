@@ -1,11 +1,15 @@
 package com.fosterstory.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
  * Created by win808mac on 10/13/16.
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Photo {
     @Id
     @GeneratedValue
@@ -17,6 +21,7 @@ public class Photo {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "photopost_id")
+    @JsonIgnore
     private PhotoPost photoPost = new PhotoPost();
 
     public Photo() {}

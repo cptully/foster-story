@@ -208,6 +208,12 @@ public class FSController {
                     userData.setPassword(user.getPassword());
                 }
 
+                if (user.getId() != null) {
+                    if (userService.findById(user.getId()).getImage() != null) {
+                        user.setImage(userService.findById(user.getId()).getImage());
+                    }
+                }
+
                 if (action.equals("save")) {
                     // save the user and pray
                     try {

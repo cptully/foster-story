@@ -8,9 +8,13 @@ import java.util.List;
 
 @Entity
 public class Post {
+//    @Id
+//    @GeneratedValue
+//    Integer id;
     @Id
-    @GeneratedValue
-    Integer id;
+    Long tumblrId;
+
+    String blogName;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -36,12 +40,30 @@ public class Post {
         this.user = user;
     }
 
+/*
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+*/
+
+    public Long getTumblrId() {
+        return tumblrId;
+    }
+
+    public void setTumblrId(Long tumblrId) {
+        this.tumblrId = tumblrId;
+    }
+
+    public String getBlogName() {
+        return blogName;
+    }
+
+    public void setBlogName(String blogName) {
+        this.blogName = blogName;
     }
 
     public List<PhotoPost> getPhotoPosts() {
