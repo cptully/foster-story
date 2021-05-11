@@ -5,36 +5,44 @@ import com.fosterstory.bean.Search;
 import com.fosterstory.entity.*;
 import com.fosterstory.repository.*;
 import com.fosterstory.utility.PasswordStorage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by chris on 10/3/16.
  */
 @Service
 public class FSService {
-    @Autowired
-    AddressRepository addressRepository;
+    final AddressRepository addressRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
-    @Autowired
-    TypeRepository typeRepository;
+    final TypeRepository typeRepository;
 
-    @Autowired
-    BreedRepository breedRepository;
+    final BreedRepository breedRepository;
 
-    @Autowired
-    AnimalRepository animalRepository;
+    final AnimalRepository animalRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
+    final RoleRepository roleRepository;
+
+    @NotNull
+    public FSService(AddressRepository addressRepository, UserRepository userRepository, TypeRepository typeRepository,
+                     BreedRepository breedRepository, AnimalRepository animalRepository, RoleRepository roleRepository)
+    {
+        this.addressRepository = addressRepository;
+        this.userRepository = userRepository;
+        this.typeRepository = typeRepository;
+        this.breedRepository = breedRepository;
+        this.animalRepository = animalRepository;
+        this.roleRepository = roleRepository;
+    }
 
     public List<Type> listTypes() {return typeRepository.findAll();}
 
@@ -62,16 +70,21 @@ public class FSService {
     }
 
     public User getUser(Integer id) {
-        if(id != null) {
-            return userRepository.findOne(id);
-        } else {
+        if(id != null)
+        {
+            Optional<User> optionalUser = userRepository.findById(id);
+            return optionalUser.orElseGet(User::new);
+        }
+        else
+        {
             return new User();
         }
     }
 
     public User getUserOrNull(Integer id){
         if(id != null) {
-            return userRepository.findOne(id);
+            Optional<User> optionalUser = userRepository.findById(id);
+            return optionalUser.orElse(null);
         } else {
             return null;
         }
@@ -109,17 +122,30 @@ public class FSService {
     }
 
     public List<User> listUsers(Integer id) {
-        User user = userRepository.findOne(id);
-        return userRepository.findAll(Example.of(user));
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return userRepository.findAll(Example.of(user));
+        }
+        else
+        {
+            return Collections.emptyList();
+        }
     }
 
     public User saveUser(User user) throws PasswordStorage.CannotPerformOperationException {
 
         if(user.getId() != null){
-            User oldUser = userRepository.findOne(user.getId());
-
-            if(!oldUser.getPassword().equals(user.getPassword())){
-                user.setPassword(PasswordStorage.createHash(user.getPassword()));
+            Optional<User> optionalUser = userRepository.findById(user.getId());
+            if (optionalUser.isPresent()) {
+                User oldUser = optionalUser.get();
+                if (!oldUser.getPassword().equals(user.getPassword())) {
+                    user.setPassword(PasswordStorage.createHash(user.getPassword()));
+                }
+            }
+            else
+            {
+                throw new PasswordStorage.CannotPerformOperationException("User not found");
             }
         } else {
             user.setPassword(PasswordStorage.createHash(user.getPassword()));
@@ -130,7 +156,7 @@ public class FSService {
     }
 
     public void deleteUser(Integer id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     public Breed getBreedById(Integer breedId) {

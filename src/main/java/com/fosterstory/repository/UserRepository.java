@@ -4,6 +4,8 @@ import com.fosterstory.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Created by chris on 10/3/16.
  */
@@ -11,5 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer>{
     User findByEmail(String email);
 
-    User findById(Integer userId);
+    Optional<User> findById(Integer userId);
 }

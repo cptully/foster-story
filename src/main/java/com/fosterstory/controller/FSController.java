@@ -3,6 +3,7 @@ package com.fosterstory.controller;
 import com.fosterstory.bean.Login;
 import com.fosterstory.bean.Search;
 import com.fosterstory.entity.*;
+import com.fosterstory.exceptions.UserNotFoundException;
 import com.fosterstory.service.*;
 import com.fosterstory.utility.PasswordStorage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by chris on 10/3/16.
@@ -63,7 +65,15 @@ public class FSController {
                        String action,
                        HttpSession session) {
         Integer userId = (Integer) session.getAttribute("userId");
-        User user = userService.findById(userId);
+        User user;
+        
+        try
+        {
+            user = userService.findById(userId);
+        } catch (UserNotFoundException e)
+        {
+            return "listError";
+        }
 
         if ((action != null) && (action.equals("clear"))) {
             search = new Search();
@@ -104,7 +114,13 @@ public class FSController {
 //        user = userService.findById((Integer) session.getAttribute("userId"));
         User user;
         if (session.getAttribute("userId") != null) {
-            user = userService.findById((Integer) session.getAttribute("userId"));
+            try
+            {
+                user = userService.findById((Integer) session.getAttribute("userId"));
+            } catch (UserNotFoundException e)
+            {
+                return "registerError";
+            }
         } else {
             user = new User();
         }
@@ -181,7 +197,14 @@ public class FSController {
 
     @RequestMapping(path = "/about")
     public String about(Model model, HttpSession session) {
-        User user = userService.findById((Integer)session.getAttribute("userId"));
+        User user;
+        try
+        {
+            user = userService.findById((Integer)session.getAttribute("userId"));
+        } catch (UserNotFoundException e)
+        {
+            return "error";
+        }
         model.addAttribute("user", user);
         return "about";
     }
@@ -209,7 +232,7 @@ public class FSController {
                 }
 
                 if (user.getId() != null) {
-                    if (userService.findById(user.getId()).getImage() != null) {
+                    if (null != userService.findById(user.getId()) .getImage()) {
                         user.setImage(userService.findById(user.getId()).getImage());
                     }
                 }
@@ -277,14 +300,22 @@ public class FSController {
         model.addAttribute("animals", animals);
         model.addAttribute("count", animals.size());
         if (animalId != 0) {
-            animal = animalService.findById(animalId);
+            Optional<Animal> optionalAnimal = animalService.findById(animalId);
+            animal = optionalAnimal.orElseGet(Animal::new);
         } else if (animals.size() > 0) {
             animal = animals.get(animals.size() - 1);
         }
-        model.addAttribute("animal", animal);
-        if (animal.getImages().size() > 0) {
-            imageId = animal.getImages().get(animal.getImages().size() - 1).getId();
-        } else {
+
+        if (null != animal) {
+            model.addAttribute("animal", animal);
+            if (animal.getImages().size() > 0) {
+                imageId = animal.getImages().get(animal.getImages().size() - 1).getId();
+            } else {
+                imageId = null;
+            }
+        }
+        else
+        {
             imageId = null;
         }
         model.addAttribute("imageId", imageId);
@@ -332,8 +363,8 @@ public class FSController {
                     }
 
                     if (animal.getId() != null) {
-                        if (animalService.findById(animal.getId()).getImages() != null) {
-                            animal.setImages(animalService.findById(animal.getId()).getImages());
+                        if (animalService.findById(animal.getId()).isPresent() && animalService.findById(animal.getId()).get().getImages() != null) {
+                            animal.setImages(animalService.findById(animal.getId()).get().getImages());
                         }
                     }
 
@@ -456,7 +487,7 @@ public class FSController {
         List<Animal> animals = user.getAnimals();
         model.addAttribute("animals", animals);
         model.addAttribute("count", animals.size());
-        Animal animal = animalService.findById(animalId);
+        Animal animal = animalService.findById(animalId).orElse(new Animal());
         model.addAttribute("animal", animal);
         model.addAttribute("user", user);
         model.addAttribute("types", fsService.listTypes());

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by win808mac on 10/4/16.
@@ -31,6 +32,6 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer>{
             "AND (?4 IS NULL OR a.id = ?4)")
     Page<Animal> search(String name, Integer typeId, Integer breedId, Integer id, Pageable pageable);
 
-    Animal findById(Integer animalId);
+    Optional<Animal> findById(Integer animalId);
 
 }

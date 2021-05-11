@@ -1,3 +1,9 @@
+CREATE TABLE IF NOT EXISTS fosterstory.breed (
+	id int NOT NULL,
+	name varchar not NULL,
+	type_id varchar NULL
+);
+
 insert into breed (id, name, type_id) values (105, 'Affenpinscher', 1);
 insert into breed (id, name, type_id) values (106, 'Afghan Hound', 1);
 insert into breed (id, name, type_id) values (107, 'Airedale Terrier', 1);
@@ -63,7 +69,7 @@ insert into breed (id, name, type_id) values (166, 'Chinese Foo Dog', 1);
 insert into breed (id, name, type_id) values (167, 'Chinook', 1);
 insert into breed (id, name, type_id) values (168, 'Chocolate Labrador Retriever', 1);
 insert into breed (id, name, type_id) values (169, 'Chow Chow', 1);
-insert into breed (id, name, type_id) values (170, 'Cirneco Dell'Etna', 1);
+insert into breed (id, name, type_id) values (170, 'Cirneco Dell''Etna', 1);
 insert into breed (id, name, type_id) values (171, 'Clumber Spaniel', 1);
 insert into breed (id, name, type_id) values (172, 'Cockapoo', 1);
 insert into breed (id, name, type_id) values (173, 'Cocker Spaniel', 1);

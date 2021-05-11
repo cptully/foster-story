@@ -2,22 +2,26 @@ package com.fosterstory.service;
 
 import com.fosterstory.entity.Image;
 import com.fosterstory.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by chris on 10/16/16.
  */
 @Service
 public class ImageService {
-    @Autowired
-    ImageRepository imageRepository;
+    final ImageRepository imageRepository;
 
+    public ImageService(ImageRepository imageRepository)
+    {
+        this.imageRepository = imageRepository;
+    }
 
     public Image findOne(Integer id) {
-        return imageRepository.findOne(id);
+        Optional<Image> optionalImage = imageRepository.findById(id);
+        return optionalImage.orElseGet(Image::new);
     }
 
     public List<Image> findAll() {

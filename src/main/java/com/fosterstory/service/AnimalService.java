@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by win808mac on 10/14/16.
@@ -24,7 +25,7 @@ public class AnimalService {
     }
 
 
-    public Animal findById(Integer id) {
+    public Optional<Animal> findById(Integer id) {
         return animalRepository.findById(id);
     }
 }

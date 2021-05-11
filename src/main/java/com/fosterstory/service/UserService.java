@@ -1,9 +1,12 @@
 package com.fosterstory.service;
 
 import com.fosterstory.entity.User;
+import com.fosterstory.exceptions.UserNotFoundException;
 import com.fosterstory.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 /**
@@ -11,12 +14,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
-
-    @Autowired
-    UserRepository userRepository;
-
-
-    public User findById(Integer userId) {
-        return userRepository.findById(userId);
-    }
+  
+  final UserRepository userRepository;
+  
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+  
+  
+  public User findById(Integer userId) throws UserNotFoundException
+  {
+    Optional<User> optionalUser = userRepository.findById(userId);
+    return optionalUser.orElse(null);
+  }
 }
